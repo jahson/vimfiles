@@ -11,17 +11,25 @@ alias ll="ls -lhF"
 alias la="ls -a"
 alias lla="ls -la"
 alias ps?="ps waux |grep"
-alias grepi="grep -Ri"
+alias gi="grep -Ri"
 alias targz="tar zxf"
 alias e="vim"
+alias ..="cd .."
+alias ...="cd .. ; cd .."
+
+# show most used commands
+alias cmdprofile="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
 #development aliases
 ngle() {
     vim /usr/local/logs/nginx-$1-error.log
 }
-alias ngle=ngle
 
 ngerr() {
     tail /usr/local/logs/nginx-$1-error.log
 }
-alias ngerr=ngerr
+
+# History find
+hf() {
+    grep "$@" ~/.bash_history
+}
