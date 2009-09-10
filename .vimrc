@@ -43,8 +43,8 @@ set complete+=t
 " Windows options
 set equalalways " created windows are eqal in size
 set splitbelow splitright
-noremap <leader>v :vsp^M^W^W<cr>
-noremap <leader>h :split^M^W^W<cr>
+noremap <leader>v :vsp<cr>
+noremap <leader>h :split<cr>
 
 " Don't complete comments
 autocmd FileType * setlocal formatoptions-=cro
