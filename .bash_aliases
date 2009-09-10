@@ -13,6 +13,7 @@ alias lla="ls -la"
 alias ps?="ps waux |grep"
 alias grepi="grep -Ri"
 alias targz="tar zxf"
+alias e="vim"
 
 #development aliases
 ngle() {
