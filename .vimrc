@@ -27,7 +27,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 set list
-set listchars=tab:»\ ,trail:·
+set listchars=tab:»\ ,trail:·,nbsp:%
 
 " Complete options
 set complete=""
@@ -208,6 +208,11 @@ function! BC_GetChar()
 	return l:char
 endfunction
 
+function! ClearTrailingWhitespace()
+	%s/\s\+$//
+endfunction
+nmap <leader>. :call ClearTrailingWhitespace()<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Buffer related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,7 +221,7 @@ endfunction
 "
 " '20  - remember marks for 20 previous files
 " \"100 - save 50 lines for each register
-" :20  - remember 20 items in command-line history 
+" :20  - remember 20 items in command-line history
 " %    - remember the buffer list (if vim started without a file arg)
 " n    - set name of viminfo file
 set viminfo='20,\"100,:20,%,n~/.viminfo
@@ -301,7 +306,7 @@ nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR
 " page down with <Space>
 nmap <Space> <PageDown>
 " open filename under cursor in a new window (use current file's working
-" directory) 
+" directory)
 nmap gf :new %:p:h/<cfile><CR>
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
