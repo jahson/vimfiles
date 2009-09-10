@@ -1,0 +1,5 @@
+# don't ring the bell - just list the matches
+set show-all-if-unmodified on
+
+# ignore case when completing
+set completion-ignore-case on
