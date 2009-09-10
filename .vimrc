@@ -40,6 +40,12 @@ set complete+=b
 " from tags
 set complete+=t
 
+" Windows options
+set equalalways " created windows are eqal in size
+set splitbelow splitright
+noremap <leader>v :vsp^M^W^W<cr>
+noremap <leader>h :split^M^W^W<cr>
+
 " Don't complete comments
 autocmd FileType * setlocal formatoptions-=cro
 
@@ -208,17 +214,27 @@ function! BC_GetChar()
 	return l:char
 endfunction
 
+" other
 function! ClearTrailingWhitespace()
 	%s/\s\+$//
 endfunction
 nmap <leader>. :call ClearTrailingWhitespace()<cr>
+
+" do not touch esc
+imap jj <esc>
+" some imaps for php
+imap hh =>
+imap ff ->
+
+" use enter and shift+enter for inserting newlines without going to insert mode
+map <s-enter> O<esc>
+map <enter> o<esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Buffer related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Remember things between sessions
-"
 " '20  - remember marks for 20 previous files
 " \"100 - save 50 lines for each register
 " :20  - remember 20 items in command-line history
@@ -226,9 +242,13 @@ nmap <leader>. :call ClearTrailingWhitespace()<cr>
 " n    - set name of viminfo file
 set viminfo='20,\"100,:20,%,n~/.viminfo
 
+set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files and backups
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" paste helper - to get rid of problems with imaps etc.
+set pastetoggle=<F2>
 
 " Encoding
 set fileencodings=utf-8,cp1251,koi8-r,cp866
@@ -249,13 +269,13 @@ set backupskip=/tmp/*,/private/tmp/*
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set nowrap
 set smarttab
 set shiftwidth=4
 set tabstop=4
 set autoindent
 set smartindent
+set cindent
 set expandtab
 
 " Highlight results of a search

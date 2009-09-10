@@ -14,6 +14,7 @@ alias ps?="ps waux |grep"
 alias gi="grep -Ri"
 alias targz="tar zxf"
 alias e="vim"
+alias se="sudo vim"
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 
