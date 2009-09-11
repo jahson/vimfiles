@@ -377,3 +377,14 @@ autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
 cmap w!! %!sudo tee > /dev/null %
 
 autocmd BufEnter *.js,*.html,*.tpl set ts=4 sw=4 noexpandtab
+
+
+" Generic highlight changes
+highlight Comment cterm=none ctermfg=DarkGray
+highlight IncSearch cterm=none ctermfg=Black ctermbg=DarkYellow
+highlight Search cterm=none ctermfg=Black ctermbg=DarkYellow
+highlight String cterm=none ctermfg=DarkGreen
+highlight treeDir cterm=none ctermfg=Cyan
+highlight treeUp cterm=none ctermfg=DarkYellow
+highlight treeCWD cterm=none ctermfg=DarkYellow
+highlight netrwDir cterm=none ctermfg=Cyan
