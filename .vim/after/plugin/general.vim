@@ -37,9 +37,4 @@ if exists('loaded_taglist')
 	nmap <silent> <F6> :TlistToggle<CR>
 endif
 
-" Set CVS executable for VCSCommand plugin
-"if exists('loaded_VCSCommand')
-"	let VCSCommandCVSExec="cvs"
-"endif
-
 " vim: set fdm=marker:

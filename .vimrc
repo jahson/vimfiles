@@ -183,7 +183,6 @@ vnoremap _' <esc>`>a'<esc>`<i'<esc>
 inoremap ( ()<esc>:call BC_AddChar(")")<cr>i
 inoremap { {}<esc>:call BC_AddChar("}")<cr>i
 inoremap [ []<esc>:call BC_AddChar("]")<cr>i
-inoremap < <><esc>:call BC_AddChar(">")<cr>i
 inoremap " "<C-R>=MyQuoteFunc( '"' )<cr><esc>i
 inoremap ' '<C-R>=MyQuoteFunc( "'" )<cr><esc>i
 
