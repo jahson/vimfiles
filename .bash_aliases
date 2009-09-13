@@ -17,6 +17,7 @@ alias e="vim"
 alias se="sudo vim"
 alias ..="cd .."
 alias ...="cd .. ; cd .."
+alias port="sudo port"
 
 # show most used commands
 alias cmdprofile="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
