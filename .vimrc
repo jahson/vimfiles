@@ -42,7 +42,8 @@ set complete+=t
 
 " Windows options
 set equalalways " created windows are eqal in size
-set splitbelow splitright
+set splitbelow splitright " when split put new windows right and below
+" Windows split mappings
 noremap <leader>v :vsp<cr>
 noremap <leader>h :split<cr>
 
@@ -80,6 +81,16 @@ hi PmenuSel guibg=#555555 guifg=#ffffff
 " Too long lines
 highlight TooLongLine term=reverse ctermfg=Yellow ctermbg=Red
 match TooLongLine /.\%>81v/
+
+" Generic highlight changes
+highlight Comment cterm=none ctermfg=DarkGray
+highlight IncSearch cterm=none ctermfg=Black ctermbg=DarkYellow
+highlight Search cterm=none ctermfg=Black ctermbg=DarkYellow
+highlight String cterm=none ctermfg=DarkGreen
+highlight treeDir cterm=none ctermfg=Cyan
+highlight treeUp cterm=none ctermfg=DarkYellow
+highlight treeCWD cterm=none ctermfg=DarkYellow
+highlight netrwDir cterm=none ctermfg=Cyan
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface
@@ -379,12 +390,3 @@ cmap w!! %!sudo tee > /dev/null %
 autocmd BufEnter *.js,*.html,*.tpl set ts=4 sw=4 noexpandtab
 
 
-" Generic highlight changes
-highlight Comment cterm=none ctermfg=DarkGray
-highlight IncSearch cterm=none ctermfg=Black ctermbg=DarkYellow
-highlight Search cterm=none ctermfg=Black ctermbg=DarkYellow
-highlight String cterm=none ctermfg=DarkGreen
-highlight treeDir cterm=none ctermfg=Cyan
-highlight treeUp cterm=none ctermfg=DarkYellow
-highlight treeCWD cterm=none ctermfg=DarkYellow
-highlight netrwDir cterm=none ctermfg=Cyan
