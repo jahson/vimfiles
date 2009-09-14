@@ -18,6 +18,8 @@ alias se="sudo vim"
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias port="sudo port"
+# count connections from ip
+alias connip="netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
 
 # show most used commands
 alias cmdprofile="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
