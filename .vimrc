@@ -57,9 +57,6 @@ autocmd FileType * setlocal formatoptions-=cro
 " Enable syntax highlighting
 syntax on
 
-" Set font for editing
-set guifont=Monaco:h10:cRUSSIAN
-
 " Set numer of colors
 set t_Co=256
 
