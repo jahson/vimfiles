@@ -18,6 +18,8 @@ alias se="sudo vim"
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias port="sudo port"
+alias apt-get="sudo apt-get"
+
 # count connections from ip
 alias connip="netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
 
