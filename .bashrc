@@ -7,7 +7,6 @@ export EDITOR=vim
 
 # completion
 complete -o dirnames -d cd
-complete -W 'master@trunk.qippo.com jahson.sellinday.ndev jahson.dating.ndev' ssh
 source .completion.git.sh
 source .completion.svn.sh
 
