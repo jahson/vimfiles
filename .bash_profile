@@ -1,7 +1,12 @@
-# Macports
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$PATH
-export MANPATH=/opt/local/share/man:$MANPATH
-export INFOPATH=/opt/local/share/info:$INFOPATH
+# Identify OS
+export OS=`uname -s | sed -e 's/  */-/g;y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
+
+if [ "$OS" = "darwin" ]; then
+	# Macports
+	export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+	export MANPATH=/opt/local/share/man:$MANPATH
+	export INFOPATH=/opt/local/share/info:$INFOPATH
+fi
 
 # Russian language support
 unset LC_ALL
@@ -20,3 +25,10 @@ export LC_MEASUREMENT="ru_RU.UTF-8"
 export LC_IDENTIFICATION="ru_RU.UTF-8"
 
 source ~/.bashrc
+
+# Hello message
+echo -e "Kernel: " `uname -smr`
+echo -ne "Uptime: "; uptime
+echo -ne "Local date: "; date
+
+# vim: set ts=4 sw=4 noexpandtab: #

@@ -1,12 +1,21 @@
+# reload bash to get new settings to work
+alias reloadbash='source ~/.bash_profile'
+
 # showa: to remind yourself of an alias (given some part of it)
 showa() { grep -i -a1 $@ ~/.bash_aliases | grep -v '^\s*$' ; }
 
-# locatemd: to search for a file using Spotlight's metadata
-function locatemd { mdfind "kMDItemDisplayName == '$@'wc"; }
+if [ "$OS" = "darwin" ]; then
+	# locatemd: to search for a file using Spotlight's metadata
+	function locatemd { mdfind "kMDItemDisplayName == '$@'wc"; }
+fi
 
 # Aliases
 alias cls="clear"
-alias ls="ls -hGF"
+if [ "$OS" = "linux" ]; then
+	alias ls="ls --color=auto"
+else
+	alias ls="ls -hGF"
+fi
 alias ll="ls -lhF"
 alias la="ls -a"
 alias lla="ls -la"
@@ -39,3 +48,5 @@ ngerr() {
 hf() {
     grep "$@" ~/.bash_history
 }
+
+#  vim: set ts=4 sw=4 noexpandtab : #
