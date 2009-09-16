@@ -30,5 +30,8 @@ source ~/.bashrc
 echo -e "Kernel: " `uname -smr`
 echo -ne "Uptime: "; uptime
 echo -ne "Local date: "; date
+echo -e ""
+df -h
+echo -e ""
 
 # vim: set ts=4 sw=4 noexpandtab: #
