@@ -37,16 +37,16 @@ alias cmdprofile="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}'
 
 #development aliases
 ngle() {
-    vim /usr/local/logs/nginx-$1-error.log
+	vim /usr/local/logs/nginx-$1-error.log
 }
 
 ngerr() {
-    tail /usr/local/logs/nginx-$1-error.log
+	tail /usr/local/logs/nginx-$1-error.log
 }
 
 # History find
 hf() {
-    grep "$@" ~/.bash_history
+	grep "$@" ~/.bash_history
 }
 
 #  vim: set ts=4 sw=4 noexpandtab : #
