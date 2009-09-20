@@ -35,6 +35,11 @@ alias connip="netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | s
 # show most used commands
 alias cmdprofile="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
+# alias fore cleaning of firefox prefile
+if [ "$OS" = "darwin" ]; then
+	alias cleanfirefox="find ~/Library/Application\ Support/Firefox/Profiles -name '*.sqlite' -exec sqlite3 {} VACUUM \;}"
+fi
+
 #development aliases
 ngle() {
 	vim /usr/local/logs/nginx-$1-error.log
