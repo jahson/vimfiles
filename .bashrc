@@ -10,13 +10,16 @@ export JAVA_HOME=/usr
 # other
 export EDITOR=vim
 
+# mysql prompt
+export MYSQL_PS1="(\U) [\d]>\_"
+
 # completion
 complete -o dirnames -d cd
 if [ -f ~/.completion.git.sh ]; then
-	source .completion.git.sh
+	source ~/.completion.git.sh
 fi
 if [ -f ~/.completion.svn.sh ]; then
-	source .completion.svn.sh
+	source ~/.completion.svn.sh
 fi
 
 # load aliases
