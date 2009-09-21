@@ -13,6 +13,12 @@ export EDITOR=vim
 # mysql prompt
 export MYSQL_PS1="(\U) [\d]>\_"
 
+if [ "$OS" = "darwin" ]; then
+# PHP stuff - to resolve autoconf and autoheader problems
+	export PHP_AUTOCONF='autoconf213'
+	export PHP_AUTOHEADER='autoheader213'
+fi
+
 # completion
 complete -o dirnames -d cd
 if [ -f ~/.completion.git.sh ]; then
