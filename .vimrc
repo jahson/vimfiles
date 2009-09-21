@@ -89,6 +89,9 @@ highlight treeUp cterm=none ctermfg=DarkYellow
 highlight treeCWD cterm=none ctermfg=DarkYellow
 highlight netrwDir cterm=none ctermfg=Cyan
 
+highlight StatusLine ctermfg=236 ctermbg=144
+highlight StatusLineNC ctermfg=235 ctermbg=108
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -289,7 +292,7 @@ set expandtab
 set hlsearch
 
 "Mapping to remove highlight
-map <leader>h :noh<cr>
+map <leader>n :noh<cr>
 
 " Enable CTRL-A/CTRL-X to work on octal and hex numbers, as well as characters
 set nrformats=octal,hex,alpha
