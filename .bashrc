@@ -71,10 +71,10 @@ esac
 
 PS1=$TITLEBAR'\[\e[0;36m\][\t] '$STARTCOLOUR'$PWD'$ENDCOLOUR' \$ ' 
 
-if [ "$OS" = "darwin" ]; then
-	export LSCOLORS="dxfxcxdxbxegedabagacad"
-else
+if [ "$OS" = "linux" ]; then
 	export LS_COLORS='di=93:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=91:*.rb=90'
+else
+	export LSCOLORS="dxfxcxdxbxegedabagacad"
 fi
 
 # vim: set ts=4 sw=4 noexpandtab: #
