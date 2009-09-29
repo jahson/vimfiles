@@ -95,9 +95,7 @@ highlight StatusLineNC ctermfg=235 ctermbg=108
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Scroll when cursor gets within 7 characters of top/bottom edge
-set scrolloff=7
+set scrolloff=0 " Disable scrollof to get H, M and L properly working
 
 " The minimal number of columns to scroll horizontally.
 set sidescroll=5
@@ -127,21 +125,20 @@ set cmdheight=2
 set numberwidth=8
 set number
 
-" Speed up macros by not redrawing, when using it
-set lazyredraw
+set lazyredraw " Do not redraw screen during macros run
+set ttyfast    " Improve redrawing for fast terminal connection
 
-" Allow buffer change without saving
-set hidden
+set hidden " Allow buffer change without saving
 
-" Allow backspacing over everything
-set backspace=eol,start,indent
+set backspace=eol,start,indent " Allow backspacing over everything
 
 " Cursor keys wrap to
 set whichwrap+=<,>,h,l
 
-" Enable incremental search and ignore case, when searching
-set incsearch
-set ignorecase
+set incsearch " Enable incremental search
+set ignorecase smartcase " Be case sensitive only when search contains uppercase
+
+set gdefault " Set the ':substitute' flag 'g' to be default on
 
 " Changes the special characters that can be used in search patterns
 set magic
@@ -157,11 +154,13 @@ set showmatch
 " Hide the mouse when typing text
 set mousehide
 
+set timeoutlen=500 " Lower mappings timeout
+set report=0       " Always report changes
+
 """"""""""""""""""""""""""""""
 " Statusline
 """"""""""""""""""""""""""""""
-" Always show status line, even for one window
-set laststatus=2
+set laststatus=2 " Always show status line, even for one window
 " Statusline format
 set statusline=\ %<%F%h%m%r\ %b\ \ %{&encoding}\ \ \ Line:\ %l/%L:%c\ %P
 
