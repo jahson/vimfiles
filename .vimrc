@@ -341,6 +341,10 @@ nmap gf :new %:p:h/<cfile><CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" Error list moving
+nmap <leader>j :cn<cr>
+nmap <leader>k :cp<cr>
+
 " Append modeline after last line in buffer.
 " Use substitute() (not printf()) to handle '%%s' modeline in LaTeX files.
 function! AppendModeline()
@@ -376,9 +380,6 @@ nmap <silent> <F7> :NERDTreeToggle<CR>
 let g:proj_window_width=35
 " map <F5> to toggle Project window
 nmap <silent> <F5> :Project<CR>
-
-" VSCOMMAND
-nmap <leader>ca <Plug>VCSAdd
 
 " Run PHP in cli
 autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>

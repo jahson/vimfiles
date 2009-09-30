@@ -5441,15 +5441,18 @@ body = body.join( "\n" );
 // Good parts minus white space
 options = {
     bitwise    : true,  // if bitwise operators should not be allowed
-    eqeqeq     : true, // if === should be required
+    eqeqeq     : true,  // if === should be required
     glovar     : true,  // if HTML fragments should be allowed
     regexp     : true,  // if the . should not be allowed in regexp literals
     undef      : false, // if variables should be declared before used
 //  white      : true,  // if strict whitespace rules apply
-    browser    : false, // if the standard browser globals should be predefined
-    plusplus   : true, // if increment/decrement should not be allowed
+    onevar     : true,  // if only one var statement per function should be allowed.
+    newcap     : true,  // if Initial Caps must be used with constructor functions
+    immed      : true,  // if immediate function invocations must be wrapped in parens
+    plusplus   : true,  // if increment/decrement should not be allowed
     nomen      : true   // if names should be checked
 };
+/*jslint white: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, strict: true, newcap: true, immed: true */
 
 var result = JSLINT( body, options );
 if ( !result ) {
