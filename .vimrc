@@ -12,11 +12,8 @@ set history=400
 filetype plugin on
 filetype indent on
 
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" Write contents of the file, if it has been modified, on buffer exit
-set autowrite
+set autoread " Set to auto read when a file is changed from the outside
+set autowrite " Write contents of the file, if it has been modified, on buffer exit
 
 " Save and restore folds
 au BufWinLeave .* mkview
@@ -26,6 +23,7 @@ au BufWinEnter .* silent loadview
 let mapleader = ","
 let g:mapleader = ","
 
+" Show some whitespaces
 set list
 set listchars=tab:»\ ,trail:·,nbsp:%
 
@@ -39,6 +37,8 @@ set complete+=k
 set complete+=b
 " from tags
 set complete+=t
+" from included files
+set complete+=i
 
 " Windows options
 set equalalways " created windows are eqal in size
@@ -47,8 +47,7 @@ set splitbelow splitright " when split put new windows right and below
 noremap <leader>v :vsp<cr>
 noremap <leader>h :split<cr>
 
-" Don't complete comments
-autocmd FileType * setlocal formatoptions-=cro
+autocmd FileType * setlocal formatoptions-=ro " Don't complete comments on o and return
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and fonts
@@ -62,8 +61,8 @@ set t_Co=256
 
 colorscheme desert256
 
-" Popup window color
-highlight Pmenu ctermbg=238 gui=bold
+" Popup menu color
+highlight Pmenu ctermbg=238
 
 " Matching paren highlight
 highlight MatchParen ctermbg=darkgrey
@@ -71,26 +70,21 @@ highlight MatchParen ctermbg=darkgrey
 autocmd BufEnter * setlocal cursorline
 autocmd BufLeave * setlocal nocursorline
 
-"Omni menu colors
-hi Pmenu guibg=#333333
-hi PmenuSel guibg=#555555 guifg=#ffffff
-
-" Too long lines
-highlight TooLongLine term=reverse ctermfg=Yellow ctermbg=Red
+" Highlight too long lines
+highlight TooLongLine  term=reverse ctermfg=Yellow ctermbg=Red
 match TooLongLine /.\%>81v/
 
 " Generic highlight changes
-highlight Comment cterm=none ctermfg=DarkGray
-highlight IncSearch cterm=none ctermfg=Black ctermbg=DarkYellow
-highlight Search cterm=none ctermfg=Black ctermbg=DarkYellow
-highlight String cterm=none ctermfg=DarkGreen
-highlight treeDir cterm=none ctermfg=Cyan
-highlight treeUp cterm=none ctermfg=DarkYellow
-highlight treeCWD cterm=none ctermfg=DarkYellow
-highlight netrwDir cterm=none ctermfg=Cyan
-
-highlight StatusLine ctermfg=236 ctermbg=144
-highlight StatusLineNC ctermfg=235 ctermbg=108
+highlight Comment      cterm=none ctermfg=DarkGray
+highlight IncSearch    cterm=none ctermfg=Black      ctermbg=DarkYellow
+highlight Search       cterm=none ctermfg=Black      ctermbg=DarkYellow
+highlight String       cterm=none ctermfg=DarkGreen
+highlight treeDir      cterm=none ctermfg=Cyan
+highlight treeUp       cterm=none ctermfg=DarkYellow
+highlight treeCWD      cterm=none ctermfg=DarkYellow
+highlight netrwDir     cterm=none ctermfg=Cyan
+highlight StatusLine              ctermfg=236        ctermbg=144
+highlight StatusLineNC            ctermfg=235        ctermbg=108
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface
@@ -140,16 +134,17 @@ set ignorecase smartcase " Be case sensitive only when search contains uppercase
 
 set gdefault " Set the ':substitute' flag 'g' to be default on
 
-" Changes the special characters that can be used in search patterns
-set magic
-
 " No sound on errors.
 set noerrorbells
 set novisualbell
 set t_vb=
 
-" Highlight matching brackets
+" Jump to matching bracket for 3/10th of a second (works with showmatch)
 set showmatch
+set matchtime=3
+
+" Set maximum text width (for wrapping)
+set textwidth=80
 
 " Hide the mouse when typing text
 set mousehide
@@ -162,7 +157,7 @@ set report=0       " Always report changes
 """"""""""""""""""""""""""""""
 set laststatus=2 " Always show status line, even for one window
 " Statusline format
-set statusline=\ %<%F%h%m%r\ %b\ \ %{&encoding}\ \ \ Line:\ %l/%L:%c\ %P
+set statusline=\ %<%F%h%m%r%y\ \%{&encoding}\ \Line:\ %l/%L:%c\ %P\ Byte:\ %b
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving around
@@ -267,11 +262,11 @@ set encoding=utf-8
 set updatecount=50
 
 " Set directory for swap files
-set dir=~/.vim/vim_tmp
+set dir=~/.vim_tmp
 
 " Backup
 set backup
-set backupdir=~/.vim/vim_backup
+set backupdir=~/.vim_backup
 " backupskip helps with crontab -e
 set backupskip=/tmp/*,/private/tmp/*
 
@@ -302,12 +297,6 @@ set completeopt=menu,longest,preview
 " Go back to the position the cursor was on the last time this file was edited
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute( "normal g'\"" ) | endif
 
-" Avoid loading MatchParen plugin
-" let loaded_matchparen = 1
-
-" netRW: Open files in a split window
-let g:netrw_browse_split = 1
-
 "
 " MAPPINGS
 "
@@ -334,27 +323,29 @@ imap <C-L> @@@<ESC>hhkywjl?@@@<CR>P/@@@<CR>3s
 nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " page down with <Space>
 nmap <Space> <PageDown>
-" open filename under cursor in a new window (use current file's working
-" directory)
+" open filename under cursor in a new window (use current file's working directory)
 nmap gf :new %:p:h/<cfile><CR>
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
 
-" Error list moving
+" Error list navigation
 nmap <leader>j :cn<cr>
 nmap <leader>k :cp<cr>
 
 " Append modeline after last line in buffer.
 " Use substitute() (not printf()) to handle '%%s' modeline in LaTeX files.
 function! AppendModeline()
-    let save_cursor = getpos( '.' )
-    let append = ' vim: set ts='.&tabstop.' sw='.&shiftwidth.': '
-    $put = ''
-    $put = substitute( &commentstring, '%s', append, '' )
-    call setpos( '.', save_cursor )
+	let save_cursor = getpos( '.' )
+	let append = ' vim: set ts='.&tabstop.' sw='.&shiftwidth.': '
+	$put = ''
+	$put = substitute( &commentstring, '%s', append, '' )
+	call setpos( '.', save_cursor )
 endfunction
 nmap <Leader>ml :call AppendModeline()<CR>
+
+" netRW: Open files in a split window
+let g:netrw_browse_split = 1
 
 " Setup cscope options
 if has("cscope")
@@ -381,9 +372,6 @@ let g:proj_window_width=35
 " map <F5> to toggle Project window
 nmap <silent> <F5> :Project<CR>
 
-" Run PHP in cli
-autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
-
 " Write file using sudo
 cmap w!! %!sudo tee > /dev/null %
 
@@ -393,8 +381,8 @@ autocmd BufEnter *.js,*.html,*.tpl set ts=4 sw=4 noexpandtab
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+	command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+		\ | wincmd p | diffthis
 endif
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -404,3 +392,5 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
+
+" vim: set ts=4 sw=4 noexpandtab:

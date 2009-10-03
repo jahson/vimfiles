@@ -10,13 +10,6 @@ source ~/.vim/php-doc.vim
 " Set up automatic formatting
 set formatoptions+=tcqlro
 
-" Jump to matching bracket for 3/10th of a second (works with showmatch)
-set matchtime=3
-set showmatch
-
-" Set maximum text width (for wrapping)
-set textwidth=80
-
 "
 " Syntax options
 "
@@ -28,7 +21,6 @@ let php_folding = 1
 
 " Highlighti SQL inside PHP strings
 let php_sql_query=1
-
 
 "
 " Linting
@@ -85,10 +77,10 @@ omap <silent> iP :silent normal viP<CR>
 inoremap <buffer> <C-P> <Esc>:call PhpDocSingle()<CR>i
 nnoremap <buffer> <C-P> :call PhpDocSingle()<CR>
 vnoremap <buffer> <C-P> :call PhpDocRange()<CR>
-" Generate @uses tag based on inheritance info
-let g:pdv_cfg_Uses = 1
-" Set default Copyright
-let g:pdv_cfg_Copyright = "Copyright (C) 2008 jahson"
+
+let g:pdv_cfg_Uses = 1 " Generate @uses tag based on inheritance info
+let g:pdv_cfg_Author = "Oleg Roschupkin <jjahson@gmail.com>"
+let g:pdv_cfg_Copyright = "2007-2009 jahson"
 
 " Exuberant Ctags
 "
@@ -101,5 +93,8 @@ nmap <silent> <F4>
 
 " Set tag filename(s)
 set tags=./tags,tags
+
+" Run PHP in cli
+autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
 
 " vim: set fdm=marker:
