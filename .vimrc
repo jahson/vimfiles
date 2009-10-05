@@ -16,8 +16,8 @@ set autoread " Set to auto read when a file is changed from the outside
 set autowrite " Write contents of the file, if it has been modified, on buffer exit
 
 " Save and restore folds
-au BufWinLeave .* mkview
-au BufWinEnter .* silent loadview
+au BufWinLeave ?* mkview
+au BufWinEnter ?* silent loadview
 
 " Mapleader
 let mapleader = ","
