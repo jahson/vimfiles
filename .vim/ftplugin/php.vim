@@ -95,6 +95,7 @@ nmap <silent> <F4>
 set tags=./tags,tags
 
 " Run PHP in cli
-autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
+"autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
+nmap <leader>r :w!<CR>:!php %<CR>
 
 " vim: set fdm=marker:
