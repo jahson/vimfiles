@@ -59,13 +59,13 @@ syntax on
 " Set numer of colors
 set t_Co=256
 
-colorscheme desert256
+colorscheme xoria256
 
 " Popup menu color
-highlight Pmenu ctermbg=238
+"highlight Pmenu ctermbg=238
 
 " Matching paren highlight
-highlight MatchParen ctermbg=darkgrey
+"highlight MatchParen ctermbg=darkgrey
 
 autocmd BufEnter * setlocal cursorline
 autocmd BufLeave * setlocal nocursorline
@@ -75,16 +75,16 @@ highlight TooLongLine  term=reverse ctermfg=Yellow ctermbg=Red
 match TooLongLine /.\%>81v/
 
 " Generic highlight changes
-highlight Comment      cterm=none ctermfg=DarkGray
-highlight IncSearch    cterm=none ctermfg=Black      ctermbg=DarkYellow
-highlight Search       cterm=none ctermfg=Black      ctermbg=DarkYellow
-highlight String       cterm=none ctermfg=DarkGreen
-highlight treeDir      cterm=none ctermfg=Cyan
-highlight treeUp       cterm=none ctermfg=DarkYellow
-highlight treeCWD      cterm=none ctermfg=DarkYellow
-highlight netrwDir     cterm=none ctermfg=Cyan
-highlight StatusLine              ctermfg=236        ctermbg=144
-highlight StatusLineNC            ctermfg=235        ctermbg=108
+"highlight Comment      cterm=none ctermfg=DarkGray
+"highlight IncSearch    cterm=none ctermfg=Black      ctermbg=DarkYellow
+"highlight Search       cterm=none ctermfg=Black      ctermbg=DarkYellow
+"highlight String       cterm=none ctermfg=DarkGreen
+"highlight treeDir      cterm=none ctermfg=Cyan
+"highlight treeUp       cterm=none ctermfg=DarkYellow
+"highlight treeCWD      cterm=none ctermfg=DarkYellow
+"highlight netrwDir     cterm=none ctermfg=Cyan
+"highlight StatusLine              ctermfg=236        ctermbg=144
+"highlight StatusLineNC            ctermfg=235        ctermbg=108
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface
