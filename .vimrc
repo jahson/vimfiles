@@ -9,6 +9,7 @@ set nocompatible
 set history=400
 
 " Enable filetype and indentation plugins
+filetype on
 filetype plugin on
 filetype indent on
 
@@ -67,8 +68,8 @@ colorscheme xoria256
 " Matching paren highlight
 "highlight MatchParen ctermbg=darkgrey
 
-autocmd BufEnter * setlocal cursorline
-autocmd BufLeave * setlocal nocursorline
+"autocmd BufEnter * setlocal cursorline
+"autocmd BufLeave * setlocal nocursorline
 
 " Highlight too long lines
 highlight TooLongLine  term=reverse ctermfg=Yellow ctermbg=Red
