@@ -2,6 +2,8 @@ if exists("g:__XPOPUP_VIM__")
     finish
 endif
 let g:__XPOPUP_VIM__ = 1
+let s:oldcpo = &cpo
+set cpo-=< cpo+=B
 runtime plugin/debug.vim
 runtime plugin/xpreplace.vim
 runtime plugin/mapstack.vim
@@ -304,8 +306,8 @@ fun! s:ClearMapAndSetting()
     call g:MapPop(b:__xpp_mapped.i_c_e)
     call g:MapPop(b:__xpp_mapped.i_tab)
     call g:MapPop(b:__xpp_mapped.i_bs)
-    call SettingPop() " cinkeys 
     call SettingPop() " indentkeys 
+    call SettingPop() " cinkeys 
     unlet b:__xpp_mapped
 endfunction 
 fun! XPPend() 
@@ -398,3 +400,4 @@ let s:sessionPrototype2 =  s:ClassPrototype(
             \   'SetAcceptEmpty', 
             \)
 call extend( s:sessionPrototype, s:sessionPrototype2, 'force' )
+let &cpo = s:oldcpo

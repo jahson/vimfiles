@@ -2,6 +2,8 @@ if exists("g:__XPMARK_VIM__")
     finish
 endif
 let g:__XPMARK_VIM__ = 1
+let s:oldcpo = &cpo
+set cpo-=< cpo+=B
 com! XPMgetSID let s:sid =  matchstr("<SID>", '\zs\d\+_\ze')
 XPMgetSID
 delc XPMgetSID
@@ -507,14 +509,12 @@ fun! s:findLikelyRange(changeStart, bChangeEnd) dict
 endfunction 
 fun! s:saveCurrentCursorStat() dict 
     let p = [ line( '.' ), col( '.' ) ]
-    if p != self.lastPositionAndLength[ : 1 ]
         exe 'k'.g:xpm_mark
         if p[0] < line( '$' )
             exe '+1k' . g:xpm_mark_nextline
         else
             exe 'delmarks ' . g:xpm_mark_nextline
         endif
-    endif
     let self.lastPositionAndLength = p + [ len( getline( "." ) ) ]
     let self.lastMode = mode()
 endfunction 
@@ -649,3 +649,4 @@ endfunction
 nnoremap ,m :call XPMhere('c', 'l')<cr>
 nnoremap ,M :call XPMhere('c', 'r')<cr>
 nnoremap ,g :call XPMgoto('c')<cr>
+let &cpo = s:oldcpo
