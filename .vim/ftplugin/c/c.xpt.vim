@@ -14,14 +14,16 @@ XPTvar $FUNC_BRACKET_STL   \n
 XPTvar $VOID_LINE      /* void */;
 XPTvar $CURSOR_PH      /* cursor */
 
+XPTinclude
+      \ _common/common
+
 XPTvar $CL  /*
 XPTvar $CM   *
 XPTvar $CR   */
-
+XPTinclude
+      \ _comment/doubleSign
 
 XPTinclude
-      \ _common/common
-      \ _comment/doubleSign
       \ _condition/c.like
       \ _func/c.like
       \ _loops/c.while.like
@@ -62,6 +64,7 @@ let s:printfSpecifierMap = {
 fun! s:f.c_printfElts( v )
   " remove '%%' representing a single '%'
   let v = substitute( a:v, '\V%%', '', 'g' )
+
 
   if v =~ '\V%'
 

@@ -218,6 +218,7 @@ basic-snippet	snippets_emu.txt	/*basic-snippet*
 creating-snippets	snippets_emu.txt	/*creating-snippets*
 cvscommand-changes	vcscommand.txt	/*cvscommand-changes*
 g%	matchit.txt	/*g%*
+g:xptemplate_brace_complete	xptemplate.txt	/*g:xptemplate_brace_complete*
 g:xptemplate_goback	xptemplate.txt	/*g:xptemplate_goback*
 g:xptemplate_key	xptemplate.txt	/*g:xptemplate_key*
 g:xptemplate_nav_cancel	xptemplate.txt	/*g:xptemplate_nav_cancel*
