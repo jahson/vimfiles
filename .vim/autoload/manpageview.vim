@@ -1,7 +1,7 @@
 " manpageview.vim : extra commands for manual-handling
 " Author:	Charles E. Campbell, Jr.
-" Date:		Sep 27, 2008
-" Version:	21j	ASTRO-ONLY
+" Date:		Nov 26, 2008
+" Version:	22
 "
 " Please read :help manpageview for usage, options, etc
 "
@@ -12,8 +12,14 @@
 if &cp || exists("g:loaded_manpageview")
  finish
 endif
-let g:loaded_manpageview = "v21j"
-let s:keepcpo            = &cpo
+let g:loaded_manpageview = "v22"
+if v:version < 702
+ echohl WarningMsg
+ echo "***warning*** this version of manpageview needs vim 7.2"
+ echohl Normal
+ finish
+endif
+let s:keepcpo= &cpo
 set cpo&vim
 "DechoTabOn
 
@@ -124,13 +130,13 @@ fun! manpageview#ManPageView(viamap,bknum,...) range
    else
    	let topic= a:1
    endif
+   if topic =~ '($'
+    let topic= substitute(topic,'($','','')
+   endif
+"   call Decho("topic<".topic.">  bknum=".bknum." (after fix topic)")
   endif
-  if topic =~ '($'
-   let topic= substitute(topic,'($','','')
-  endif
-"  call Decho("topic<".topic.">  bknum=".bknum." (after fix topic)")
 
-  if topic == ""
+  if !exists("topic") || topic == ""
    echohl WarningMsg
    echo "***warning*** missing topic"
    echohl None
@@ -328,22 +334,22 @@ fun! manpageview#ManPageView(viamap,bknum,...) range
    let manpagetopic        = "Top"
 "   call Decho("top-level info: manpagetopic<".manpagetopic.">")
   endif
-  if exists("s:manpageview_pfx_{ext}")
+  if exists("s:manpageview_pfx_{ext}") && s:manpageview_pfx_{ext} != ""
    let manpagetopic= s:manpageview_pfx_{ext}.manpagetopic
-  elseif exists("g:manpageview_pfx_{ext}")
+  elseif exists("g:manpageview_pfx_{ext}") && g:manpageview_pfx_{ext} != ""
    " prepend any extension-specified prefix to manpagetopic
    let manpagetopic= g:manpageview_pfx_{ext}.manpagetopic
   endif
-  if exists("g:manpageview_sfx_{ext}")
+  if exists("g:manpageview_sfx_{ext}") && g:manpageview_sfx_{ext} != ""
    " append any extension-specified suffix to manpagetopic
    let manpagetopic= manpagetopic.g:manpageview_sfx_{ext}
   endif
-  if exists("g:manpageview_K_{ext}")
+  if exists("g:manpageview_K_{ext}") && g:manpageview_K_{ext} != ""
    " override usual K map
 "   call Decho("override K map to call ".g:manpageview_K_{ext})
    exe "nmap <silent> K :call ".fnameescape(g:manpageview_K_{ext})."\<cr>"
   endif
-  if exists("g:manpageview_syntax_{ext}")
+  if exists("g:manpageview_syntax_{ext}") && g:manpageview_syntax_{ext} != ""
    " allow special-suffix extensions to optionally control syntax highlighting
    let manpageview_syntax= g:manpageview_syntax_{ext}
   else
@@ -367,6 +373,7 @@ fun! manpageview#ManPageView(viamap,bknum,...) range
 "  call Decho("dwidth=".dwidth." dheight=".dheight)
 
   " Set up the window for the manpage display (only hsplit split etc) {{{3
+"  call Decho("set up window for manpage display (g:manpageview_winopen<".g:manpageview_winopen."> ft<".&ft."> manpageview_syntax<".manpageview_syntax.">)")
   if     g:manpageview_winopen == "only"
 "   call Decho("only mode")
    silent! windo w
@@ -595,7 +602,13 @@ fun! manpageview#ManPageView(viamap,bknum,...) range
 
   if line("$") == 1 && col("$") == 1
    " looks like there's no help for this topic
-   q
+   if &ft == manpageview_syntax
+	if exists("s:manpageview_curtopic")
+	 call manpageview#ManPageView(0,0,s:manpageview_curtopic)
+	else
+	 q
+	endif
+   endif
 "   call Decho("***warning*** no manpage exists for <".manpagetopic."> book=".manpagebook)
    echohl ErrorMsg
    echo "***warning*** sorry, no manpage exists for <".manpagetopic.">"
@@ -604,9 +617,11 @@ fun! manpageview#ManPageView(viamap,bknum,...) range
   elseif manpagebook == ""
 "   call Decho('exe file '.fnameescape('Manpageview['.manpagetopic.']'))
    exe 'file '.fnameescape('Manpageview['.manpagetopic.']')
+   let s:manpageview_curtopic= manpagetopic
   else
 "   call Decho('exe file '.fnameescape('Manpageview['.manpagetopic.'('.fnameescape(manpagebook).')]'))
    exe 'file '.fnameescape('Manpageview['.manpagetopic.'('.fnameescape(manpagebook).')]')
+   let s:manpageview_curtopic= manpagetopic."(".manpagebook.")"
   endif
 
   " if there's a search pattern, use it {{{3

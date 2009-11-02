@@ -1,0 +1,11 @@
+ScriptID SourceID Filename
+--------------------------
+2611 11632 :AutoInstall: XPTemplate
+1658 11500 :AutoInstall: NERDTree
+ 159  3640 :AutoInstall: MiniBufExplorer
+  69  6273 :AutoInstall: Project
+ 273  7701 :AutoInstall: TagList
+  90 11049 :AutoInstall: VCSCommand
+ 489  9573 :AutoInstall: ManPageView
+  39  8196 :AutoInstall: MatchIt
+  642 8136 :AutoInstall: getscript.vim
