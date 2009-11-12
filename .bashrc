@@ -5,7 +5,9 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 
 # java & tomcat
 export CATALINA_HOME=/Users/jahson/sources/apache-tomcat-6.0.18-src/output/build
-export JAVA_HOME=/usr
+#export JAVA_HOME=/usr
+# old java doesn't work, let's try new
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
 
 # other
 export EDITOR=vim
