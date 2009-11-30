@@ -42,7 +42,11 @@ shopt -s cmdhist
 shopt -s checkwinsize
 
 # History tuning
+
+# to get history in another window
 shopt -s histappend
+PROMPT_COMMAND='history -a'
+
 export HISTFILESIZE=3072
 export HISTCONTROL=ignoreboth
 export HISTIGNORE="ls:cd:[bf]g:exit:..:...:ll:lla""]"
