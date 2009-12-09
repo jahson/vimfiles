@@ -228,8 +228,8 @@ nmap <leader>. :call ClearTrailingWhitespace()<cr>
 " do not touch esc
 imap jj <esc>
 " some imaps for php
-imap hh =>
-imap ff ->
+"imap hh =>
+"imap ff ->
 
 " use enter and shift+enter for inserting newlines without going to insert mode
 map <s-enter> O<esc>
