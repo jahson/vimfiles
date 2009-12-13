@@ -66,16 +66,7 @@ case $(id -u) in
 esac
 export ENDCOLOUR="\[\e[0m\]"
 
-case $TERM in
-	xterm*)
-		export TITLEBAR='\[\e]0;\u@\h :: $PWD\a\]';
-		;;
-	*)
-		export TITLEBAR="";
-		;;
-esac
-
-PS1=$TITLEBAR'\[\e[0;36m\][\t] '$STARTCOLOUR'$PWD'$ENDCOLOUR' \$ ' 
+PS1='\[\e[0;36m\][\t] \[\e[0;37m\]\u@\h:'$STARTCOLOUR'$PWD'$ENDCOLOUR' \[\e[0;35m\]$(__git_ps1 "(%s)") \[\e[0m\]\$ ' 
 
 if [ "$OS" = "linux" ]; then
 	export LS_COLORS='di=93:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=91:*.rb=90'
