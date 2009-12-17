@@ -41,8 +41,6 @@ shopt -s cmdhist
 # check window size after each command - to change lines and columns accrodingly
 shopt -s checkwinsize
 
-# History tuning
-
 # to get history in another window
 shopt -s histappend
 PROMPT_COMMAND='history -a'
