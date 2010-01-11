@@ -1,0 +1,1 @@
+set keywordprg=erl\ -man
