@@ -2,6 +2,8 @@
 " Settings for PHP filetype
 "
 
+set keywordprg=pman
+
 set dictionary=~/.vim/dictionaries/php
 
 " Load PHP Documentor for VIM
