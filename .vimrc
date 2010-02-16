@@ -75,18 +75,6 @@ colorscheme xoria256
 highlight TooLongLine  term=reverse ctermfg=Yellow ctermbg=Red
 match TooLongLine /.\%>81v/
 
-" Generic highlight changes
-"highlight Comment      cterm=none ctermfg=DarkGray
-"highlight IncSearch    cterm=none ctermfg=Black      ctermbg=DarkYellow
-"highlight Search       cterm=none ctermfg=Black      ctermbg=DarkYellow
-"highlight String       cterm=none ctermfg=DarkGreen
-"highlight treeDir      cterm=none ctermfg=Cyan
-"highlight treeUp       cterm=none ctermfg=DarkYellow
-"highlight treeCWD      cterm=none ctermfg=DarkYellow
-"highlight netrwDir     cterm=none ctermfg=Cyan
-"highlight StatusLine              ctermfg=236        ctermbg=144
-"highlight StatusLineNC            ctermfg=235        ctermbg=108
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -322,8 +310,6 @@ imap <C-L> @@@<ESC>hhkywjl?@@@<CR>P/@@@<CR>3s
 " map <leader>f display all lines with keyword under cursor and ask which one to
 " jump to
 nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-" page down with <Space>
-nmap <Space> <PageDown>
 " open filename under cursor in a new window (use current file's working directory)
 nmap gf :new %:p:h/<cfile><CR>
 " visual shifting (does not exit Visual mode)
