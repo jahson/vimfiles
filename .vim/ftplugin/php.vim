@@ -82,7 +82,7 @@ vnoremap <buffer> <C-P> :call PhpDocRange()<CR>
 
 let g:pdv_cfg_Uses = 1 " Generate @uses tag based on inheritance info
 let g:pdv_cfg_Author = "Oleg Roschupkin <jjahson@gmail.com>"
-let g:pdv_cfg_Copyright = "2007-2009 jahson"
+let g:pdv_cfg_Copyright = "2002-2010 jahson"
 
 " Exuberant Ctags
 "
