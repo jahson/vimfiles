@@ -44,12 +44,9 @@ shopt -s checkwinsize
 # to get history in another window
 shopt -s histappend
 PROMPT_COMMAND='history -a'
-
 export HISTFILESIZE=3072
 export HISTCONTROL=ignoreboth
 export HISTIGNORE="ls:cd:[bf]g:exit:..:...:ll:lla""]"
-bind '"\e[B":history-search-forward'
-bind '"\e[A":history-search-backward'
 
 # Bash prompt tuning
 case $(id -u) in
