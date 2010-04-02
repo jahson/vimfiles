@@ -2,6 +2,8 @@
 " Settings for PHP filetype
 "
 
+set textwidth=79
+
 set keywordprg=pman
 
 set dictionary=~/.vim/dictionaries/php
