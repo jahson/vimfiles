@@ -62,18 +62,9 @@ set t_Co=256
 
 colorscheme xoria256
 
-" Popup menu color
-"highlight Pmenu ctermbg=238
-
-" Matching paren highlight
-"highlight MatchParen ctermbg=darkgrey
-
-"autocmd BufEnter * setlocal cursorline
-"autocmd BufLeave * setlocal nocursorline
-
 " Highlight too long lines
-highlight TooLongLine  term=reverse ctermfg=Yellow ctermbg=Red
-match TooLongLine /.\%>81v/
+highlight TooLongLine  term=reverse ctermfg=yellow ctermbg=darkred
+match TooLongLine '/.\%>81v.\+/'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Interface
@@ -110,17 +101,11 @@ set number
 
 set lazyredraw " Do not redraw screen during macros run
 set ttyfast    " Improve redrawing for fast terminal connection
-
 set hidden " Allow buffer change without saving
-
 set backspace=eol,start,indent " Allow backspacing over everything
-
-" Cursor keys wrap to
-set whichwrap+=<,>,h,l
-
+set whichwrap+=<,>,h,l " Cursor keys wrap to
 set incsearch " Enable incremental search
 set ignorecase smartcase " Be case sensitive only when search contains uppercase
-
 set gdefault " Set the ':substitute' flag 'g' to be default on
 
 " No sound on errors.
@@ -215,9 +200,6 @@ nmap <leader>. :call ClearTrailingWhitespace()<cr>
 
 " do not touch esc
 imap jj <esc>
-" some imaps for php
-"imap hh =>
-"imap ff ->
 
 " use enter and shift+enter for inserting newlines without going to insert mode
 map <s-enter> O<esc>
