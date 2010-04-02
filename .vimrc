@@ -147,24 +147,13 @@ map <C-L> <C-W>l
 map <right> :bn<cr>
 map <left> :bp<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Parenthesis and bracket expanding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-vnoremap _( <esc>`>a)<esc>`<i(<esc>
-vnoremap _[ <esc>`>a]<esc>`<i[<esc>
-vnoremap _{ <esc>`>a}<esc>`<i{<esc>
-vnoremap _< <esc>`>a><esc>`<i<<esc>
-vnoremap _" <esc>`>a"<esc>`<i"<esc>
-vnoremap _' <esc>`>a'<esc>`<i'<esc>
-
 " other
 function! ClearTrailingWhitespace()
 	%s/\s\+$//
 endfunction
 nmap <leader>. :call ClearTrailingWhitespace()<cr>
 
-" do not touch esc
+" Try to not touch esc
 imap jj <esc>
 
 " use enter and shift+enter for inserting newlines without going to insert mode
