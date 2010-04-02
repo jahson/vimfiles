@@ -8,6 +8,9 @@ set nocompatible
 " Remember up to 400 'colon' commmands and search patterns
 set history=400
 
+" Set terminal title
+set title
+
 " Enable filetype and indentation plugins
 filetype on
 filetype plugin on
