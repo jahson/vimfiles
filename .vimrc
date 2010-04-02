@@ -158,40 +158,6 @@ vnoremap _< <esc>`>a><esc>`<i<<esc>
 vnoremap _" <esc>`>a"<esc>`<i"<esc>
 vnoremap _' <esc>`>a'<esc>`<i'<esc>
 
-" auto complete for (, ", ', [ and {\}
-inoremap ( ()<esc>:call BC_AddChar(")")<cr>i
-inoremap { {}<esc>:call BC_AddChar("}")<cr>i
-inoremap [ []<esc>:call BC_AddChar("]")<cr>i
-inoremap " "<C-R>=MyQuoteFunc( '"' )<cr><esc>i
-inoremap ' '<C-R>=MyQuoteFunc( "'" )<cr><esc>i
-
-function! MyQuoteFunc( quote )
-	" Return nothing when there are even number of quotes and quote,
-	" when there is odd number of quotes.
-	if 0 == ( len ( split( getline( "." ), a:quote, 1) ) - 1 ) % 2
-		return ''
-	else
-		return a:quote
-	endif
-endfunction
-
-" jump out of parenthesis
-inoremap <C-j> <esc>:call search(BC_GetChar(), "W")<cr>a
-
-function! BC_AddChar(schar)
-	if exists("b:robstack")
-		let b:robstack = b:robstack . a:schar
-	else
-		let b:robstack = a:schar
-	endif
-endfunction
-
-function! BC_GetChar()
-	let l:char = b:robstack[strlen(b:robstack)-1]
-	let b:robstack = strpart(b:robstack, 0, strlen(b:robstack)-1)
-	return l:char
-endfunction
-
 " other
 function! ClearTrailingWhitespace()
 	%s/\s\+$//
