@@ -1,18 +1,22 @@
+" TODO entity char
+" TODO back at 'base'
 XPTemplate priority=lang
 
-let s:f = g:XPTfuncs() 
- 
-XPTinclude 
+let s:f = g:XPTfuncs()
+
+XPTinclude
       \ _common/common
+      \ xml/xml
+
+
+
+XPTvar $CURSOR_PH 
 
 XPTvar $CL    <!--
-XPTvar $CM    
+XPTvar $CM
 XPTvar $CR    -->
-XPTinclude 
+XPTinclude
       \ _comment/doubleSign
-
-XPTinclude 
-      \ xml/xml
 
 XPTembed
       \ javascript/javascript
@@ -28,7 +32,6 @@ fun! s:f.createTable(...) "{{{
 
   let ncol_str = inputdialog("num of column:")
   let ncol = ncol_str + 0
-  
 
   let l = ""
   let i = 0 | while i < nrow | let i += 1
@@ -60,11 +63,11 @@ let s:doctypes = {
       \}
 
 
-fun! s:f.html_doctypeList()
-  return keys( s:doctypes )
+fun! s:f.html_doctype_list()
+    return keys( s:doctypes )
 endfunction
 
-fun! s:f.html_doctypePosta(v)
+fun! s:f.html_doctype_post(v)
   if has_key( s:doctypes, a:v )
     return s:doctypes[ a:v ]
   else
@@ -72,24 +75,35 @@ fun! s:f.html_doctypePosta(v)
   endif
 endfunction
 
-" TODO do not apply to following place holder 
+" TODO do not apply to following place holder
 fun! s:f.html_tagAttr()
   let tagName = self.V()
   if tagName ==? 'a'
-    return tagName . ' href="' . self.ItemCreate( '#', {}, {} ) . '"'
+      return tagName . ' href="' . self.ItemCreate( '#', {}, {} ) . '"'
   " elseif tagName ==? 'div'
   " elseif tagName ==? 'table'
   else
-
     return tagName
   endif
+endfunction
 
+fun! s:f.html_enc()
+    return &fenc == '' ? &encoding : &fenc
+endfunction
+
+fun! s:f.html_cr_cmpl()
+    let v = self.V()
+    if v =~ '\V\^\n'
+        return "\n"
+    else
+        return ''
+    endif
 endfunction
 " ================================= Snippets ===================================
 
 
-call XPTemplate("id", {'syn' : 'tag'}, 'id="`^"')
-call XPTemplate("class", {'syn' : 'tag'}, 'class="`^"')
+call XPTdefineSnippet("id", {'syn' : 'tag'}, 'id="`^"')
+call XPTdefineSnippet("class", {'syn' : 'tag'}, 'class="`^"')
 
 
 
@@ -124,23 +138,61 @@ XPT table0 hidden=1
 XPT html hint=<html><head>..<head><body>...
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=`encoding^Echo(&fenc == '' ? 'utf-8' : &fenc)^"/>
-        <link rel="stylesheet" type="text/css" href="" />
-        <style></style>
-        <title>`title^E('%:r')^</title>
-        <script language="javascript" type="text/javascript">
-            <!-- -->
-        </script>
-    </head>
+    `:head:^
     <body>
         `cursor^
     </body>
 </html>
 
+
+XPT head " <head>..</head>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=`encoding^html_enc()^"/>
+    <link rel="stylesheet" type="text/css" href="" />
+    `:title:^
+    <script language="javascript" type="text/javascript">
+        <!-- -->
+    </script>
+</head>
+
+
+
+XPT title " <title>..</title>
+<title>`title^E('%:t:r')^</title>
+
+
+XPT style " <style>..</style>
+<style type="text/css" media="screen">
+    `cursor^
+</style>
+
+
+XPT meta " <meta ..>
+<meta name="`meta_name^" content="`meta_content^" />
+
+
+XPT link " <link ..>
+<link rel="`stylesheet^" type="`type^text/css^" href="`url^" />
+
+
+XPT script hint=<script\ language="javascript"...
+<script language="javascript" type="text/javascript">
+    `cursor^
+</script>
+..XPT
+
+
+XPT scriptsrc hint=<script\ ..\ src=...
+<script language="javascript" type="text/javascript" src="`js^"></script>
+
+XPT body " <body>..</body>
+<body>
+    `cursor^
+</body>
+
 XPT doctype hint=<!DOCTYPE\ ***
-XSET doctype=html_doctypeList()
-XSET doctype|post=html_doctypePosta( V() )
+XSET doctype=html_doctype_list()
+XSET doctype|post=html_doctype_post( V() )
 <!DOCTYPE html PUBLIC `doctype^>
 
 
@@ -149,12 +201,13 @@ XPT a hint=<a\ href...
 ..XPT
 
 
+" TODO auto cr complete
 XPT div hint=<div>\ ..\ </div>
-<div`^>`cursor^</div>
+XSET what=Echo('')
+<div` `attr?^>`what^</div>
 
 
 XPT p hint=<p>\ ..\ </p>
-XSET attr?|post=EchoIfNoChange('')
 <p` `attr?^>`cursor^</p>
 
 
@@ -181,20 +234,63 @@ XPT h hint=<h?>\ ..\ <h?>
 XSET n=1
 <h`n^>`cursor^</h`n^>
 
-
-XPT script hint=<script\ language="javascript"...
-<script language="javascript" type="text/javascript">
-    `cursor^
-</script>
+XPT h1 alias=h " <h1>..</h1>
+XSET n=Next('1')
+XPT h2 alias=h " <h2>..</h2>
+XSET n=Next('2')
+XPT h3 alias=h " <h3>..</h3>
+XSET n=Next('3')
+XPT h4 alias=h " <h4>..</h4>
+XSET n=Next('4')
+XPT h5 alias=h " <h5>..</h5>
+XSET n=Next('5')
+XPT h6 alias=h " <h6>..</h6>
+XSET n=Next('6')
 ..XPT
 
-XPT scrlink hint=<script\ ..\ src=...
-<script language="javascript" type="text/javascript" src="`cursor^"></script>
+
+
+" TODO auto complete method
+XPT form " <form ..>..</form>
+<form action="`action^" method="`method^POST^" accept-charset="`html_enc()^">
+    `cursor^
+</form>
+
+XPT textarea " <textarea></textarea>
+<textarea name="`name^" rows="" cols="">`cursor^</textarea>
+
+
+" TODO for different type of input generate attributes
+XPT input " <input ..
+XSET type=ChooseStr( 'text', 'password', 'checkbox', 'radio', 'submit', 'reset', 'file', 'hidden', 'image', 'button' )
+<input type="`type^" name="`name^" value="`value^" />
+
+
+XPT label " <lable for=".." ..
+<label for="`which^">`what^</label>
+
+
+XPT select " <select ..
+<select name="`name^">
+    `:option:^
+</select>
+
+
+XPT option " <option value=..
+<option value="`value^">`what^</option>
+
+
+XPT fieldset " <fieldset ..
+<fieldset>
+    <legend></legend>
+    `cursor^
+</fieldset>
 
 
 XPT <_ hint=
 XSET span_disable|post=html_tagAttr()
 <`span^>`wrapped^</`span^>
+
 
 XPT p_ hint=
 <p>`wrapped^</p>

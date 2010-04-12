@@ -9,11 +9,11 @@ XPTvar $TRUE          true
 XPTvar $FALSE         false
 XPTvar $NULL          NULL
 
-XPTvar $IF_BRACKET_STL     \n
-XPTvar $FOR_BRACKET_STL    \n
-XPTvar $WHILE_BRACKET_STL  \n
-XPTvar $STRUCT_BRACKET_STL \n
-XPTvar $FUNC_BRACKET_STL   \n
+XPTvar $BRif     \n
+XPTvar $BRloop    \n
+XPTvar $BRloop  \n
+XPTvar $BRstc \n
+XPTvar $BRfun   \n
 
 XPTvar $VOID_LINE  /* void */;
 XPTvar $CURSOR_PH      /* cursor */
@@ -38,12 +38,11 @@ XPTinclude
 XPTinclude
             \ c/c
 
-" ========================= Function and Varaibles =============================
-let s:f = g:XPTfuncs() 
+" ========================= Function and Variables =============================
+let s:f = g:XPTfuncs()
 
 function! s:f.cleanTempl( ctx, ... )
-  let notypename = substitute( a:ctx,"\\s*typename\\s*","","g" )
-  let cleaned = substitute( notypename, "\\s*class\\s*", "", "g" )
+  let cleaned = substitute( a:ctx, '\s*\(class\|typename\|int\|long\)\s*', '', 'g' )
   return cleaned
 endfunction
 
@@ -53,7 +52,7 @@ XPTemplateDef
 
 XPT all  hint=...begin,\ ...end,
 `v^.begin(), `v^.end(), `cursor^
- 
+
 
 XPT vector hint=std::vector<..>\ ..;
 std::vector<`type^> `var^;
@@ -65,7 +64,7 @@ std::map<`typeKey^,`val^>   `name^;
 `cursor^
 
 
-XPT class   hint=class+ctor indent=keep
+XPT class   hint=class\ ..
 class `className^
 {
 public:
@@ -75,20 +74,32 @@ public:
     `cursor^
 private:
 };
- 
+
 `className^::`className^( `ctorParam^ )
 {
 }
- 
+
 `className^::~`className^()
 {
 }
- 
+
 `className^::`className^( const `className^ &cpy )
 {
 }
 ..XPT
 
+XPT functor hint=class\ operator\ ...
+struct `className^
+{
+    `closure...{{^`type^  `what^;
+    `_^R('className')^( `type^ n`what^ ) : `what^( n`what^ ) {}
+
+    `}}^`outType^   operator() ( `params^ )
+    {
+        `cursor^
+    }
+};
+..XPT
 
 XPT namespace hint=namespace\ {}
 namespace `name^
@@ -97,6 +108,33 @@ namespace `name^
 }
 ..XPT
 
+XPT icastop hint=operator\ type\ ...
+operator `typename^ ()
+    { return `cursor^; }
+..XPT
+
+XPT castop hint=operator\ type\ ...
+operator `typename^ ();
+
+
+`className^::operator `typename^ ();
+    { return `cursor^; }
+..XPT
+
+XPT iop hint=t\ operator\ ...\ ()
+`type^ operator `opName^ ( `args^ )
+{
+    `cursor^
+}
+..XPT
+
+XPT op hint=t\ operator\ ...\ ()
+`type^ operator `opName^ ( `args^ );
+
+`type^ `className^::operator `opName^ ( `args^ )
+{
+}
+..XPT
 
 XPT templateclass   hint=template\ <>\ class
 template
@@ -110,17 +148,17 @@ public:
     `cursor^
 private:
 };
- 
+
 template <`templateParam^>
 `className^<`_^cleanTempl(R('templateParam'))^^>::`className^( `ctorParam^ )
 {
 }
- 
+
 template <`templateParam^>
 `className^<`_^cleanTempl(R('templateParam'))^^>::~`className^()
 {
 }
- 
+
 template <`templateParam^>
 `className^<`_^cleanTempl(R('templateParam'))^^>::`className^( const `className^ &cpy )
 {

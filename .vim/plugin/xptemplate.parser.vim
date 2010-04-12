@@ -9,7 +9,6 @@ runtime plugin/FiletypeScope.class.vim
 runtime plugin/xptemplate.util.vim
 runtime plugin/xptemplate.vim
 let s:log = CreateLogger( 'warn' )
-let s:log = CreateLogger( 'debug' )
 com! -nargs=* XPTemplate
             \   if XPTsnippetFileInit( expand( "<sfile>" ), <f-args> ) == 'finish'
             \ |     finish
@@ -23,6 +22,9 @@ let s:nonEscaped = '\%(' . '\%(\[^\\]\|\^\)' . '\%(\\\\\)\*' . '\)' . '\@<='
 fun! s:AssignSnipFT( filename ) 
     let x = b:xptemplateData
     let filename = substitute( a:filename, '\\', '/', 'g' )
+    if filename =~ 'unknown.xpt.vim$'
+        return 'unknown'
+    endif
     let ftFolder = matchstr( filename, '\V/ftplugin/\zs\[^\\]\+\ze/' )
     if empty( x.snipFileScopeStack ) 
         if &filetype !~ '\<' . ftFolder . '\>' " sub type like 'xpt.vim' 
@@ -71,8 +73,6 @@ fun! XPTsnippetFileInit( filename, ... )
             call XPTemplatePriority(val)
         elseif key =~ 'mark'
             call XPTemplateMark( val[ 0 : 0 ], val[ 1 : 1 ] )
-        elseif key =~ 'ind\%[ent]'
-            call XPTemplateIndent(val)
         elseif key =~ 'key\%[word]'
             call XPTemplateKeyword(val)
         endif
@@ -90,7 +90,7 @@ endfunction
 fun! XPTsetVar( nameSpaceValue ) 
     let x = XPTbufData()
     let ftScope = g:GetSnipFileFtScope()
-    let name = matchstr(a:nameSpaceValue, '^\S\+\ze\s')
+    let name = matchstr(a:nameSpaceValue, '^\S\+\ze')
     if name == ''
         return
     endif
@@ -119,7 +119,7 @@ fun! XPTinclude(...)
                 continue
             endif
             call XPTsnipScopePush()
-            exe 'runtime ftplugin/' . v . '.xpt.vim'
+            exe 'runtime! ftplugin/' . v . '.xpt.vim'
             call XPTsnipScopePop()
         endif
     endfor
@@ -134,7 +134,7 @@ fun! XPTembed(...)
             endfor
         elseif type(v) == type('')
             call XPTsnipScopePush()
-            exe 'runtime ftplugin/' . v . '.xpt.vim'
+            exe 'runtime! ftplugin/' . v . '.xpt.vim'
             call XPTsnipScopePop()
         endif
     endfor
@@ -215,10 +215,11 @@ fun! s:XPTemplateParseSnippet(lines)
         endif
         let start += 1
     endwhile
+    let setting.fromXPT = 1
     if has_key( setting, 'alias' )
         call XPTemplateAlias( snippetName, setting.alias, setting )
     else
-        call XPTemplate(snippetName, setting, snippetLines)
+        call XPTdefineSnippet(snippetName, setting, snippetLines)
     endif
     if has_key( snipScope.loadedSnip, snippetName )
         echom "XPT: warn : duplicate snippet:" . snippetName . ' in file:' . snipScope.filename
@@ -229,7 +230,7 @@ fun! s:XPTemplateParseSnippet(lines)
         for synonym in synonyms
             call XPTemplateAlias( synonym, snippetName, {} )
             if has_key( snipScope.loadedSnip, synonym )
-                echom "XPT: warn : duplicate snippet:" . synonym . ' in file:' . snipScope.filename
+                echom "XPT: warn : duplicate synonym:" . synonym . ' in file:' . snipScope.filename
             endif
             let snipScope.loadedSnip[ synonym ] = 1
         endfor
@@ -306,7 +307,7 @@ fun! s:GetKeyType(rawKey)
     if keytype == ""
         let keytype = matchstr(a:rawKey, '\V'.s:nonEscaped.'.\zs\.\{-}\$')
     endif
-    let keyname = keytype == "" ? a:rawKey :  a:rawKey[ : - len(keytype) - 2 ]
+    let keyname = keytype == "" ? a:rawKey :  a:rawKey[ 0 : - len(keytype) - 2 ]
     let keyname = substitute(keyname, '\V\\\(\[.|\\]\)', '\1', 'g')
     return [ keyname, keytype ]
 endfunction 
@@ -321,6 +322,8 @@ fun! s:handleXSETcommand(setting, command, keyname, keytype, value)
         let a:setting.defaultValues[a:keyname] = "\n" . a:value
     elseif a:keytype ==# 'pre'
         let a:setting.preValues[a:keyname] = "\n" . a:value
+    elseif a:keytype ==# 'ontype'
+        let a:setting.ontypeFilters[a:keyname] = "\n" . a:value
     elseif a:keytype ==# 'post'
         if a:keyname =~ '\V...'
             let a:setting.postFilters[a:keyname] = "\n" . 'BuildIfNoChange(' . string(a:value) . ')'

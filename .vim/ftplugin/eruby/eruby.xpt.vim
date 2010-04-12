@@ -1,9 +1,9 @@
 XPTemplate priority=lang-
 
-XPTinclude 
+XPTinclude
     \ _common/common
     \ html/html
-    \ html/eruby
+    \ html/eruby*
 
 XPTembed
     \ ruby/ruby

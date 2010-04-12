@@ -1,10 +1,10 @@
 XPTemplate priority=all-
 
 
-" snippets for language whose comment sign is 2 signs, like c:"/* */" 
+" snippets for language whose comment sign is 2 signs, like c:"/* */"
 " TODO friendly cursor place holder
 
-XPTinclude 
+XPTinclude
       \ _common/common
 
 
@@ -19,15 +19,14 @@ XPT comment hint=$CL\ $CR
 `$CL^ `what^ `$CR^
 
 
-
 XPT commentBlock hint=$CL\ ...
-`$CL^ 
+`$CL^
  `$CM^ `cursor^
  `$CR^
 
 
 XPT commentDoc hint=$CL$CM\ ...
-`$CL^`$CM^ 
+`$CL^`$CM^
  `$CM^ `cursor^
  `$CR^
 
@@ -42,13 +41,13 @@ XPT comment_ hint=$CL\ $CR
 
 
 XPT commentBlock_ hint=$CL\ ...
-`$CL^ 
+`$CL^
  `$CM^ `wrapped^
  `$CR^
 
 
 XPT commentDoc_ hint=$CL$CM\ ...
-`$CL^`$CM^ 
+`$CL^`$CM^
  `$CM^ `wrapped^
  `$CR^
 

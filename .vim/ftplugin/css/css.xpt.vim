@@ -1,7 +1,7 @@
 XPTemplate priority=lang
 
-let s:f = g:XPTfuncs() 
- 
+let s:f = g:XPTfuncs()
+
 XPTvar $VOID_LINE  /* void */;
 XPTvar $CURSOR_PH      /* cursor */
 
@@ -9,7 +9,7 @@ XPTvar $CL  /*
 XPTvar $CM   *
 XPTvar $CR   */
 
-XPTinclude 
+XPTinclude
       \ _common/common
       \ _comment/doubleSign
 
@@ -32,9 +32,20 @@ endfunction
 XPTemplateDef
 
 
+XPT padding " padding:
+padding: `v^`v^AutoCmpl( 1, 'auto', '0px' )^;
+
+XPT width " width :
+width: `^;
+
+
+XPT height " height :
+height: `^;
+
+
 XPT backrep hint=background-repeat
 XSET rep=Choose(['repeat', 'repeat-x','repeat-y','no-repeat'])
-background-repeat `rep^;
+background-repeat: `rep^;
 
 
 XPT azimuth hint=azimuth
@@ -347,6 +358,9 @@ XPT tablelayout hint=table-layout
 XSET selec=Choose(['auto', 'fixed'])
 table-layout: `selec^;
 
+
+XPT textindent " text-indent
+text-indent: `^;`cursor^
 
 XPT textalign hint=text-align
 XSET selec=Choose(['left', 'right', 'center', 'justify'])
