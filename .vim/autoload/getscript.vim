@@ -1,8 +1,8 @@
 " ---------------------------------------------------------------------
 " getscript.vim
 "  Author:	Charles E. Campbell, Jr.
-"  Date:	Oct 14, 2009
-"  Version:	32d ASTRO-ONLY
+"  Date:	Dec 28, 2009
+"  Version:	32
 "  Installing:	:help glvs-install
 "  Usage:	:help glvs
 "
@@ -15,7 +15,7 @@
 if exists("g:loaded_getscript")
  finish
 endif
-let g:loaded_getscript= "v32d"
+let g:loaded_getscript= "v32"
 if &cp
  echoerr "GetLatestVimScripts is not vi-compatible; not loaded (you need to set nocp)"
  finish
@@ -325,7 +325,7 @@ fun! getscript#GetLatestVimScripts()
   " restore events and current directory
   exe "cd ".fnameescape(substitute(origdir,'\','/','ge'))
   if exists("&ei")
-    let &ei  = eikeep
+  let &ei  = eikeep
   endif
   if exists("&hls")
     let &hls = hlskeep
