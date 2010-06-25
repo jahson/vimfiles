@@ -1,0 +1,25 @@
+[user]
+	name = Oleg Roschupkin
+	email = jjahson@gmail.com
+[core]
+	editor = vim
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[color]
+	ui = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto
+[alias]
+	ls = ls-files
+	ci = commit
+	st = status
+	br = branch
+	pl = pull
+	di = diff
+	ad = add
+	ps = push origin master
+	pl = pull origin master
