@@ -302,6 +302,25 @@ let g:proj_window_width=35
 " map <F5> to toggle Project window
 nmap <silent> <F5> :Project<CR>
 
+" Neocomplcache
+let g:NeoComplCache_EnableAtStartup = 1
+let g:NeoComplCache_SmartCase = 1
+let g:NeoComplCache_EnableCamelCaseCompletion = 1
+let g:NeoComplCache_EnableUnderbarCompletion = 1
+let g:NeoComplCache_DictionaryFileTypeLists = {
+	\ 'default'    : '',
+	\ 'erlang'     : $VIMRUNTIME . '/dictionaries/erlang.dict',
+	\ 'objc'       : $VIMRUNTIME . '/dictionaries/objc.dict',
+	\ 'javascript' : $VIMRUNTIME . '/dictionaries/javascript.dict',
+	\ 'ruby'       : $VIMRUNTIME . '/dictionaries/ruby.dict',
+	\ 'perl'       : $VIMRUNTIME . '/dictionaries/perl.dict',
+	\ 'php'        : $VIMRUNTIME . '/dictionaries/php.dict',
+	\ 'scheme'     : $VIMRUNTIME . '/dictionaries/gauche.dict',
+	\ 'int-erl'    : $VIMRUNTIME . '/dictionaries/erlang.dict',
+	\ 'int-irb'    : $VIMRUNTIME . '/dictionaries/ruby.dict',
+	\ 'int-perlsh' : $VIMRUNTIME . '/dictionaries/perl.dict'
+	\ }
+
 " Write file using sudo
 cmap w!! %!sudo tee > /dev/null %
 
