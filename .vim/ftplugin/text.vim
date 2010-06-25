@@ -1,3 +1,4 @@
+set nonumber
 set expandtab
 set autoindent
 set textwidth=76
