@@ -26,11 +26,13 @@ alias e="vim"
 alias se="sudo vim"
 alias ..="cd .."
 alias ...="cd .. ; cd .."
-alias port="sudo port"
-alias pecl="sudo pecl"
-alias apt-get="sudo apt-get"
 alias rrf="rm -rf"
 alias cpr="cp -r"
+# auto-sudo
+alias port="sudo port"
+alias pecl="sudo pecl"
+alias pear="sudo pear"
+alias apt-get="sudo apt-get"
 
 # count connections from ip
 alias connip="netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
@@ -38,7 +40,7 @@ alias connip="netstat -ntu | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | s
 # show most used commands
 alias cmdprofile="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
 
-# alias fore cleaning of firefox prefile
+# alias fore cleaning of firefox profile
 if [ "$OS" = "darwin" ]; then
 	alias cleanfirefox="find ~/Library/Application\ Support/Firefox/Profiles -name '*.sqlite' -exec sqlite3 {} VACUUM \;}"
 fi
@@ -57,4 +59,4 @@ hf() {
 	grep "$@" ~/.bash_history
 }
 
-#  vim: set ts=4 sw=4 noexpandtab : #
+#  vim: set ts=4 sw=4 noexpandtab ft=sh: #
