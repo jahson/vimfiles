@@ -313,6 +313,10 @@ fun! manpageview#ManPageView(viamap,bknum,...) range
    elseif &ft == "php"
    	let ext = "php"
 
+   " filetype: erlang
+   elseif &ft == "erlang"
+   	let ext = "erl"
+
    " filetype: tex
   elseif &ft == "tex"
    let ext= "tex"
