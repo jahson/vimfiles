@@ -256,6 +256,9 @@ nmap gf :new %:p:h/<cfile><CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" <F3> to toggle line numbers
+nmap <silent> <F3> :set number!<cr>
+
 " Error list navigation
 nmap <leader>j :cn<cr>
 nmap <leader>k :cp<cr>
