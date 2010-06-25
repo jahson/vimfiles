@@ -4,9 +4,14 @@
 
 set textwidth=79
 
+" Help tuning
 set keywordprg=pman
+if !exists( "g:manpageview_pgm_php" )
+    let g:manpageview_pgm_php = "pman"
+endif
 
-set dictionary=~/.vim/dictionaries/php
+" Completion dictionary
+set dictionary=~/.vim/dictionaries/php.dict
 
 " Load PHP Documentor for VIM
 source ~/.vim/php-doc.vim
@@ -17,6 +22,7 @@ set formatoptions+=tcqlro
 "
 " Syntax options
 "
+
 " Enable folding of class/function blocks
 let php_folding = 1
 
@@ -24,7 +30,7 @@ let php_folding = 1
 "let php_noShortTags = 0
 
 " Highlighti SQL inside PHP strings
-let php_sql_query=1
+let php_sql_query = 1
 
 "
 " Linting
@@ -99,7 +105,7 @@ nmap <silent> <F4>
 set tags=./tags,tags
 
 " Run PHP in cli
-"autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
-nmap <leader>r :w!<CR>:!php %<CR>
+autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
+"nmap <leader>r :w!<CR>:!php %<CR>
 
-" vim: set fdm=marker:
+" vim: set ts=4 sw=4 fdm=marker:

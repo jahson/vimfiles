@@ -1,1 +1,6 @@
-set keywordprg=erl\ -man
+set keywordprg = erl\ -man
+
+if !exists( "g:manpageview_pgm_erl" )
+    let g:manpageview_pgm_erl = "erl"
+    let g:manpageview_options_erl = "-man"
+endif
