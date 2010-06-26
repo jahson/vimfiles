@@ -290,22 +290,25 @@ if has("cscope")
 	map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 endif
 
-" NERDTree configuration
+" NERDTree configuration. {{{
 " Increase window size to 35 columns
 let NERDTreeWinSize=35
 " map <F7> to toggle NERDTree window
 nmap <silent> <F7> :NERDTreeToggle<CR>
+" }}}
 
-" Project configuration
-" Configure Project
+" Project configuration. {{{
 let g:proj_window_width=35
 " map <F5> to toggle Project window
 nmap <silent> <F5> :Project<CR>
+" }}}
 
-" Neocomplcache
+" Neocomplcache configuration. {{{
 let g:NeoComplCache_EnableAtStartup = 1
 let g:NeoComplCache_SmartCase = 1
 let g:NeoComplCache_EnableCamelCaseCompletion = 1
+let g:NeoComplCache_Min_Syntax_Length = 3
+let g:NeoComplCache_Min_Keyword_Length = 3
 let g:NeoComplCache_EnableUnderbarCompletion = 1
 let g:NeoComplCache_DictionaryFileTypeLists = {
 	\ 'default'    : '',
@@ -320,6 +323,19 @@ let g:NeoComplCache_DictionaryFileTypeLists = {
 	\ 'int-irb'    : $VIMRUNTIME . '/dictionaries/ruby.dict',
 	\ 'int-perlsh' : $VIMRUNTIME . '/dictionaries/perl.dict'
 	\ }
+let g:NeoComplCache_Omni_Function_List = {
+	\ 'css'    : 'csscomplete#CompleteCSS',
+	\ 'php'    : 'phpcomplete#CompletePHP',
+	\ 'python' : 'pythoncomplete#Complete',
+	\ 'ruby'   : 'rubycomplete#Complete',
+	\ }
+" }}}
+" Neocomplcache key-mappings."{{{
+imap <silent>L     <Plug>(neocomplcache_snippets_expand)
+smap <silent>L     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+"}}}
 
 " Write file using sudo
 cmap w!! %!sudo tee > /dev/null %
