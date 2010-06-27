@@ -206,8 +206,7 @@ set nowrap
 set smarttab
 set shiftwidth=4
 set tabstop=4
-set autoindent
-set smartindent
+set autoindent smartindent " Smart indent
 set cindent
 set expandtab
 
@@ -229,6 +228,10 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute( 
 "
 " MAPPINGS
 "
+
+" Close help and git window by pressing q.
+autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-w>c
+autocmd FileType * if &readonly |  nnoremap <buffer> q <C-w>c | endif
 " Close current buffer
 nmap <leader>b :bd<CR>
 " Exit saving changes
@@ -354,12 +357,14 @@ if !exists(":DiffOrig")
 		\ | wincmd p | diffthis
 endif
 
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+" Enable omni completion. {{{
 autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+"}}}
 
-" vim: set ts=4 sw=4 noexpandtab:
+" vim: set ts=4 sw=4 fdm=marker noexpandtab:
