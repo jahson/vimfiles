@@ -6,6 +6,7 @@ set completion-ignore-case on
 set show-all-if-ambiguous on
 # sort horizontally first
 set print-completions-horizontally on
+set editing-mode vi
 
 "\e[B":history-search-forward
 "\e[A":history-search-backward
