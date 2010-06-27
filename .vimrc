@@ -337,6 +337,10 @@ inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 "}}}
 
+" VimFiler configuration. {{{
+let g:vimfiler_as_default_explorer = 1
+"}}}
+
 " Write file using sudo
 cmap w!! %!sudo tee > /dev/null %
 
