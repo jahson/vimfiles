@@ -304,13 +304,13 @@ nmap <silent> <F5> :Project<CR>
 " }}}
 
 " Neocomplcache configuration. {{{
-let g:NeoComplCache_EnableAtStartup = 1
-let g:NeoComplCache_SmartCase = 1
-let g:NeoComplCache_EnableCamelCaseCompletion = 1
-let g:NeoComplCache_Min_Syntax_Length = 3
-let g:NeoComplCache_Min_Keyword_Length = 3
-let g:NeoComplCache_EnableUnderbarCompletion = 1
-let g:NeoComplCache_DictionaryFileTypeLists = {
+let g:neocomplcache_enableatstartup = 1
+let g:neocomplcache_smartcase = 1
+let g:neocomplcache_enablecamelcasecompletion = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_min_keyword_length = 3
+let g:neocomplcache_enableunderbarcompletion = 1
+let g:neocomplcache_dictionaryfiletypelists = {
 	\ 'default'    : '',
 	\ 'erlang'     : $VIMRUNTIME . '/dictionaries/erlang.dict',
 	\ 'objc'       : $VIMRUNTIME . '/dictionaries/objc.dict',
@@ -323,7 +323,7 @@ let g:NeoComplCache_DictionaryFileTypeLists = {
 	\ 'int-irb'    : $VIMRUNTIME . '/dictionaries/ruby.dict',
 	\ 'int-perlsh' : $VIMRUNTIME . '/dictionaries/perl.dict'
 	\ }
-let g:NeoComplCache_Omni_Function_List = {
+let g:neocomplcache_omni_function_list = {
 	\ 'css'    : 'csscomplete#CompleteCSS',
 	\ 'php'    : 'phpcomplete#CompletePHP',
 	\ 'python' : 'pythoncomplete#Complete',
