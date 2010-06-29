@@ -1,7 +1,10 @@
+# Executed for every login shell.
+
 # Identify OS
 export OS=`uname -s | sed -e 's/  */-/g;y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
 
-if [ "$OS" = "darwin" ]; then
+if [[ $OS == "darwin" ]]
+then
 	# Macports
 	export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$PATH
 	export MANPATH=/opt/local/share/man:$MANPATH
@@ -24,7 +27,10 @@ export LC_TELEPHONE="ru_RU.UTF-8"
 export LC_MEASUREMENT="ru_RU.UTF-8"
 export LC_IDENTIFICATION="ru_RU.UTF-8"
 
-source ~/.bashrc
+if [[ -f ~/.bashrc ]]
+then
+	source ~/.bashrc
+fi
 
 # Hello message
 echo -e "Kernel: " `uname -smr`

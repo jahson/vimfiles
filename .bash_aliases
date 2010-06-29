@@ -8,7 +8,8 @@ alias cmdprofile="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}'
 
 # Convenience {{{
 alias cls="clear"
-if [ "$OS" = "linux" ]; then
+if [[ $OS == "linux" ]]
+then
 	alias ls="ls --color=auto"
 else
 	alias ls="ls -hGF"
@@ -34,7 +35,8 @@ alias apt-get="sudo apt-get"
 #}}}
 
 # OS X aliases {{{
-if [ "$OS" = "darwin" ]; then
+if [[ $OS == "darwin" ]]
+then
 	# Clean firefox profile
 	alias cleanfirefox="find ~/Library/Application\ Support/Firefox/Profiles -name '*.sqlite' -exec sqlite3 {} VACUUM \;}"
 
