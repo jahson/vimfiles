@@ -218,9 +218,6 @@ nmap <leader>. :call ClearTrailingWhitespace()<cr>
 " Try to not touch esc
 imap jj <esc>
 
-" use enter and shift+enter for inserting newlines without going to insert mode
-map <s-enter> O<esc>
-map <enter> o<esc>
 " Close help and git window by pressing q.
 autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-w>c
 autocmd FileType * if &readonly |  nnoremap <buffer> q <C-w>c | endif
@@ -241,8 +238,8 @@ map <leader>e :edit! ~/.vimrc<CR>
 nmap <leader>g :find<CR>
 " use CTRL-F for omni completion
 imap <C-F> 
-" map CTRL-L to piece-wise copying of the line above the current one
-imap <C-L> @@@<ESC>hhkywjl?@@@<CR>P/@@@<CR>3s
+" map CTRL-y to piece-wise copying of the line above the current one
+imap <C-y> @@@<ESC>hhkywjl?@@@<CR>P/@@@<CR>3s
 " map <leader>f display all lines with keyword under cursor and ask which one to
 " jump to
 nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
@@ -331,24 +328,24 @@ let g:neocomplcache_dictionary_filetype_lists = {
 	\ }
 let g:neocomplcache_omni_function_list = {
 	\ 'css' : 'csscomplete#CompleteCSS',
+	\ 'html' : 'htmlcomplete#CompleteTags',
 	\ 'php' : 'phpcomplete#CompletePHP',
 	\ 'python' : 'pythoncomplete#Complete',
 	\ 'ruby' : 'rubycomplete#Complete',
     \ 'javascript' : 'javascriptcomplete#CompleteJS',
 	\ }
 " Keybindings
-imap <silent>L     <Plug>(neocomplcache_snippets_expand)
-smap <silent>L     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
+imap <silent><C-k> <Plug>(neocomplcache_snippets_expand)
+smap <silent><C-k> <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
 "}}}
 
 " VimFiler. {{{
 let g:vimfiler_as_default_explorer = 1
 "}}}
-"}}}
 
-" Setup cscope options
+" CScope. {{{
 if has("cscope")
 	set csprg=/usr/bin/cscope
 	set csto=0
@@ -360,6 +357,7 @@ if has("cscope")
 	map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
 	map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 endif
+"}}}
 
 " Write file using sudo
 cmap w!! %!sudo tee > /dev/null %
