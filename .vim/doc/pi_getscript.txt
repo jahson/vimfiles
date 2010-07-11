@@ -1,4 +1,4 @@
-*pi_getscript.txt*  For Vim version 7.0.  Last change: 2009 Oct 14
+*pi_getscript.txt*  For Vim version 7.0.  Last change: 2010 Jun 19
 >
 		GETSCRIPT REFERENCE MANUAL  by Charles E. Campbell, Jr.
 <
@@ -351,6 +351,7 @@ The AutoInstall process will:
 ==============================================================================
 9. GetLatestVimScripts History		*getscript-history* *glvs-hist* {{{1
 
+v32 Jun 19, 2010 : * (Jan Steffens) added support for xz compression
 v31 Jun 29, 2008 : * (Bill McCarthy) fixed having hls enabled with getscript
 		   * (David Schaefer) the acd option interferes with vimballs
 		     Solution: bypass the acd option

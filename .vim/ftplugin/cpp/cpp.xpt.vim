@@ -48,7 +48,6 @@ endfunction
 
 
 " ================================= Snippets ===================================
-XPTemplateDef
 
 XPT all  " ..begin, ..end,
 `v^.begin(), `v^.end(), `cursor^
@@ -176,4 +175,14 @@ catch ( `except^ )
 {
     `cursor^
 }
+
+XPT externc wrap=cursor " #ifdef C++.... extern "c"...
+#ifdef __cplusplus
+extern "C" {
+#endif
+`cursor^
+#ifdef __cplusplus
+}
+#endif
+..XPT
 

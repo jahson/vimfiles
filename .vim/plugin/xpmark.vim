@@ -28,6 +28,13 @@ augroup XPM
     au BufEnter * call XPMcheckStatusline()
 augroup END
 fun! XPMcheckStatusline() 
+    if stridx( &l:statusline, 'XPMautoUpdate' ) >= 0
+        return
+    else
+        call s:SetupStatusline()
+    endif
+endfunction
+fun! s:SetupStatusline() 
     if &statusline == ""
         if &l:statusline == ''
             setlocal statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -39,14 +46,14 @@ fun! XPMcheckStatusline()
         else
         endif 
     endif
-    if &l:statusline !~ 'XPMautoUpdate' 
+    if stridx( &l:statusline, 'XPMautoUpdate' ) < 0
         if &l:statusline =~ '\V\^%!'
             let &l:statusline  .= '.XPMautoUpdate("statusline")' 
         else
             let &l:statusline  .= '%{XPMautoUpdate("statusline")}' 
         endif
     endif
-endfunction  
+endfunction 
 fun! XPMadd( name, pos, prefer, ... ) 
     call XPMcheckStatusline()
     let d = s:BufData()
@@ -397,7 +404,7 @@ fun! s:updateWithNewChangeRange( changeStart, changeEnd ) dict
         let len2 = len( self.orderedMarks )
         let j += len2 - len
         call self.updateMarksAfter( [j, len2], a:changeStart, a:changeEnd )
-        return [ self.orderedMarks[ likelyIndexes[ 0 ] ], self.orderedMarks[ likelyIndexes[ 1 ] ] ]
+        return [ self.orderedMarks[ i ], self.orderedMarks[ j ] ]
     endif
 endfunction 
 fun! s:updateMarksBefore( indexRange, changeStart, changeEnd ) dict 
@@ -588,6 +595,9 @@ fun! s:findLikelyRange(changeStart, bChangeEnd) dict
     return [ iLikelyStart, iLikelyEnd ]
 endfunction 
 fun! s:saveCurrentCursorStat() dict 
+    if self.marks == {}
+        return
+    endif
     let p = [ line( '.' ), col( '.' ) ]
         exe 'k'.g:xpm_mark
         if p[0] < line( '$' )

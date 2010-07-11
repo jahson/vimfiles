@@ -91,8 +91,6 @@
 			return expand( "%" )            |
 		endfunction                             |
 
-		XPTemplateDef				| |XPTemplateDef|
-
 
 		XPT cmt hint=/**\ @auth...\ */		| |xpt-snippet|
 		XSET author=$author                     | |xpt-snippet-XSET|
@@ -154,13 +152,18 @@
 	all-1		63 // all=64
 <
 							 *xpt-snippet-keyword*
-	|xpt-snippet-keyword| specifies what other characters can be used as
-	|xpt-snippet-name|.
-	Format : >
-		XPTemplate keyword=...
-<	For example, for C language keyword is set as : >
-		XPTemplate keyword=#
-<	So that "#if" can be used as |xpt-snippet-name|.
+	|xpt-snippet-keyword| defines what characters other than word chars
+	can be used as |xpt-snippet-name|.
+
+	You do not need to specify explicitly what char is
+	xpt-snippet-keyword. It is automatically added when non-word char
+	presents in snippet name. For example: >
+		XPT #include <`^.h>
+<
+	After the above snippet loaded, "#" is added.
+
+	See also |xpt-snippet-name-matching-rule|.
+
 
 							    *xpt-snippet-mark*
 	To specify which 2 characters are used as |xpt-placeholder-mark|
@@ -258,9 +261,10 @@
 
 
 
-						 *XPTemplateDef* *xpt-snippet*
-	The snippet part starts with the command "XPTemplateDef". Any content
-	after this command is no longer Vim script, but a XPTemplate snippet.
+								 *xpt-snippet*
+	The snippet part starts where the first "XPT ... " presents. Any
+	content after this command is no longer Vim script, but XPTemplate
+	snippets.
 
 	Each |xpt-snippet| defines one code snippet with the following
 	syntax : >
@@ -268,15 +272,34 @@
 		<snippet body>..
 		..XPT
 <	'XPT' is the start of a snippet. '..XPT' is the end of a snippet, it
-	is optional. If '..XPT' is not present the snippet body ends at the
-	last non-empty line.
+	is optional. If '..XPT' does not present the snippet body ends at the
+	last non-empty line( but without the last line-break ).
 
 							    *xpt-snippet-name*
 	<snippetName> is the name the user has to type to trigger this
-	snippet. It can only contain characters defined in 'iskeyword' and
-	|xpt-snippet-keyword|. Custom snippets (not provided by XPTemplate)
-	should not start with "_" by convention as these snippets are used by
-	XPTemplate internally, see also |xpt-snippet-include|.
+	snippet. It can only contain word-chars |\w| and
+	|xpt-snippet-keyword|.
+
+	Custom snippets (not provided by XPTemplate) should not start with "_"
+	by convention as these snippets are used by XPTemplate internally, see
+	also |xpt-snippet-include|.
+
+
+					      *xpt-snippet-name-matching-rule*
+	When |xpt-key-trigger| key pressed, XPT search for snippet name from
+	cursor position backwards.
+
+	If character before cursor is a word char, XPT search backwards for
+	longest continuous sequence of word char or char defined in
+	|xpt-snippet-keyword|.
+
+	If character before cursor is non word char but included in
+	|xpt-snippet-keyword|, XPT search backwards for longest continuous
+	sequence of |xpt-snippet-keyword|.
+
+	In another word, non word char can not be placed at end of a snippet
+	name.
+
 
 							 *xpt-snippet-setting*
 	The 'name=value' defines snippet settings, including
@@ -415,7 +438,10 @@
 		XSET elts=c_printfElts( R( 'pattern' ) )
 		printf( "`pattern^"`elts^ )
 
-<	NOTE XSET/XSETm commands can be placed anywhere inside a snippet.
+<	NOTE	XPTemplate use 4-spaces indent. No table-char indent is
+		allowed in snippet file.
+
+	NOTE	XSET/XSETm commands can be placed anywhere inside a snippet.
 
 
 				       *`::^* *Include:* *xpt-snippet-include*
@@ -543,6 +569,12 @@
 <	Sequentially, the place holders in this snippet are : >
 		i, 0, i, len, i, cursor
 < 
+	Note The placeholder can't contain any backslashes (\). If the default
+	value should contain any items which need to be escaped (like brackets
+	or you want to use backslashes directly), use the following syntax
+	(see |xpt-placeholder-default-value| for more information): >
+		`name^value with \() here^
+<
 					      *xpt-placeholder-left-mark*  *`*
 					     *xpt-placeholder-right-mark*  *^*
 							*xpt-placeholder-mark*
@@ -882,6 +914,18 @@
 		    `^
 		}
 <
+	NOTE If you want to use a repetition inside a |xpt-snippet-expandable|
+	you can't use the normal |`...^| placeholder. Instead use `...{{^ as
+	in the following example: >
+		`Maybe...{{^
+		With repeatable:
+		`...{{^
+		- repeat this
+		`...^
+		`}}^
+		`}}^
+<
+	The first `}}^ ends the repetition, the second the expandable.
 
 	See |xpt-repetition| for using repetition.
 

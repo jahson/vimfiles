@@ -3,7 +3,7 @@ XPTemplate priority=lang
 let s:f = g:XPTfuncs()
 
 XPTvar $VOID_LINE  /* void */;
-XPTvar $CURSOR_PH      /* cursor */
+XPTvar $CURSOR_PH  /* cursor */
 
 XPTvar $CL  /*
 XPTvar $CM   *
@@ -29,7 +29,6 @@ fun! s:f.css_braced_post()
 endfunction
 
 " ================================= Snippets ===================================
-XPTemplateDef
 
 
 XPT padding " padding:

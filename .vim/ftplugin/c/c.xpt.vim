@@ -37,7 +37,6 @@ XPTinclude
 let s:f = g:XPTfuncs()
 
 
-XPTemplateDef
 
 XPT _printfElts hidden 
 XSET elts|pre=Echo('')
@@ -60,6 +59,14 @@ snprintf(`$SPop^`str^,`$SPop^`size^,`$SPop^`:_printfElts:^`$SPop^)
 XPT fprintf	" fprintf\(...)
 fprintf(`$SPop^`stream^,`$SPop^`:_printfElts:^`$SPop^)
 
+XPT memcpy " memcpy (..., ..., sizeof (...) ... )
+memcpy( `dest^, `source^, sizeof(`type^int^) * `count^ )
+
+XPT memset " memset (..., ..., sizeof (...) ... )
+memset( `buffer^, `what^0^, sizeof( `type^int^ ) * `count^ )
+
+XPT malloc " malloc ( ... );
+(`type^int^*)malloc( sizeof( `type^ ) * `count^ )
 
 XPT assert	" assert (.., msg)
 assert(`$SPop^`isTrue^,`$SPop^"`text^"`$SPop^)
@@ -76,7 +83,6 @@ XPT fcomment
 
 XPT para syn=comment	" comment parameter
 @param {`Object^} `name^ `desc^
-
 
 XPT filehead
 XSET cursor|pre=CURSOR
@@ -101,3 +107,4 @@ XSET cursor|pre=CURSOR
 
 XPT call wraponly=param " ..( .. )
 `name^(`$SPop^`param^`$SPop^)
+

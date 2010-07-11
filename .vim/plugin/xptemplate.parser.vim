@@ -14,7 +14,8 @@ com! -nargs=* XPTemplate
       \   if XPTsnippetFileInit( expand( "<sfile>" ), <f-args> ) == 'finish'
       \ |     finish
       \ | endif
-com!          XPTemplateDef call s:XPTstartSnippetPart(expand("<sfile>")) | finish
+com! -nargs=* XPTemplateDef call s:XPTstartSnippetPart(expand("<sfile>")) | finish
+com! -nargs=* XPT           call s:XPTstartSnippetPart(expand("<sfile>")) | finish
 com! -nargs=* XPTvar        call XPTsetVar( <q-args> )
 com! -nargs=* XPTsnipSet    call XPTsnipSet( <q-args> )
 com! -nargs=+ XPTinclude    call XPTinclude(<f-args>)
@@ -151,7 +152,13 @@ fun! XPTembed(...)
 endfunction 
 fun! s:XPTstartSnippetPart(fn) 
     let lines = readfile(a:fn)
-    let i = match( lines, '^XPTemplateDef' )
+    let i = match( lines, '\V\^XPTemplateDef' )
+    if i == -1
+        let i = match( lines, '\V\^XPT\s' ) - 1
+    endif
+    if i < 0
+        return
+    endif
     let lines = lines[ i : ]
     let x = b:xptemplateData
     let x.snippetToParse += [ { 'snipFileScope' : x.snipFileScope, 'lines' : lines } ]
@@ -214,10 +221,6 @@ fun! s:XPTemplateParseSnippet(lines)
         let value = value[0:0] == '=' ? g:xptutil.UnescapeChar(value[1:], ' ') : 1
         let setting[name] = value
     endfor
-    if type( get( setting, 'wraponly', 0 ) ) == type( '' )
-        let setting.wrap = setting.wraponly
-        let setting.wraponly = 1
-    endif
     let start = 1
     let len = len( lines )
     while start < len
@@ -244,7 +247,7 @@ fun! s:XPTemplateParseSnippet(lines)
         call XPTdefineSnippet(snippetName, setting, snippetLines)
     endif
     if has_key( snipScope.loadedSnip, snippetName )
-        echom "XPT: warn : duplicate snippet:" . snippetName . ' in file:' . snipScope.filename
+        XPT#warn( "XPT: warn : duplicate snippet:" . snippetName . ' in file:' . snipScope.filename )
     endif
     let snipScope.loadedSnip[ snippetName ] = 1
     if has_key( setting, 'synonym' )
@@ -252,7 +255,7 @@ fun! s:XPTemplateParseSnippet(lines)
         for synonym in synonyms
             call XPTemplateAlias( synonym, snippetName, {} )
             if has_key( snipScope.loadedSnip, synonym )
-                echom "XPT: warn : duplicate synonym:" . synonym . ' in file:' . snipScope.filename
+                call XPT#warn( "XPT: warn : duplicate synonym:" . synonym . ' in file:' . snipScope.filename )
             endif
             let snipScope.loadedSnip[ synonym ] = 1
         endfor

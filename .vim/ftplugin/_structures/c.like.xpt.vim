@@ -7,7 +7,6 @@ XPTvar $BRstc         ' '
 let s:f = g:XPTfuncs()
 
 
-XPTemplateDef
 
 
 XPT enum hint=enum\ {\ ..\ }
@@ -17,7 +16,7 @@ enum `name^`$BRstc^{
 }
 
 
-XPT struct abbr hint=struct\ {\ ..\ }
+XPT struct hint=struct\ {\ ..\ }
 struct `structName^`$BRstc^{
     `^
 }
