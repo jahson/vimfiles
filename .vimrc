@@ -1,8 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" I don't need to be in VI compatible mode
+" I don't need to be in vi compatible mode
 if !exists('s:vimrc_loaded')
 	" do not set again on reloading or there will be side effects
 	set nocompatible
@@ -96,7 +92,7 @@ set equalalways
 " when split put new windows right and below
 set splitbelow splitright
 " Go back to the position the cursor was on the last time this file was edited
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute( "normal g'\"" ) | endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute("normal g'\"") | endif
 " Save and restore folds
 autocmd BufWinLeave ?* mkview
 autocmd BufWinEnter ?* silent loadview
@@ -279,11 +275,11 @@ endfunction
 " Append modeline after last line in buffer.
 " Use substitute() (not printf()) to handle '%%s' modeline in LaTeX files.
 function! AppendModeline()
-	let save_cursor = getpos( '.' )
+	let save_cursor = getpos('.')
 	let append = ' vim: set ts='.&tabstop.' sw='.&shiftwidth.': '
 	$put = ''
-	$put = substitute( &commentstring, '%s', append, '' )
-	call setpos( '.', save_cursor )
+	$put = substitute(&commentstring, '%s', append, '')
+	call setpos('.', save_cursor)
 endfunction
 
 function! ClearTrailingWhitespace()
@@ -358,11 +354,12 @@ if has("cscope")
 	map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 endif
 "}}}
+"}}}
+
+" Commands: {{{
 
 " Write file using sudo
 cmap w!! %!sudo tee > /dev/null %
-
-" Commands: {{{
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -386,7 +383,7 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 if !exists('s:vimrc_loaded')
 	let s:vimrc_loaded = 1
 else
-	" Nothing
+	" Do nothing
 endif
 
 " :h 'secure'
