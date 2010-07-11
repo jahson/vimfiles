@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: snippets_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 11 Jun 2010
+" Last Modified: 10 Jul 2010
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -31,7 +31,12 @@ if !exists('s:snippets')
   let s:snippets = {}
 endif
 
-function! neocomplcache#plugin#snippets_complete#initialize()"{{{
+let s:source = {
+      \ 'name' : 'snippets_complete',
+      \ 'kind' : 'plugin',
+      \}
+
+function! s:source.initialize()"{{{
   " Initialize.
   let s:snippets = {}
   let s:begin_snippet = 0
@@ -44,7 +49,7 @@ function! neocomplcache#plugin#snippets_complete#initialize()"{{{
   endif
 
   " Set snippets dir.
-  let s:runtime_dir = split(globpath(&runtimepath, 'autoload/neocomplcache/plugin/snippets_complete'), '\n')
+  let s:runtime_dir = split(globpath(&runtimepath, 'autoload/neocomplcache/sources/snippets_complete'), '\n')
   let s:snippets_dir = split(globpath(&runtimepath, 'snippets'), '\n') + s:runtime_dir
   if exists('g:neocomplcache_snippets_dir')
     for l:dir in split(g:neocomplcache_snippets_dir, ',')
@@ -92,7 +97,7 @@ function! neocomplcache#plugin#snippets_complete#initialize()"{{{
   call s:caching_snippets('_')
 endfunction"}}}
 
-function! neocomplcache#plugin#snippets_complete#finalize()"{{{
+function! s:source.finalize()"{{{
   delcommand NeoComplCacheEditSnippets
   delcommand NeoComplCacheEditRuntimeSnippets
   delcommand NeoComplCachePrintSnippets
@@ -100,22 +105,27 @@ function! neocomplcache#plugin#snippets_complete#finalize()"{{{
   hi clear NeoComplCacheExpandSnippets
 endfunction"}}}
 
-function! neocomplcache#plugin#snippets_complete#get_keyword_list(cur_keyword_str)"{{{
+function! s:source.get_keyword_list(cur_keyword_str)"{{{
   if !has_key(s:snippets, '_')
     " Caching _ snippets.
     call s:caching_snippets('_')
   endif
   let l:snippets = values(s:snippets['_'])
 
-  if !has_key(s:snippets, neocomplcache#get_context_filetype())
+  let l:filetype = neocomplcache#get_context_filetype()
+  if !has_key(s:snippets, l:filetype)
     " Caching snippets.
-    call s:caching_snippets(neocomplcache#get_context_filetype())
+    call s:caching_snippets(l:filetype)
   endif
-  for l:source in neocomplcache#get_sources_list(s:snippets, neocomplcache#get_context_filetype())
+  for l:source in neocomplcache#get_sources_list(s:snippets, l:filetype)
     let l:snippets += values(l:source)
   endfor
 
   return s:keyword_filter(neocomplcache#dup_filter(l:snippets), a:cur_keyword_str)
+endfunction"}}}
+
+function! neocomplcache#sources#snippets_complete#define()"{{{
+  return s:source
 endfunction"}}}
 
 function! s:compare_words(i1, i2)
@@ -148,9 +158,9 @@ function! s:keyword_filter(list, cur_keyword_str)"{{{
   return l:list
 endfunction"}}}
 
-function! neocomplcache#plugin#snippets_complete#expandable()"{{{
+function! neocomplcache#sources#snippets_complete#expandable()"{{{
   " Set buffer filetype.
-  let l:ft = neocomplcache#get_context_filetype()
+  let l:ft = neocomplcache#get_context_filetype(1)
 
   let l:snippets = copy(s:snippets['_'])
   for l:t in split(l:ft, '\.')
@@ -172,16 +182,9 @@ function! neocomplcache#plugin#snippets_complete#expandable()"{{{
         \ || has_key(l:snippets, matchstr(s:get_cur_text(), '\S\+$'))
         \ || search('\${\d\+\%(:.\{-}\)\?\\\@<!}\|\$<\d\+\%(:.\{-}\)\?\\\@<!>', 'w') > 0
 endfunction"}}}
-function! neocomplcache#plugin#snippets_complete#get_cur_text()"{{{
-  if mode() ==# 'i'
-    return matchstr(s:get_cur_text(), '\h\w*[^[:alnum:][:space:]]*$')
-  else
-    return matchstr(s:cur_text, '\h\w*[^[:alnum:][:space:]]*$')
-  endif
-endfunction"}}}
 
 function! s:caching()"{{{
-  for l:filetype in keys(neocomplcache#get_source_filetypes(neocomplcache#get_context_filetype()))
+  for l:filetype in keys(neocomplcache#get_source_filetypes(neocomplcache#get_context_filetype(1)))
     if !has_key(s:snippets, l:filetype)
       call s:caching_snippets(l:filetype)
     endif
@@ -211,7 +214,7 @@ endfunction"}}}
 
 function! s:edit_snippets(filetype, isruntime)"{{{
   if a:filetype == ''
-    let l:filetype = neocomplcache#get_context_filetype()
+    let l:filetype = neocomplcache#get_context_filetype(1)
   else
     let l:filetype = a:filetype
   endif
@@ -249,7 +252,7 @@ endfunction"}}}
 function! s:print_snippets(filetype)"{{{
   let l:list = values(s:snippets['_'])
 
-  let l:filetype = (a:filetype != '')?    a:filetype : neocomplcache#get_context_filetype()
+  let l:filetype = (a:filetype != '')?    a:filetype : neocomplcache#get_context_filetype(1)
 
   if l:filetype != ''
     if !has_key(s:snippets, l:filetype)
@@ -318,7 +321,7 @@ function! s:load_snippets(snippets_file, filetype)"{{{
     elseif line =~ '^abbr\s'
       let l:snippet_pattern.abbr = matchstr(line, '^abbr\s\+\zs.*\ze\s*$')
     elseif line =~ '^alias\s'
-      let l:snippet_pattern.alias = split(substitute(matchstr(line, '^alias\s\+\zs.*\ze\s*$'), '\s', '', 'g'), ',')
+      let l:snippet_pattern.alias = split(matchstr(line, '^alias\s\+\zs.*\ze\s*$'), '[,[:space:]]\+')
     elseif line =~ '^prev_word\s'
       let l:snippet_pattern.prev_word = matchstr(line, '^prev_word\s\+[''"]\zs.*\ze[''"]$')
     elseif line =~ '^\s'
@@ -361,7 +364,7 @@ endfunction"}}}
 
 function! s:snippets_expand(cur_text, col)"{{{
   " Set buffer filetype.
-  let l:ft = neocomplcache#get_context_filetype()
+  let l:ft = neocomplcache#get_context_filetype(1)
 
   let l:snippets = copy(s:snippets['_'])
   for l:t in split(l:ft, '\.')
