@@ -59,7 +59,7 @@ function! s:DelimitMateDo(...) "{{{
 		" Check if this file type is excluded:
 		for ft in split(g:delimitMate_excluded_ft,',')
 			if ft ==? &filetype
-				"echomsg "excluded"
+				echomsg "excluded"
 				call delimitMate#UnMap()
 				return 1
 			endif

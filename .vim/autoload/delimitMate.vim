@@ -511,7 +511,7 @@ function! delimitMate#BS() " {{{
 		return "\<BS>" . delimitMate#Del()
 	elseif delimitMate#IsCRExpansion()
 		return "\<BS>\<Del>"
-	else
+    else
 		return "\<BS>"
 	endif
 endfunction " }}} delimitMate#BS()
