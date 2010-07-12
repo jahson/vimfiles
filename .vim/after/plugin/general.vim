@@ -12,19 +12,12 @@ function MyTabOrComplete()
 		return "\<C-N>"
 	endif
 endfunction
+inoremap <Tab> <C-R>=MyTabOrComplete()<CR>
 " }}}
 
-"
-" Map CTRL-B to snippetsEmu and use <Tab> for our smart completion
-if exists('loaded_snippet')
-	imap <C-B> <Plug>Jumper
-endif
-inoremap <Tab> <C-R>=MyTabOrComplete()<CR>
-
-"
 " Customize taglist settings
 if exists('loaded_taglist')
-	let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+	let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
 	let Tlist_Enable_Fold_Column = 0
 	let Tlist_Exit_OnlyWindow = 1
 	let Tlist_File_Fold_Auto_Close = 1

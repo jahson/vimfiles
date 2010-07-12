@@ -11,17 +11,4 @@ if exists("loaded_matchit")
 		\ '<:>'
 endif
 
-" Uncomment the following function and option if you do not want built-in
-" classes and methods appearing in omni completion lists
-function! MyPHPComplete(findstart, base)
-	if !exists('g:php_builtin_functions')
-		call phpcomplete#LoadData()
-	endif
-	let g:php_builtin_object_functions = {}
-
-	let result = phpcomplete#CompletePHP(a:findstart, a:base)
-	return result
-endfunction
-setlocal ofu=MyPHPComplete
-
 " vim: set ts=4 sw=4 noexpandtab:
