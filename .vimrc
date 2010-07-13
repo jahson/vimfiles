@@ -42,7 +42,7 @@ set sidescroll=5
 " right of the cursor if 'nowrap' is set.
 set sidescrolloff=5
 " Use menu to show command-line completion (in 'full' case)
-set nowildmenu
+set wildmenu
 " Set command-line completion mode:
 "   - on first <Tab>, when more than one match, list all matches and complete
 "     the longest common  string
@@ -145,8 +145,8 @@ set expandtab
 " Enable modeline (nocompatible should already enable this,
 " but sometimes it is disabled)
 set modeline
-" Use clipboard register
-set clipboard& clipboard+=unnamed
+" Yank and paste the selection without prepending "* to commands
+set clipboard+=unnamed
 " Backspace will delete indent and newline
 set backspace=indent,eol,start
 " Jump to matching bracket for 3/10th of a second (works with showmatch)
@@ -163,10 +163,10 @@ set updatetime=3000
 " Save swap file after every 50 characters
 set updatecount=50
 " Set directory for swap files
-set directory=~/.vim_tmp
+set directory=~/.vim/tmp
 " Backups
 set backup
-set backupdir=~/.vim_backup
+set backupdir=~/.vim/backup
 " backupskip helps with crontab -e problems
 set backupskip=/tmp/*,/private/tmp/*
 " Insert mode completion options
