@@ -354,6 +354,21 @@ if has("cscope")
 	map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 endif
 "}}}
+
+" Tag List. {{{
+" Set location of ctags
+let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
+" Do not show fold column
+let Tlist_Enable_Fold_Column = 0
+" width of window in columns
+let Tlist_WinWidth = 45
+" Do not show variables for php
+let tlist_php_settings = 'php;c:class;d:constant;f:function'
+
+" map <F6> to toggle taglist window
+nmap <silent> <F6> :TlistToggle<CR>
+"}}}
+
 "}}}
 
 " Commands: {{{
