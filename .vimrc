@@ -201,44 +201,44 @@ map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
 " Windows split mappings
-noremap <leader>v :vsp<cr>
-noremap <leader>h :split<cr>
+noremap <Leader>v :vsp<CR>
+noremap <Leader>h :split<CR>
 
 " Use arrow keys to navigate between buffers
-map <right> :bn<cr>
-map <left> :bp<cr>
+nmap <Right> :bn<CR>
+nmap <Left> :bp<CR>
 
 " Clear trailing whitespaces
-nmap <leader>. :call ClearTrailingWhitespace()<cr>
+nmap <Leader>. :call ClearTrailingWhitespace()<CR>
 
 " Try to not touch esc
-imap jj <esc>
+imap jj <Esc>
 
 " Close help and git window by pressing q.
-autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-w>c
-autocmd FileType * if &readonly |  nnoremap <buffer> q <C-w>c | endif
+autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-W>c
+autocmd FileType * if &readonly |  nnoremap <buffer> q <C-W>c | endif
 
 "Mapping to remove highlight
-map <leader>n :noh<cr>
+map <Leader>n :noh<CR>
 " Close current buffer
-nmap <leader>b :bd<CR>
+nmap <Leader>b :bd<CR>
 " Exit saving changes
-nmap <leader>w :x<CR>
+nmap <Leader>w :x<CR>
 " Save changes
-map <leader>s :w!<CR>
+map <Leader>s :w!<CR>
 " Exit without saving
-map <leader>q :q!<CR>
+map <Leader>q :q!<CR>
 " Fast editing of .vimrc
-map <leader>e :edit! ~/.vimrc<CR>
+map <Leader>e :edit! ~/.vimrc<CR>
 " Find file and edit
-nmap <leader>g :find<CR>
+nmap <Leader>g :find<CR>
 " use CTRL-F for omni completion
 imap <C-F> 
 " map CTRL-y to piece-wise copying of the line above the current one
-imap <C-y> @@@<ESC>hhkywjl?@@@<CR>P/@@@<CR>3s
-" map <leader>f display all lines with keyword under cursor and ask which one to
+imap <C-Y> @@@<Esc>hhkywjl?@@@<CR>P/@@@<CR>3s
+" map <Leader>f display all lines with keyword under cursor and ask which one to
 " jump to
-nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nmap <Leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " open filename under cursor in a new window (use current file's working directory)
 nmap gf :new %:p:h/<cfile><CR>
 " visual shifting (does not exit Visual mode)
@@ -249,11 +249,11 @@ vnoremap > >gv
 set pastetoggle=<F2>
 
 " <F3> to toggle line numbers
-nmap <silent> <F3> :set number!<cr>
+nmap <silent> <F3> :set number!<CR>
 
 " Error list navigation
-nmap <leader>j :cn<cr>
-nmap <leader>k :cp<cr>
+nmap <Leader>j :cn<CR>
+nmap <Leader>k :cp<CR>
 
 nmap <Leader>ml :call AppendModeline()<CR>
 " }}}
@@ -331,10 +331,10 @@ let g:neocomplcache_omni_function_list = {
     \ 'javascript' : 'javascriptcomplete#CompleteJS',
 	\ }
 " Keybindings
-imap <silent><C-k> <Plug>(neocomplcache_snippets_expand)
-smap <silent><C-k> <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-l> neocomplcache#complete_common_string()
+imap <silent><C-K> <Plug>(neocomplcache_snippets_expand)
+smap <silent><C-K> <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-G> neocomplcache#undo_completion()
+inoremap <expr><C-L> neocomplcache#complete_common_string()
 "}}}
 
 " VimFiler. {{{
