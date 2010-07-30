@@ -1,7 +1,7 @@
 " ============================================================================
 " File:        autoload/delimitMate.vim
-" Version:     2.4DEV
-" Modified:    2010-06-06
+" Version:     2.4
+" Modified:    2010-07-29
 " Description: This plugin provides auto-completion for quotes, parens, etc.
 " Maintainer:  Israel Chauca F. <israelchauca@gmail.com>
 " Manual:      Read ":help delimitMate".
@@ -53,8 +53,9 @@ function! delimitMate#Init() "{{{
 	call delimitMate#option_init("excluded_regions_enabled", enabled)
 
 	" visual_leader
-	call delimitMate#option_init("visual_leader", exists('b:maplocalleader') ? b:maplocalleader :
-					\ exists('g:mapleader') ? g:mapleader : "\\")
+	let leader = exists('b:maplocalleader') ? b:maplocalleader :
+					\ exists('g:mapleader') ? g:mapleader : "\\"
+	call delimitMate#option_init("visual_leader", leader)
 
 	" expand_space
 	if exists("b:delimitMate_expand_space") && type(b:delimitMate_expand_space) == type("")
@@ -114,6 +115,8 @@ function! delimitMate#Map() "{{{
 	try
 		let save_cpo = &cpo
 		let save_keymap = &keymap
+		let save_iminsert = &iminsert
+		let save_imsearch = &imsearch
 		set keymap=
 		set cpo&vim
 		if b:_l_delimitMate_autoclose
@@ -126,6 +129,8 @@ function! delimitMate#Map() "{{{
 	finally
 		let &cpo = save_cpo
 		let &keymap = save_keymap
+		let &iminsert = save_iminsert
+		let &imsearch = save_imsearch
 	endtry
 
 	let b:delimitMate_enabled = 1
@@ -452,8 +457,9 @@ function! delimitMate#QuoteDelim(char) "{{{
 		" Get out of the string.
 		return a:char . delimitMate#Del()
 	elseif (line[col] =~ '[[:alnum:]]' && a:char == "'") ||
-				\(line[col] =~ '[[:alnum:]]' && b:_l_delimitMate_smart_quotes) ||
-				\(line[col + 1] =~ '[[:alnum:]]' && b:_l_delimitMate_smart_quotes)
+				\ (b:_l_delimitMate_smart_quotes &&
+				\ (line[col] =~ '[[:alnum:]]' ||
+				\ line[col + 1] =~ '[[:alnum:]]'))
 		" Seems like an apostrophe or a smart quote case, insert a single quote.
 		return a:char
 	elseif (line[col] == a:char && line[col + 1 ] != a:char) && b:_l_delimitMate_smart_quotes
