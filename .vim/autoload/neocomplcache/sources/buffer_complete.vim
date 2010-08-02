@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: buffer_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 10 Jul 2010
+" Last Modified: 29 Jul 2010
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -39,27 +39,30 @@ function! s:source.initialize()"{{{
     " Caching events
     autocmd FileType,BufWritePost * call s:check_source()
     autocmd CursorHold * call s:rank_caching_current_cache_line(1)
-    autocmd CursorMoved * call s:rank_caching_current_cache_line(0)
+    autocmd CursorMoved,CursorHoldI * call s:rank_caching_current_cache_line(0)
     autocmd InsertLeave * call neocomplcache#sources#buffer_complete#caching_current_cache_line()
     autocmd VimLeavePre * call s:save_all_cache()
   augroup END"}}}
 
+  " Set rank.
+  call neocomplcache#set_dictionary_helper(g:neocomplcache_plugin_rank, 'buffer_complete', 4)
+  
+  " Set completion length.
+  call neocomplcache#set_completion_length('buffer_complete', 1)
+
+  " Create cache directory.
+  if !isdirectory(g:neocomplcache_temporary_dir . '/buffer_cache')
+    call mkdir(g:neocomplcache_temporary_dir . '/buffer_cache', 'p')
+  endif
+  
   " Initialize script variables."{{{
   let s:buffer_sources = {}
   let s:filetype_frequencies = {}
   let s:cache_line_count = 70
   let s:rank_cache_count = 1
   let s:disable_caching_list = {}
-  let s:completion_length = neocomplcache#get_auto_completion_length('buffer_complete')
+  let s:completion_length = g:neocomplcache_auto_completion_start_length
   "}}}
-  
-  " Set rank.
-  call neocomplcache#set_variable_pattern('g:neocomplcache_plugin_rank', 'buffer_complete', 4)
-
-  " Create cache directory.
-  if !isdirectory(g:neocomplcache_temporary_dir . '/buffer_cache')
-    call mkdir(g:neocomplcache_temporary_dir . '/buffer_cache', 'p')
-  endif
 
   " Add commands."{{{
   command! -nargs=? -complete=buffer NeoComplCacheCachingBuffer call s:caching_buffer(<q-args>)
@@ -89,6 +92,10 @@ function! s:source.finalize()"{{{
 endfunction"}}}
 
 function! s:source.get_keyword_list(cur_keyword_str)"{{{
+  if neocomplcache#is_auto_complete() && len(a:cur_keyword_str) < s:completion_length
+    return []
+  endif
+  
   let l:keyword_list = []
 
   let l:current = bufnr('%')
@@ -454,6 +461,7 @@ function! s:check_source()"{{{
       if (!has_key(s:buffer_sources, l:bufnumber) || s:check_changed_buffer(l:bufnumber))
             \&& !has_key(s:disable_caching_list, l:bufnumber)
             \&& (g:neocomplcache_disable_caching_buffer_name_pattern == '' || l:bufname !~ g:neocomplcache_disable_caching_buffer_name_pattern)
+            \&& (g:neocomplcache_lock_buffer_name_pattern == '' || l:bufname !~ g:neocomplcache_lock_buffer_name_pattern)
             \&& getfsize(l:bufname) < g:neocomplcache_caching_limit_file_size
             \&& getbufvar(l:bufnumber, '&buftype') !~# 'help'
         " Caching.

@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: vim_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 10 Jul 2010
+" Last Modified: 29 Jul 2010
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -26,7 +26,8 @@
 
 let s:source = {
       \ 'name' : 'vim_complete',
-      \ 'kind' : 'complfunc',
+      \ 'kind' : 'ftplugin',
+      \ 'filetypes' : { 'vim' : 1, },
       \}
 
 function! s:source.initialize()"{{{
@@ -41,10 +42,14 @@ function! s:source.initialize()"{{{
   "}}}
 
   " Set rank.
-  call neocomplcache#set_variable_pattern('g:neocomplcache_plugin_rank', 'vim_complete', 100)
+  call neocomplcache#set_dictionary_helper(g:neocomplcache_plugin_rank, 'vim_complete', 100)
   
-  " Set caching event.
-  autocmd neocomplcache FileType vim call neocomplcache#sources#vim_complete#helper#on_filetype()
+  " Set completion length.
+  call neocomplcache#set_completion_length('vim_complete', 1)
+  
+  " Call caching event.
+  autocmd neocomplcache FileType * call neocomplcache#sources#vim_complete#helper#on_filetype()
+  call neocomplcache#sources#vim_complete#helper#on_filetype()
 
   " Add command.
   command! -nargs=? -complete=buffer NeoComplCacheCachingVim call neocomplcache#sources#vim_complete#helper#recaching(<q-args>)
@@ -55,7 +60,7 @@ function! s:source.finalize()"{{{
 endfunction"}}}
 
 function! s:source.get_keyword_pos(cur_text)"{{{
-  if neocomplcache#get_context_filetype() !=# 'vim' || neocomplcache#within_comment()
+  if neocomplcache#within_comment()
     return -1
   endif
 
@@ -66,7 +71,7 @@ function! s:source.get_keyword_pos(cur_text)"{{{
     return -1
   endif
 
-  let l:pattern = '\.$\|' . neocomplcache#get_keyword_pattern_end('vim')
+  let l:pattern = '\.\%(\h\w*\%(()\?\)\?\)\?\|' . neocomplcache#get_keyword_pattern_end('vim')
   if l:cur_text !~ '^[[:digit:],[:space:]$''<>]*\h\w*$'
     let l:command_completion = neocomplcache#sources#vim_complete#helper#get_completion_name(
           \neocomplcache#sources#vim_complete#get_command(l:cur_text))
@@ -75,12 +80,7 @@ function! s:source.get_keyword_pos(cur_text)"{{{
     endif
   endif
   
-  let l:cur_keyword_pos = match(a:cur_text, l:pattern)
-
-  if g:neocomplcache_enable_wildcard
-    " Check wildcard.
-    let l:cur_keyword_pos = neocomplcache#match_wildcard(a:cur_text, l:pattern, l:cur_keyword_pos)
-  endif
+  let [l:cur_keyword_pos, l:cur_keyword_str] = neocomplcache#match_word(a:cur_text, l:pattern)
 
   return l:cur_keyword_pos
 endfunction"}}}
@@ -104,10 +104,13 @@ function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
       let l:keyword.abbr = l:prefix . l:keyword.abbr
     endfor
     let l:list = l:options
-  elseif l:cur_text =~# '\<has(''\h\w*$'
+  elseif l:cur_text =~# '\<has([''"]\w*$'
     " Features.
     let l:list = neocomplcache#sources#vim_complete#helper#feature(l:cur_text, a:cur_keyword_str)
-  elseif l:cur_text =~ '^\$'
+  elseif l:cur_text =~# '\<expand([''"][<>[:alnum:]]*$'
+    " Expand.
+    let l:list = neocomplcache#sources#vim_complete#helper#expand(l:cur_text, a:cur_keyword_str)
+  elseif a:cur_keyword_str =~ '^\$'
     " Environment.
     let l:list = neocomplcache#sources#vim_complete#helper#environment(l:cur_text, a:cur_keyword_str)
   elseif l:cur_text =~ '`=[^`]*$'
@@ -131,11 +134,6 @@ function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
         endfor
         call neocomplcache#used_match_filter()
 
-        " Set rank.
-        let l:rank = g:neocomplcache_plugin_rank['vim_complete']
-        for l:keyword in l:ret
-          let l:keyword.rank = l:rank
-        endfor
         return l:ret
       endif
     else
@@ -151,15 +149,7 @@ function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
     endif
   endif
 
-  let l:list = neocomplcache#keyword_filter(l:list, a:cur_keyword_str)
-
-  " Set rank.
-  let l:rank = g:neocomplcache_plugin_rank['vim_complete']
-  for l:keyword in l:list
-    let l:keyword.rank = l:rank
-  endfor
-
-  return l:list
+  return neocomplcache#keyword_filter(l:list, a:cur_keyword_str)
 endfunction"}}}
 
 function! neocomplcache#sources#vim_complete#define()"{{{

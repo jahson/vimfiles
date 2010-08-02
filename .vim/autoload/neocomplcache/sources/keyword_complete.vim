@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: keyword_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 10 Jul 2010
+" Last Modified: 29 Jul 2010
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -31,7 +31,10 @@ let s:source = {
 
 function! s:source.initialize()"{{{
   " Set rank.
-  call neocomplcache#set_variable_pattern('g:neocomplcache_plugin_rank', 'keyword_complete', 5)
+  call neocomplcache#set_dictionary_helper(g:neocomplcache_plugin_rank, 'keyword_complete', 5)
+  
+  " Set completion length.
+  call neocomplcache#set_completion_length('keyword_complete', 0)
   
   " Initialize.
   for l:plugin in values(neocomplcache#available_plugins())
@@ -45,13 +48,7 @@ function! s:source.finalize()"{{{
 endfunction"}}}
 
 function! s:source.get_keyword_pos(cur_text)"{{{
-  let l:pattern = neocomplcache#get_keyword_pattern_end()
-
-  let l:cur_keyword_pos = match(a:cur_text, l:pattern)
-  if g:neocomplcache_enable_wildcard
-    " Check wildcard.
-    let l:cur_keyword_pos = neocomplcache#match_wildcard(a:cur_text, l:pattern, l:cur_keyword_pos)
-  endif
+  let [l:cur_keyword_pos, l:cur_keyword_str] = neocomplcache#match_word(a:cur_text)
 
   return l:cur_keyword_pos
 endfunction"}}}
@@ -64,17 +61,20 @@ function! s:source.get_complete_words(cur_keyword_pos, cur_keyword_str)"{{{
   " Get keyword list.
   let l:cache_keyword_list = []
   for [l:name, l:plugin] in items(neocomplcache#available_plugins())
-    if !has_key(g:neocomplcache_plugin_completion_length, l:name)
-          \|| !neocomplcache#is_auto_complete()
-          \|| len(a:cur_keyword_str) >= g:neocomplcache_plugin_completion_length[l:name]
-      let l:list = l:plugin.get_keyword_list(a:cur_keyword_str)
-      let l:rank = has_key(g:neocomplcache_plugin_rank, l:name)? 
-              \ g:neocomplcache_plugin_rank[l:name] : g:neocomplcache_plugin_rank['keyword_complete']
-      for l:keyword in l:list
-        let l:keyword.rank = l:rank
-      endfor
-      let l:cache_keyword_list += l:list
+    if (has_key(g:neocomplcache_plugin_disable, l:name)
+        \ && g:neocomplcache_plugin_disable[l:name])
+        \ || len(a:cur_keyword_str) < neocomplcache#get_completion_length(l:name)
+      " Skip plugin.
+      continue
     endif
+    
+    let l:list = l:plugin.get_keyword_list(a:cur_keyword_str)
+    let l:rank = has_key(g:neocomplcache_plugin_rank, l:name)? 
+          \ g:neocomplcache_plugin_rank[l:name] : g:neocomplcache_plugin_rank['keyword_complete']
+    for l:keyword in l:list
+      let l:keyword.rank = l:rank
+    endfor
+    let l:cache_keyword_list += l:list
   endfor
 
   return l:cache_keyword_list
