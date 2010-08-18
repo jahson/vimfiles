@@ -28,9 +28,8 @@ if !has('gui_running')
 endif
 " Colorscheme
 colorscheme xoria256
-" Highlight too long lines
-highlight TooLongLine  term=reverse ctermfg=yellow ctermbg=darkred
-match TooLongLine '/.\%>81v.\+/'
+" Highlight textwidth + 1 column
+set colorcolumn=+1
 " Show some useful whitespaces (such as tabs and trailing spaces)
 set list
 set listchars=tab:»\ ,trail:·,nbsp:%,extends:>,precedes:<
