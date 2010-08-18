@@ -18,7 +18,8 @@ export MYSQL_PS1="(\U) [\d]>\_"
 # convert multiline commands to one line
 shopt -s cmdhist
 
-# check window size after each command - to change lines and columns accrodingly
+# Check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
 # OS X specific {{{
@@ -35,6 +36,7 @@ fi
 
 # Load completion scripts {{{
 complete -o dirnames -d cd
+
 if [[ -f ~/.completion.git.sh ]]
 then
 	source ~/.completion.git.sh
