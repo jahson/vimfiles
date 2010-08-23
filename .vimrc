@@ -27,7 +27,7 @@ if !has('gui_running')
 	set t_Co=256
 endif
 " Colorscheme
-colorscheme xoria256
+colorscheme fu
 " Highlight textwidth + 1 column
 set colorcolumn=+1
 " Show some useful whitespaces (such as tabs and trailing spaces)
@@ -44,7 +44,7 @@ set sidescrolloff=5
 set wildmenu
 " Set command-line completion mode:
 "   - on first <Tab>, when more than one match, list all matches and complete
-"     the longest common  string
+"     the longest common string
 "   - on second <Tab>, complete the next full match and show menu
 set wildmode=list:longest,full
 " Show line, column number, and relative position within a file
@@ -100,11 +100,11 @@ set autoread
 " Write contents of the file, if it has been modified, on buffer exit
 set autowrite
 " Remember things between sessions
-" '20  - remember marks for 20 previous files
+" '20 - remember marks for 20 previous files
 " \"100 - save 50 lines for each register
-" :20  - remember 20 items in command-line history
-" %    - remember the buffer list (if vim started without a file arg)
-" n    - set name of viminfo file
+" :20 - remember 20 items in command-line history
+" % - remember the buffer list (if vim started without a file arg)
+" n - set name of viminfo file
 set viminfo='20,\"100,:20,%,n~/.viminfo
 set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
 " Set the ':substitute' flag 'g' to be default on
@@ -193,6 +193,8 @@ set encoding=utf-8
 "}}}
 
 " Keybindings: {{{
+" Context-aware tab-completion
+inoremap <expr><Tab> pumvisible() ? "<C-N>" : <SID>isLineEmpty() ? "\<Tab>" : "\<C-X>\<C-U>"
 
 " Move between windows quickly
 map <C-H> <C-W>h
@@ -209,13 +211,15 @@ nmap <Left> :bp<CR>
 
 " Clear trailing whitespaces
 nmap <Leader>. :call ClearTrailingWhitespace()<CR>
+" Clear ^M from dos fileformat and replace with \r
+nmap <Leader>m :%s/\r\(\n\)/\1/g<CR>
 
 " Try to not touch esc
 imap jj <Esc>
 
 " Close help and git window by pressing q.
 autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-W>c
-autocmd FileType * if &readonly |  nnoremap <buffer> q <C-W>c | endif
+autocmd FileType * if &readonly | nnoremap <buffer> q <C-W>c | endif
 
 "Mapping to remove highlight
 map <Leader>n :noh<CR>
@@ -259,16 +263,21 @@ nmap <Leader>ml :call AppendModeline()<CR>
 
 " Functions: {{{
 function! SnipMid(str, len, mask)
-  if a:len >= len(a:str)
-    return a:str
-  elseif a:len <= len(a:mask)
-    return a:mask
-  endif
+	if a:len >= len(a:str)
+		return a:str
+	elseif a:len <= len(a:mask)
+		return a:mask
+	endif
 
-  let len_head = (a:len - len(a:mask)) / 2
-  let len_tail = a:len - len(a:mask) - len_head
+	let len_head = (a:len - len(a:mask)) / 2
+	let len_tail = a:len - len(a:mask) - len_head
 
-  return (len_head > 0 ? a:str[: len_head - 1] : '') . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
+	return (len_head > 0 ? a:str[: len_head - 1] : '') . a:mask . (len_tail > 0 ? a:str[-len_tail :] : '')
+endfunction
+
+function! s:isLineEmpty()
+	let col = col('.') - 1
+	return !col || getline('.')[col-1] =~ '\s'
 endfunction
 
 " Append modeline after last line in buffer.
@@ -327,7 +336,7 @@ let g:neocomplcache_omni_function_list = {
 	\ 'php' : 'phpcomplete#CompletePHP',
 	\ 'python' : 'pythoncomplete#Complete',
 	\ 'ruby' : 'rubycomplete#Complete',
-    \ 'javascript' : 'javascriptcomplete#CompleteJS',
+	\ 'javascript' : 'javascriptcomplete#CompleteJS',
 	\ }
 " Keybindings
 imap <silent><C-K> <Plug>(neocomplcache_snippets_expand)
