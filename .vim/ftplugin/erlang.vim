@@ -1,4 +1,4 @@
-set keywordprg=erl\ -man
+setlocal keywordprg=erl\ -man
 
 if !exists( "g:manpageview_pgm_erl" )
     let g:manpageview_pgm_erl = "erl"

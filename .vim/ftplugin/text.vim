@@ -1,5 +1,5 @@
-set nonumber
-set expandtab
-set autoindent
-set textwidth=76
-set formatoptions=tron21
+setlocal nonumber
+setlocal expandtab
+setlocal autoindent
+setlocal textwidth=76
+setlocal formatoptions=tron21

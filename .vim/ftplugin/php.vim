@@ -2,22 +2,22 @@
 " Settings for PHP filetype
 "
 
-set textwidth=79
+setlocal textwidth=79
 
 " Help tuning
-set keywordprg=pman
+setlocal keywordprg=pman
 if !exists( "g:manpageview_pgm_php" )
     let g:manpageview_pgm_php = "pman"
 endif
 
 " Completion dictionary
-set dictionary=~/.vim/dictionaries/php.dict
+setlocal dictionary=~/.vim/dictionaries/php.dict
 
 " Load PHP Documentor for VIM
 source ~/.vim/php-doc.vim
 
 " Set up automatic formatting
-set formatoptions+=tcqlro
+setlocal formatoptions+=tcqlro
 
 "
 " Syntax options
@@ -36,10 +36,10 @@ let php_sql_query = 1
 " Linting
 "
 " Use PHP syntax check when doing :make
-set makeprg=php\ -l\ %
+setlocal makeprg=php\ -l\ %
 
 " Parse PHP error output
-set errorformat=%m\ in\ %f\ on\ line\ %l
+setlocal errorformat=%m\ in\ %f\ on\ line\ %l
 
 " Function to locate endpoints of a PHP block {{{
 function! PhpBlockSelect(mode)
@@ -102,7 +102,7 @@ nmap <silent> <F4>
 		\ --tag-relative=yes --PHP-kinds=+cf-v .<CR>
 
 " Set tag filename(s)
-set tags=./tags,tags
+setlocal tags=./tags,tags
 
 " Run PHP in cli
 "autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>

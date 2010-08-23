@@ -1,4 +1,4 @@
-set textwidth=140
-set tabstop=4
-set shiftwidth=4
-set noexpandtab
+setlocal textwidth=140
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal noexpandtab
