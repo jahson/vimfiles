@@ -16,8 +16,11 @@
 [alias]
 	ls = ls-files
 	ci = commit
+	cm = checkout master
+	cb = checkout -b
+	bd = branch -d
+	mn = merge --no-ff
 	st = status
-	br = branch
 	pl = pull
 	di = diff
 	ad = add
