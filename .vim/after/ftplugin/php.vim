@@ -11,4 +11,10 @@ if exists("loaded_matchit")
 		\ '<:>'
 endif
 
+" Use PHP syntax check when doing :make
+setlocal makeprg=php\ -l\ %
+
+" Parse PHP error output
+setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+
 " vim: set ts=4 sw=4 noexpandtab:

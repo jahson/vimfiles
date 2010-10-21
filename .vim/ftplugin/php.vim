@@ -32,15 +32,6 @@ let php_folding = 1
 " Highlighti SQL inside PHP strings
 let php_sql_query = 1
 
-"
-" Linting
-"
-" Use PHP syntax check when doing :make
-setlocal makeprg=php\ -l\ %
-
-" Parse PHP error output
-setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-
 " Function to locate endpoints of a PHP block {{{
 function! PhpBlockSelect(mode)
 	let motion = "v"
