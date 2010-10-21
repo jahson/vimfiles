@@ -28,6 +28,7 @@ then
 	# Java & Tomcat settings
 	export CATALINA_HOME=/Users/jahson/sources/apache-tomcat-6.0.18-src/output/build
 	export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home
+	export CLASSPATH=./
 	# PHP stuff - to resolve autoconf and autoheader problems
 	export PHP_AUTOCONF='autoconf213'
 	export PHP_AUTOHEADER='autoheader213'
