@@ -46,7 +46,7 @@ then
 	# Clean "open with" menu in OS X 10.5+
 	function cleanow {
 		rm ~/Library/Preferences/com.apple.LaunchServices.*;
-		/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -seed -rfv -all user, system, local
+		/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r  -domain local -domain system -domain user
 	}
 fi
 #}}}
