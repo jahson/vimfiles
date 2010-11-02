@@ -14,11 +14,13 @@
 	interactive = auto
 	diff = auto
 [alias]
+	lg = log --topo-order --decorate --first-parent
 	ls = ls-files
 	ci = commit
 	cm = checkout master
 	cb = checkout -b
 	bd = branch -d
+	merge = merge --no-ff
 	mn = merge --no-ff
 	st = status
 	pl = pull

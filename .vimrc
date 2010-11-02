@@ -1,8 +1,13 @@
-" I don't need to be in vi compatible mode
+" Do not set again on reloading or there will be side effects
 if !exists('s:vimrc_loaded')
-	" do not set again on reloading or there will be side effects
+	" I don't need to be in vi compatible mode
 	set nocompatible
 endif
+
+" Pathogen to work
+filetype off
+silent! call pathogen#helptags()
+silent! call pathogen#runtime_append_all_bundles()
 
 " Enable filetype and indentation plugins
 filetype on
@@ -27,7 +32,7 @@ if !has('gui_running')
 	set t_Co=256
 endif
 " Colorscheme
-colorscheme fu
+colorscheme lucius
 " Highlight textwidth + 1 column
 set colorcolumn=+1
 " Show some useful whitespaces (such as tabs and trailing spaces)
@@ -66,6 +71,8 @@ set whichwrap+=<,>,[,],h,l,b,s,~
 set laststatus=2
 " Statusline format
 set statusline=\ %<%F%h%m%r%y\ \%{&encoding}\ \Line:\ %l/%L:%c\ %P\ Byte:\ %b
+" Always show tabline
+set showtabline=2
 " Hide the mouse when typing text
 set mousehide
 " Set terminal title
@@ -300,23 +307,18 @@ endfunction
 " NERDTree. {{{
 " Increase window size to 35 columns
 let NERDTreeWinSize=35
-" map <F7> to toggle NERDTree window
-nmap <silent> <F7> :NERDTreeToggle<CR>
-" }}}
-
-" Project. {{{
-let g:proj_window_width=35
-" map <F5> to toggle Project window
-nmap <silent> <F5> :Project<CR>
+" map <F4> to toggle NERDTree window
+nmap <silent> <F4> :NERDTreeToggle<CR>
 " }}}
 
 " Neocomplcache. {{{
 let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smartcase = 1
+let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_min_keyword_length = 3
+let g:neocomplcache_max_list = 100
 let g:neocomplcache_dictionary_filetype_lists = {
 	\ 'default'    : '',
 	\ 'erlang'     : $VIMRUNTIME . '/dictionaries/erlang.dict',
@@ -373,8 +375,8 @@ let Tlist_WinWidth = 45
 " Do not show variables for php
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
 
-" map <F6> to toggle taglist window
-nmap <silent> <F6> :TlistToggle<CR>
+" map <F5> to toggle taglist window
+nmap <silent> <F5> :TlistToggle<CR>
 "}}}
 
 "}}}

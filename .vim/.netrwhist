@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/jahson/.vim/plugin'
+let g:netrw_dirhist_2='/Users/jahson/.vim/ftplugin/eruby'
+let g:netrw_dirhist_3='/Users/jahson/.vim/syntax'

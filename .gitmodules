@@ -1,0 +1,54 @@
+[submodule ".vim/bundles/zencoding"]
+	path = .vim/bundles/zencoding
+	url = git://github.com/mattn/zencoding-vim.git
+[submodule ".vim/bundles/matchit"]
+	path = .vim/bundles/matchit
+	url = git://github.com/edsono/vim-matchit.git
+[submodule ".vim/bundles/nerdcommenter"]
+	path = .vim/bundles/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule ".vim/bundles/nerdtree"]
+	path = .vim/bundles/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule ".vim/bundles/ragtag"]
+	path = .vim/bundles/ragtag
+	url = git://github.com/tpope/vim-ragtag.git
+[submodule ".vim/bundles/surround"]
+	path = .vim/bundles/surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule ".vim/bundles/taglist"]
+	path = .vim/bundles/taglist
+	url = git://github.com/esukram/taglist.vim.git
+[submodule ".vim/bundles/neocomplcache"]
+	path = .vim/bundles/neocomplcache
+	url = git://github.com/Shougo/neocomplcache.git
+[submodule ".vim/bundles/vimfiler"]
+	path = .vim/bundles/vimfiler
+	url = git://github.com/Shougo/vimfiler.git
+[submodule ".vim/bundles/vcscommand"]
+	path = .vim/bundles/vcscommand
+	url = git://github.com/vim-scripts/vcscommand.vim.git
+[submodule ".vim/bundles/visincr"]
+	path = .vim/bundles/visincr
+	url = git://github.com/vim-scripts/VisIncr.git
+[submodule ".vim/bundles/delimitmate"]
+	path = .vim/bundles/delimitmate
+	url = git://github.com/Raimondi/delimitMate.git
+[submodule ".vim/bundles/phpcomplete/autoload"]
+	path = .vim/bundles/phpcomplete/autoload
+	url = git://github.com/shawncplus/phpcomplete.vim.git
+[submodule ".vim/bundles/unimpaired"]
+	path = .vim/bundles/unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
+[submodule ".vim/bundles/manpageview"]
+	path = .vim/bundles/manpageview
+	url = git://github.com/vim-scripts/ManPageView.git
+[submodule ".vim/bundles/doxygentoolkit"]
+	path = .vim/bundles/doxygentoolkit
+	url = git://github.com/vim-scripts/DoxygenToolkit.vim.git
+[submodule ".vim/bundles/vim-javascript"]
+	path = .vim/bundles/vim-javascript
+	url = git://github.com/pangloss/vim-javascript.git
+[submodule ".vim/bundles/syntastic"]
+	path = .vim/bundles/syntastic
+	url = git://github.com/scrooloose/syntastic.git

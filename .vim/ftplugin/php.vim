@@ -14,7 +14,7 @@ endif
 setlocal dictionary=~/.vim/dictionaries/php.dict
 
 " Load PHP Documentor for VIM
-source ~/.vim/php-doc.vim
+"source ~/.vim/php-doc.vim
 
 " Set up automatic formatting
 setlocal formatoptions+=tcqlro
