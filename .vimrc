@@ -23,6 +23,9 @@ autocmd BufEnter *.tpl set ts=4 sw=4 noexpandtab
 " Reload .vimrc automatically
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
+" Save on losing focus
+autocmd FocusLost * :wa
+
 " Interface: {{{
 
 " Enable syntax highlighting
@@ -173,6 +176,11 @@ set directory=~/.vim/tmp
 " Backups
 set backup
 set backupdir=~/.vim/backup
+" Persistent undo
+if has( "persistent_undo" )
+	set undodir=~/.vim/undo
+    set undofile
+endif
 " backupskip helps with crontab -e problems
 set backupskip=/tmp/*,/private/tmp/*
 " Insert mode completion options
@@ -200,6 +208,11 @@ set encoding=utf-8
 "}}}
 
 " Keybindings: {{{
+
+" Easy jump between bracket pairs
+nnoremap <Tab> %
+vnoremap <Tab> %
+
 " Context-aware tab-completion
 inoremap <expr><Tab> pumvisible() ? "<C-N>" : <SID>isLineEmpty() ? "\<Tab>" : "\<C-X>\<C-U>"
 
@@ -208,6 +221,7 @@ map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
+
 " Windows split mappings
 noremap <Leader>v :vsp<CR>
 noremap <Leader>h :split<CR>
@@ -349,6 +363,11 @@ inoremap <expr><C-L> neocomplcache#complete_common_string()
 
 " VimFiler. {{{
 let g:vimfiler_as_default_explorer = 1
+"}}}
+
+" DelimitMate {{{
+let delimitMate_expand_space = 1
+let delimitMate_expand_cr = 1
 "}}}
 
 " CScope. {{{
