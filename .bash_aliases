@@ -30,6 +30,7 @@ alias cpr="cp -r"
 alias port="sudo port"
 alias pecl="sudo pecl"
 alias pear="sudo pear"
+alias cpan="sudo cpan"
 alias apt-get="sudo apt-get"
 #}}}
 #}}}
