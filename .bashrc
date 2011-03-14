@@ -38,6 +38,9 @@ fi
 # Load completion scripts {{{
 complete -o dirnames -d cd
 
+if [ -f /opt/local/etc/bash_completion ]; then
+	. /opt/local/etc/bash_completion
+fi
 if [[ -f ~/.completion.git.sh ]]
 then
 	source ~/.completion.git.sh
