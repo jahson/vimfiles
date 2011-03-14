@@ -4,6 +4,10 @@ if !exists('s:vimrc_loaded')
 	set nocompatible
 endif
 
+" Encoding, do not move below
+set fileencodings=utf-8,cp1251,koi8-r,cp866
+set encoding=utf-8
+
 " Pathogen to work
 filetype off
 silent! call pathogen#helptags()
@@ -21,7 +25,7 @@ let g:mapleader = ","
 " Set some options for *.tpl files
 autocmd BufEnter *.tpl set ts=4 sw=4 noexpandtab
 " Reload .vimrc automatically
-autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! BufWritePost .vimrc source ~/.vimrc
 
 " Save on losing focus
 autocmd FocusLost * :wa
@@ -38,6 +42,8 @@ endif
 colorscheme lucius
 " Highlight textwidth + 1 column
 set colorcolumn=+1
+" Highlight current line
+set cursorline
 " Show some useful whitespaces (such as tabs and trailing spaces)
 set list
 set listchars=tab:»\ ,trail:·,nbsp:%,extends:>,precedes:<
@@ -202,9 +208,6 @@ set complete+=i
 set nrformats=octal,hex,alpha
 " Don't complete comments on o and return
 autocmd FileType * setlocal formatoptions-=ro
-" Encoding
-set fileencodings=utf-8,cp1251,koi8-r,cp866
-set encoding=utf-8
 "}}}
 
 " Keybindings: {{{
@@ -355,10 +358,17 @@ let g:neocomplcache_omni_function_list = {
 	\ 'javascript' : 'javascriptcomplete#CompleteJS',
 	\ }
 " Keybindings
-imap <silent><C-K> <Plug>(neocomplcache_snippets_expand)
-smap <silent><C-K> <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-G> neocomplcache#undo_completion()
-inoremap <expr><C-L> neocomplcache#complete_common_string()
+" <CR> will close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <BS> will close popup and delete backword char.
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+" <TAB> completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" Plugin key-mappings.
+imap <C-k> <Plug>(neocomplcache_snippets_expand)
+smap <C-k> <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
 "}}}
 
 " VimFiler. {{{
