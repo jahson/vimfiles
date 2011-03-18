@@ -21,5 +21,8 @@ There are two ways of installing vimfiles - through git or by downloading source
 
 Update
 ------
+
+That simple.
+
     cd ~
     vimfiles/update
