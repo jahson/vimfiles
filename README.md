@@ -18,3 +18,8 @@ There are two ways of installing vimfiles - through git or by downloading source
     tar zxpf [name].tar.gz
     mv [name] vimfiles
     vimfiles/install
+
+Update
+------
+    cd ~
+    vimfiles/update
