@@ -6,11 +6,13 @@ Installation
 ------------
 
 There are two ways of installing vimfiles - through git or by downloading source.
-1. Git way
+
+### Git way
     cd ~
     git clone git://github.com/jahson/vimfiles.git
     vimfiles/install
-2. Download way
+
+### Download way
     cd ~
     *download [name].tar.gz from GitHub*
     tar zxpf [name].tar.gz
