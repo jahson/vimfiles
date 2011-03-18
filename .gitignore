@@ -1,0 +1,20 @@
+# ignore netrw history
+.vim/.netrwhist
+
+# deny backup and swap files
+*~
+*.*~
+*.swp
+*.swo
+
+# deny views, backups, tmp and undo
+/.vim/view/*
+/.vim/backup/*
+/.vim/tmp/*
+/.vim/undo/*
+
+!.gitignore
+
+# deny products of GetLatestVimScripts
+.vim/GetLatest/GetLatestVimScripts.dist
+.vim/GetLatest/Installed/*
