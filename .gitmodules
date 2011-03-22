@@ -51,7 +51,7 @@
 	url = git://github.com/tpope/vim-repeat.git
 [submodule "vim/bundle/vim_erlang"]
 	path = vim/bundle/vim_erlang
-	url = https://github.com/jimenezrick/vimerl.git
+	url = git://github.com/jimenezrick/vimerl.git
 [submodule "vim/bundle/vimproc"]
 	path = vim/bundle/vimproc
 	url = git://github.com/Shougo/vimproc.git
