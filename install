@@ -4,6 +4,8 @@ has_warnings=0
 dir=$PWD/`dirname $0`
 
 echo ""
+echo $'\033[0;33mCreating symlinks\033[0m'
+echo ""
 
 if [ ! -h ~/.vim ]; then
     ln -s $dir/vim ~/.vim
@@ -28,14 +30,14 @@ if  ((has_warnings==1)); then
 else
 
     echo ""
-    echo $'\033[0;33m;Processing submodules\033[0m'
+    echo $'\033[0;33mProcessing submodules\033[0m'
     echo ""
 
     cd $dir
     git submodules update --init
 
     echo ""
-    echo $'\033[0;32mOK: Installation successfull.\033[0m'
+    echo $'\033[0;32mInstallation successfull.\033[0m'
 fi
 
 echo ""
