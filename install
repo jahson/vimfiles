@@ -6,7 +6,7 @@ dir=$PWD/`dirname $0`
 echo ""
 
 if [ ! -h ~/.vim ]; then
-    ln -s $dir/.vim ~/.vim
+    ln -s $dir/vim ~/.vim
     echo "Created link to ~/.vim"
 else
     has_warnings=1
@@ -14,7 +14,7 @@ else
 fi
 
 if [ ! -h ~/.vimrc ]; then
-    ln -s $dir/.vimrc ~/.vimrc
+    ln -s $dir/vimrc ~/.vimrc
     echo "Created link to ~/.vimrc"
 else
     has_warnings=1
@@ -26,6 +26,14 @@ if  ((has_warnings==1)); then
     echo $'HINT:\tYou should remove or rename ~/.vim and ~/.vimrc'
     echo $'\tand run this script again.'
 else
+
+    echo ""
+    echo $'\033[0;33m;Processing submodules\033[0m'
+    echo ""
+
+    cd $dir
+    git submodules update --init
+
     echo ""
     echo $'\033[0;32mOK: Installation successfull.\033[0m'
 fi
