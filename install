@@ -34,7 +34,7 @@ else
     echo ""
 
     cd $dir
-    git submodules update --init
+    git submodule update --init
 
     echo ""
     echo $'\033[0;32mInstallation successfull.\033[0m'
