@@ -1,26 +1,33 @@
 #!/bin/sh
 
 has_warnings=0
+dir=$PWD/`dirname $0`
 
 echo ""
 
-if [[ ! -dh ~/.vim ]]; then
-    ln -s $PWD/.vim ~/.vim
+if [ ! -h ~/.vim ]; then
+    ln -s $dir/.vim ~/.vim
+    echo "Created link to ~/.vim"
 else
     has_warnings=1
-    echo "\033[0;31mWARNING: ~/.vim already exists\033[0m"
+    echo -e "\033[0;31mWARNING: ~/.vim already exists\033[0m"
 fi
 
-if [[ ! -fh ~/.vimrc ]]; then
-    ln -s $PWD/.vimrc ~/.vimrc
+if [ ! -h ~/.vimrc ]; then
+    ln -s $dir/.vimrc ~/.vimrc
+    echo "Created link to ~/.vimrc"
 else
     has_warnings=1
-    echo "\033[0;31mWARNING: ~/.vimrc already exists\033[0m"
+    echo -e "\033[0;31mWARNING: ~/.vimrc already exists\033[0m"
 fi
 
 if  ((has_warnings==1)); then
     echo ""
-    echo "HINT:\tYou should remove or rename ~/.vim and ~/.vimrc"
-    echo "\tand run this script again."
+    echo -e "HINT:\tYou should remove or rename ~/.vim and ~/.vimrc"
+    echo -e "\tand run this script again."
+else
     echo ""
+    echo -e "\033[0;32mOK: Installation successfull.\033[0m"
 fi
+
+echo ""
