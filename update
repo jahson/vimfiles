@@ -5,12 +5,12 @@ script_path="$PWD/`dirname $0`"
 cd $script_path
 
 echo ""
-echo -e "\033[0;44m                  \033[0m"
-echo -e "\033[0;44m    UPDATE ALL    \033[0m"
-echo -e "\033[0;44m                  \033[0m"
+echo $'\033[0;44m                  \033[0m'
+echo $'\033[0;44m    UPDATE ALL    \033[0m'
+echo $'\033[0;44m                  \033[0m'
 echo ""
 
-echo -e "\033[0;32mvimfiles\033[0m"
+echo $'\033[0;32mvimfiles\033[0m'
 git pull
 
 git submodule -q foreach 'echo "";echo "\033[0;32m$name\033[0m"; git pull origin master'

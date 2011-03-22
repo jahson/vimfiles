@@ -10,7 +10,7 @@ if [ ! -h ~/.vim ]; then
     echo "Created link to ~/.vim"
 else
     has_warnings=1
-    echo -e "\033[0;31mWARNING: ~/.vim already exists\033[0m"
+    echo $'\033[0;31mWARNING: ~/.vim already exists\033[0m'
 fi
 
 if [ ! -h ~/.vimrc ]; then
@@ -18,16 +18,16 @@ if [ ! -h ~/.vimrc ]; then
     echo "Created link to ~/.vimrc"
 else
     has_warnings=1
-    echo -e "\033[0;31mWARNING: ~/.vimrc already exists\033[0m"
+    echo $'\033[0;31mWARNING: ~/.vimrc already exists\033[0m'
 fi
 
 if  ((has_warnings==1)); then
     echo ""
-    echo -e "HINT:\tYou should remove or rename ~/.vim and ~/.vimrc"
-    echo -e "\tand run this script again."
+    echo $'HINT:\tYou should remove or rename ~/.vim and ~/.vimrc'
+    echo $'\tand run this script again.'
 else
     echo ""
-    echo -e "\033[0;32mOK: Installation successfull.\033[0m"
+    echo $'\033[0;32mOK: Installation successfull.\033[0m'
 fi
 
 echo ""

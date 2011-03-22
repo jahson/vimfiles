@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/jahson/www/jpt/plugins/sfSympalCountryPlugin'
+let g:netrw_dirhist_2='/Users/jahson/.vim'
+let g:netrw_dirhist_3='/Users/jahson/www/jpt/plugins/sfSympalPlugin'
+let g:netrw_dirhist_4='/opt/local/var/macports/sources/rsync.macports.org/release/ports/php/php5-ssh2'
+let g:netrw_dirhist_5='/Users/jahson/repositories/svn/cplase/Prototype/Scripts'
+let g:netrw_dirhist_6='/Users/jahson/www/jpt/plugins/sfSympalCountryVisaPlugin/modules/visa/templates'
+let g:netrw_dirhist_7='/Users/jahson/www/jpt/plugins/sfSympalCountryPlugin/modules/country/templates'
+let g:netrw_dirhist_8='/Users/jahson/www/diem_test/vimfiles/.git'
+let g:netrw_dirhist_9='/Users/jahson/www/jpt/plugins/sfSympalCountryAboutPlugin'
