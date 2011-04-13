@@ -1,5 +1,5 @@
 # ignore netrw history
-.vim/.netrwhist
+vim/.netrwhist
 
 # deny backup and swap files
 *~
