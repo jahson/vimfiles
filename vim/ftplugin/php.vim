@@ -11,7 +11,7 @@ if !exists( "g:manpageview_pgm_php" )
 endif
 
 " Completion dictionary
-setlocal dictionary=~/.vim/dictionaries/php.dict
+setlocal dictionary+=~/.vim/dictionaries/php.dict
 
 " Load PHP Documentor for VIM
 "source ~/.vim/php-doc.vim
@@ -67,6 +67,10 @@ function! PhpBlockSelect(mode)
 endfunction
 " }}}
 
+" Mappings for faster writing
+imap <C-j> $this->
+imap <C-u> ->
+
 " Mappings to select full/inner PHP block
 nmap <silent> <expr> vaP PhpBlockSelect(1)
 nmap <silent> <expr> viP PhpBlockSelect(0)
@@ -81,7 +85,7 @@ vnoremap <buffer> <C-P> :call PhpDocRange()<CR>
 
 let g:pdv_cfg_Uses = 1 " Generate @uses tag based on inheritance info
 let g:pdv_cfg_Author = "Oleg Roschupkin <jjahson@gmail.com>"
-let g:pdv_cfg_Copyright = "2002-2010 jahson"
+let g:pdv_cfg_Copyright = "2011"
 
 " Exuberant Ctags
 "
