@@ -19,10 +19,18 @@ There are two ways of installing vimfiles - through git or by downloading source
     mv [name] vimfiles
     vimfiles/install
 
-Update
-------
+Update to latest version
+------------------------
 
 That simple.
 
     cd ~
     vimfiles/update
+
+Mappings
+--------
+
+``<Leader>sp`` - toggle 'paste' option
+``<F2>`` - toggle line nubers
+``<F3>`` - toggle NerdTree window
+``<F4>`` - toggle TagList window

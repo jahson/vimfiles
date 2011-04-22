@@ -1,4 +1,4 @@
-" Bye-bye, vi!
+" Bye-bye, vi! Must be first, because it changes other options.
 set nocompatible
 
 " Pathogen to work {{{
@@ -44,6 +44,7 @@ set cursorline
 " Show some useful whitespaces (such as tabs and trailing spaces)
 set list
 set listchars=tab:»\ ,trail:·,nbsp:%,extends:>,precedes:<
+"set listchars+=eol:¬
 " Disable scrollof to get H, M and L properly working
 set scrolloff=0
 " The minimal number of columns to scroll horizontally.
@@ -253,11 +254,11 @@ nmap gf :new %:p:h/<cfile><CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" <F2> to toggle paste helper - get rid of problems with imaps etc.
-set pastetoggle=<F2>
+" Toggle paste helper
+set pastetoggle=<Leader>sp
 
-" <F3> to toggle line numbers
-nmap <silent> <F3> :set number!<CR>
+" <F2> to toggle line numbers
+nmap <silent> <F2> :set number!<CR>
 
 " Append modeline to the end of file
 nmap <Leader>ml :call AppendModeline()<CR>
@@ -349,8 +350,8 @@ set statusline+=%*
 " Plugin mappings: {{{
 
 " NERDTree. {{{
-" <F4> to toggle NERDTree window
-nmap <silent> <F4> :NERDTreeToggle<CR>
+" <F3> to toggle NERDTree window
+nmap <silent> <F3> :NERDTreeToggle<CR>
 "}}}"
 " Neocomplcache. {{{
 " <CR> will close popup and save indent
@@ -371,8 +372,8 @@ map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
 map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 "}}}
 " TagList. {{{
-" <F5> to toggle taglist window
-nmap <silent> <F5> :TlistToggle<CR>
+" <F4> to toggle taglist window
+nmap <silent> <F4> :TlistToggle<CR>
 "}}}
 
 "}}}
