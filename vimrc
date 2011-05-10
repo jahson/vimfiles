@@ -231,7 +231,7 @@ autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nno
 autocmd FileType * if &readonly | nnoremap <buffer> q <C-W>c | endif
 
 " Stop search highlighting
-map <Leader>n :nohlsearch<CR>
+map <Leader>/ :nohlsearch<CR>
 " Close current buffer
 nmap <Leader>b :bd<CR>
 " Exit saving changes if changes were made
@@ -255,7 +255,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Toggle paste helper
-set pastetoggle=<Leader>sp
+set pastetoggle=<Leader>pt
 
 " <F2> to toggle line numbers
 nmap <silent> <F2> :set number!<CR>

@@ -22,7 +22,7 @@ There are two ways of installing vimfiles - through git or by downloading source
 Update to latest version
 ------------------------
 
-That simple.
+That simple (qit required).
 
     cd ~
     vimfiles/update
@@ -30,7 +30,8 @@ That simple.
 Mappings
 --------
 
-* ``<Leader>sp`` - toggle 'paste' option
+* ``<Leader>pt`` - toggle 'paste' option (mnemonic = 'paste toggle')
+* ``<Leader>/`` - stop search highlighting
 * ``<F2>`` - toggle line nubers
 * ``<F3>`` - toggle NerdTree window
 * ``<F4>`` - toggle TagList window
