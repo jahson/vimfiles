@@ -69,7 +69,7 @@ endfunction
 
 " Mappings for faster writing
 imap <C-j> $this->
-imap <C-u> ->
+imap <C-k> ->
 
 " Mappings to select full/inner PHP block
 nmap <silent> <expr> vaP PhpBlockSelect(1)
@@ -87,20 +87,7 @@ let g:pdv_cfg_Uses = 1 " Generate @uses tag based on inheritance info
 let g:pdv_cfg_Author = "Oleg Roschupkin <jjahson@gmail.com>"
 let g:pdv_cfg_Copyright = "2011"
 
-" Exuberant Ctags
-"
-" Map <F4> to re-build tags file
-nmap <silent> <F4>
-		\ :!ctags -f ./tags 
-		\ --langmap="php:+.inc"
-		\ -h ".php.inc" -R --totals=yes
-		\ --tag-relative=yes --PHP-kinds=+cf-v .<CR>
-
-" Set tag filename(s)
-setlocal tags=./tags,tags
-
 " Run PHP in cli
-"autocmd filetype php nmap <leader>r :w!<CR>:!php %<CR>
 nmap <leader>r :w!<CR>:!php %<CR>
 
 " vim: set ts=4 sw=4 fdm=marker:
