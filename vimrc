@@ -354,17 +354,12 @@ set statusline+=%*
 nmap <silent> <F3> :NERDTreeToggle<CR>
 "}}}"
 " Neocomplcache. {{{
-" <CR> will close popup and save indent
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <BS> will close popup and delete last char
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 " <TAB> completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " Plugin key-mappings.
-imap <C-k> <Plug>(neocomplcache_snippets_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
+imap <C-e> <Plug>(neocomplcache_snippets_expand)
+smap <C-e> <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-l> neocomplcache#complete_common_string()
 "}}}
 " CScope. {{{
 map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
