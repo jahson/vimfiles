@@ -49,11 +49,8 @@ set sidescroll=5
 set sidescrolloff=5
 " Use menu to show command-line completion (in 'full' case)
 set wildmenu
-" Set command-line completion mode:
-"   - on first <Tab>, when more than one match, list all matches and complete
-"     the longest common string
-"   - on second <Tab>, complete the next full match and show menu
-set wildmode=list:longest,full
+" Command linecompletion: complete longest common string, then list alternatives.
+set wildmode=longest,list
 " Show line, column number, and relative position within a file
 set ruler
 " Show commands (or size of selection in Visual mode)
@@ -94,8 +91,8 @@ set equalalways
 " when split put new windows right and below
 set splitbelow splitright
 " Go back to the position the cursor was on the last time this file was edited
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute("normal! g'\"") | endif
-" Set to auto read when a file is changed from the outside
+autocmd BufReadPost * if line("'\"") > * && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+" Automatically read changed file
 set autoread
 " Write contents of the file, if it has been modified, on buffer exit
 set autowrite
@@ -144,7 +141,7 @@ set autoindent smartindent
 " Enable modeline (nocompatible should already enable this,
 " but sometimes it is disabled)
 set modeline
-" Yank and paste the selection without prepending "* to commands
+" Yank/paste to/from clipboard
 set clipboard+=unnamed
 " Backspace will delete indent and newline
 set backspace=indent,eol,start
