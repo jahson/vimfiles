@@ -386,7 +386,7 @@ nmap <silent> <F4> :TagbarToggle<CR>
 " Commands: {{{
 
 " Write file using sudo
-cmap w!! silent write !sudo tee % > /dev/null
+command W exec 'w !sudo tee % > /dev/null' | e!
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
