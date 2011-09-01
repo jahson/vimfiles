@@ -91,7 +91,7 @@ set equalalways
 " when split put new windows right and below
 set splitbelow splitright
 " Go back to the position the cursor was on the last time this file was edited
-autocmd BufReadPost * if line("'\"") > * && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 " Automatically read changed file
 set autoread
 " Write contents of the file, if it has been modified, on buffer exit
