@@ -2,13 +2,7 @@
 set nocompatible
 
 " Pathogen to work {{{
-
-" Disable filetype first
-filetype off
-" Then load bundles help and code
-silent! call pathogen#helptags()
-silent! call pathogen#runtime_append_all_bundles()
-
+call pathogen#infect()
 "}}}
 
 " Use ',' as mapleader
@@ -28,7 +22,7 @@ autocmd FocusLost * :wa
 " Interface: {{{
 
 " Enable syntax highlighting
-syntax enable
+syntax on
 " Avoid some "hit-enter" messages
 set shortmess=aoO
 " Set numer of colors for terminal
@@ -36,6 +30,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 " Colorscheme
+set background=dark
 colorscheme solarized
 " Highlight textwidth + 1 column
 set colorcolumn=+1
