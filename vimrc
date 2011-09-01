@@ -115,6 +115,11 @@ nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
+" Keep search matches in the middle of the window.
+nnoremap * *zzzv
+nnoremap # #zzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 "}}}
 
@@ -206,12 +211,20 @@ map <C-K> <C-W>k
 map <C-L> <C-W>l
 
 " Windows split mappings
-noremap <Leader>v :vsp<CR>
+noremap <Leader>v :vsplit<CR>
 noremap <Leader>h :split<CR>
+noremap <Leader>c :close<CR>
 
 " Use arrow keys to navigate between buffers
 nmap <Right> :bn<CR>
 nmap <Left> :bp<CR>
+" Don't touch arrow keys!
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
 
 " Clear trailing whitespaces
 nmap <Leader>. :call ClearTrailingWhitespace()<CR>
@@ -236,9 +249,7 @@ map <Leader>s :w!<CR>
 " Exit without saving (will not exit if hidden buffers with changes are present)
 map <Leader>q :q!<CR>
 " Fast editing of .vimrc
-map <Leader>e :edit! ~/.vimrc<CR>
-" Find file and edit
-nmap <Leader>g :find<CR>
+map <Leader>ev :edit! ~/.vimrc<CR>
 " Use CTRL-F for omni completion
 imap <C-F> 
 " Display all lines with keyword under cursor and ask which one to jump to
@@ -257,6 +268,11 @@ nmap <silent> <F2> :set number!<CR>
 
 " Append modeline to the end of file
 nmap <Leader>ml :call AppendModeline()<CR>
+
+" Insert the path of the currently edited file into a command line
+cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+" Opens an edit command with the path of the currently edited file filled in
+map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 "}}}
 
 " Functions: {{{
@@ -277,7 +293,7 @@ function! AppendModeline()
 endfunction
 
 function! ClearTrailingWhitespace()
-  %s/\s\+$//
+  exec ':%s/ \+$//gc'
 endfunction
 
 "}}}
@@ -361,9 +377,9 @@ map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
 map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
 map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 "}}}
-" TagList. {{{
-" <F4> to toggle taglist window
-nmap <silent> <F4> :TlistToggle<CR>
+" TagBar. {{{
+" <F4> to toggle tagbar window
+nmap <silent> <F4> :TagbarToggle<CR>
 "}}}
 
 "}}}
