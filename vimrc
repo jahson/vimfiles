@@ -260,8 +260,11 @@ nmap gf :new %:p:h/<cfile><CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Toggle paste helper
-set pastetoggle=<Leader>pt
+" Visual mode replace without overwriting the register
+vmap r "_dP
+
+" Toggle paste helper on <F5>
+set pastetoggle=<F5>
 
 " <F2> to toggle line numbers
 nmap <silent> <F2> :set number!<CR>
@@ -327,7 +330,6 @@ let delimitMate_expand_cr = 1
 
 " CScope. {{{
 if has("cscope")
-	set csprg=/usr/bin/cscope
 	set csto=0
 	set cst
 	set nocsverb
