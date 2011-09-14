@@ -38,8 +38,7 @@ set colorcolumn=+1
 set cursorline
 " Show some useful whitespaces (such as tabs and trailing spaces)
 set list
-set listchars=tab:»\ ,trail:·,nbsp:%,extends:>,precedes:<
-"set listchars+=eol:¬
+set listchars=tab:»\ ,trail:·,nbsp:%,extends:>,precedes:< ",eol:¬
 " Disable scrollof to get H, M and L properly working
 set scrolloff=0
 " The minimal number of columns to scroll horizontally.
@@ -305,7 +304,7 @@ function! AppendModeline()
 endfunction
 
 function! ClearTrailingWhitespace()
-  exec ':%s/ \+$//gc'
+  exec ':%s/\s\+$//gc'
 endfunction
 
 "}}}
