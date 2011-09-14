@@ -22,7 +22,7 @@ There are two ways of installing vimfiles - through git or by downloading source
 Update to latest version
 ------------------------
 
-That simple (qit required).
+That simple (git required).
 
     cd ~
     vimfiles/update
