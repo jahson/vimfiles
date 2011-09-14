@@ -265,6 +265,7 @@ set pastetoggle=<F5>
 
 " <F2> to toggle line numbers
 nmap <silent> <F2> :set number!<CR>
+nmap <silent> <F2> :call GoOverNumberingModes()<CR>
 
 " Append modeline to the end of file
 nmap <Leader>ml :call AppendModeline()<CR>
@@ -280,6 +281,17 @@ map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 function! s:isLineEmpty()
   let col = col('.') - 1
   return !col || getline('.')[col-1] =~ '\s'
+endfunction
+
+function! GoOverNumberingModes()
+  if &number
+    set nonumber
+    set relativenumber
+  elseif &relativenumber
+    set norelativenumber
+  else
+    set number
+  endif
 endfunction
 
 " Append modeline after last line in buffer.

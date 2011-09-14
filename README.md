@@ -30,8 +30,8 @@ That simple (qit required).
 Mappings
 --------
 
-* ``<Leader>pt`` - toggle 'paste' option (mnemonic = 'paste toggle')
 * ``<Leader>/`` - stop search highlighting
-* ``<F2>`` - toggle line nubers
+* ``<F2>`` - go over line numbering modes (numbers, relative numbers, none)
 * ``<F3>`` - toggle NerdTree window
 * ``<F4>`` - toggle TagList window
+* ``<F5>`` - puts vim in 'paste' mode (used to paste text without formatting)
