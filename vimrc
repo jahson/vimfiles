@@ -49,7 +49,7 @@ set sidescrolloff=5
 " Use menu to show command-line completion (in 'full' case)
 set wildmenu
 " Command linecompletion: complete longest common string, then list alternatives.
-set wildmode=longest,list
+set wildmode=list:longest,full
 " Show line, column number, and relative position within a file
 set ruler
 " Show commands (or size of selection in Visual mode)
