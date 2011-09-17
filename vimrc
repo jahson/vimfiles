@@ -211,16 +211,20 @@ noremap <Leader>v :vsplit<CR>
 noremap <Leader>h :split<CR>
 noremap <Leader>c :close<CR>
 
-" Use arrow keys to navigate between buffers
-nmap <Right> :bn<CR>
-nmap <Left> :bp<CR>
+" Use ctrl + [h,j,k,l] to navigate between buffers
+nmap <C-J> :bn<CR>
+nmap <C-L> :bn<CR>
+nmap <C-K> :bp<CR>
+nmap <C-H> :bp<CR>
 " Don't touch arrow keys!
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
+inoremap <Up>     <NOP>
+inoremap <Down>   <NOP>
+inoremap <Left>   <NOP>
+inoremap <Right>  <NOP>
+noremap  <Up>     <NOP>
+noremap  <Down>   <NOP>
+noremap  <Right>  <NOP>
+noremap  <Left>   <NOP>
 
 " Clear trailing whitespaces
 nmap <Leader>. :call ClearTrailingWhitespace()<CR>
