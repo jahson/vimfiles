@@ -196,11 +196,11 @@ autocmd FileType * setlocal formatoptions-=ro
 nmap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
 nmap <Leader>4 :set tabstop=4<CR>:set shiftwidth=4<CR>
 
-" Easy jump between bracket pairs
+" Easy jump between bracket pairs by pressing TAB
 nnoremap <Tab> %
 vnoremap <Tab> %
 
-" Move between windows quickly
+" Use ctrl + [h,j,k,l] to navigate between windows
 map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
@@ -211,11 +211,10 @@ noremap <Leader>v :vsplit<CR>
 noremap <Leader>h :split<CR>
 noremap <Leader>c :close<CR>
 
-" Use ctrl + [h,j,k,l] to navigate between buffers
-nmap <C-J> :bn<CR>
-nmap <C-L> :bn<CR>
-nmap <C-K> :bp<CR>
-nmap <C-H> :bp<CR>
+" Use , + [j,k] to navigate between buffers
+nmap <Leader>j :bn<CR>
+nmap <Leader>k :bp<CR>
+
 " Don't touch arrow keys!
 inoremap <Up>     <NOP>
 inoremap <Down>   <NOP>
