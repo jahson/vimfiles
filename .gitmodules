@@ -25,9 +25,6 @@
 [submodule "vim/bundle/visincr"]
 	path = vim/bundle/visincr
 	url = git://github.com/vim-scripts/VisIncr.git
-[submodule "vim/bundle/phpcomplete/autoload"]
-	path = vim/bundle/phpcomplete/autoload
-	url = git://github.com/shawncplus/phpcomplete.vim.git
 [submodule "vim/bundle/unimpaired"]
 	path = vim/bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
