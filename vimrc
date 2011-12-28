@@ -304,7 +304,7 @@ endfunction
 " Use substitute() (not printf()) to handle '%%s' modeline in LaTeX files.
 function! AppendModeline()
   let save_cursor = getpos('.')
-  let append = ' vim: set ts='.&tabstop.' sw='.&shiftwidth.': '
+  let append = ' vim: set ts='.&tabstop.' sw='.&shiftwidth.' expandtab: '
   $put = ''
   $put = substitute(&commentstring, '%s', append, '')
   call setpos('.', save_cursor)
