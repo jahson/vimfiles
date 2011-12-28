@@ -234,7 +234,7 @@ nmap <Leader>. :call ClearTrailingWhitespace()<CR>
 " Clear ^M from dos fileformat and replace with \r
 nmap <Leader>m :%s/\r\(\n\)/\1/g<CR>
 
-" Try to live without ESC
+" Try to live without Esc
 imap jj <Esc>
 
 " Close help and git window by pressing q.
@@ -246,11 +246,11 @@ map <Esc><Esc> :nohlsearch<CR>
 " Close current buffer
 nmap <Leader>b :bd<CR>
 " Exit saving changes if changes were made
-nmap <Leader>w :x<CR>
+nmap <Leader>w :xa!<CR>
 " Save changes (forced for readonly files)
 map <Leader>s :w!<CR>
-" Exit without saving (will not exit if hidden buffers with changes are present)
-map <Leader>q :q!<CR>
+" Exit without saving
+map <Leader>q :qa!<CR>
 " Fast editing of .vimrc
 map <Leader>ev :edit! ~/.vimrc<CR>
 " Use CTRL-F for omni completion
