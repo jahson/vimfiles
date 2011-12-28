@@ -352,15 +352,20 @@ if has("cscope")
 endif
 "}}}
 
-" Tag List. {{{
+" TagList. {{{
 " Set location of ctags
 let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
+" Show tags only for current buffer
+let Tlist_Show_One_File = 1
+" Automatically highlight the curent tag
+let Tlist_Auto_Highlight_Tag = 1
 " Do not show fold column
 let Tlist_Enable_Fold_Column = 0
 " width of window in columns
 let Tlist_WinWidth = 45
-" Do not show variables for php
+" Configure language settings
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
+let tlist_javascript_settings = 'javascript;f:function;m:method;p:property;c:class;v:global'
 "}}}
 
 " Syntastic. {{{
@@ -393,11 +398,10 @@ map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
 map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
 map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 "}}}
-" TagBar. {{{
-" <F4> to toggle tagbar window
-nmap <silent> <F4> :TagbarToggle<CR>
+" TagList. {{{
+" <F4> to toggle TagList window
+nmap <silent> <F4> :TlistToggle<CR>
 "}}}
-
 "}}}
 
 " Commands: {{{
