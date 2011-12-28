@@ -13,6 +13,9 @@ vim/.netrwhist
 /vim/tmp/*
 /vim/undo/*
 
+# ignore Vimball
+vim/.VimballRecord
+
 !.gitignore
 
 # deny products of GetLatestVimScripts
