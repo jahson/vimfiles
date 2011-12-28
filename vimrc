@@ -51,7 +51,9 @@ set wildmenu
 " Command line completion: complete longest common string, then list alternatives.
 set wildmode=list:longest,full
 " ignore some files
-set wildignore+=*~,tags
+set wildignore+=.hg,.git,.svn
+set wildignore+=*.aux,*.out,*.toc
+set wildignore+=*.DS_Store?
 " Show line, column number, and relative position within a file
 set ruler
 " Show commands (or size of selection in Visual mode)
