@@ -242,7 +242,7 @@ autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nno
 autocmd FileType * if &readonly | nnoremap <buffer> q <C-W>c | endif
 
 " Stop search highlighting
-map <Esc><Esc> :nohlsearch<CR>
+map <silent> <Esc><Esc> :nohlsearch<CR>
 " Close current buffer
 nmap <Leader>b :bd<CR>
 " Exit saving changes if changes were made
@@ -402,6 +402,10 @@ map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 " <F4> to toggle TagList window
 nmap <silent> <F4> :TlistToggle<CR>
 "}}}
+" Ack. {{{
+map <Leader>a :execute "Ack " . expand("<cword>") <Bar> cw<CR>
+"}}}
+
 "}}}
 
 " Commands: {{{
@@ -427,7 +431,6 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 "}}}
-
 " :h 'secure'
 set secure
 
