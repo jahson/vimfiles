@@ -216,8 +216,8 @@ noremap <Leader>h :split<CR>
 noremap <Leader>c :close<CR>
 
 " Use , + [j,k] to navigate between buffers
-nmap <Leader>j :bn<CR>
-nmap <Leader>k :bp<CR>
+nmap <Leader>k :bn<CR>
+nmap <Leader>j :bp<CR>
 
 " Don't touch arrow keys!
 inoremap <Up>     <NOP>
