@@ -29,9 +29,18 @@ That simple (git required).
 
 Mappings
 --------
+Note that my mapleader is ``,``.
 
-* ``<Leader>/`` - stop search highlighting
+* ``<Esc><Esc>`` - stop search highlighting
 * ``<F2>`` - go over line numbering modes (numbers, relative numbers, none)
 * ``<F3>`` - toggle NerdTree window
 * ``<F4>`` - toggle TagList window
 * ``<F5>`` - puts vim in 'paste' mode (used to paste text without formatting)
+* ``<Leader>f`` - display all lines with word under cursor and ask which one to jump to
+* ``<Leader>a`` - run ack in current directory with word under cursor as argument
+* ``<Leader>b`` - unload and delete current buffer
+* ``<Leader>w`` - exit saving changes
+* ``<Leader>s`` - save changes (also force readonly files)
+* ``<Leader>q`` - exit without saving
+* ``<Leader>ev`` - edit .vimrc
+* ``gf`` - open file under cursor in new window
