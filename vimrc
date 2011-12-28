@@ -240,7 +240,7 @@ autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nno
 autocmd FileType * if &readonly | nnoremap <buffer> q <C-W>c | endif
 
 " Stop search highlighting
-map <Leader>/ :nohlsearch<CR>
+map <Esc><Esc> :nohlsearch<CR>
 " Close current buffer
 nmap <Leader>b :bd<CR>
 " Exit saving changes if changes were made
