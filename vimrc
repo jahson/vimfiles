@@ -196,28 +196,35 @@ autocmd FileType * setlocal formatoptions-=ro
 
 " Mappings: {{{
 
-" Switch between indent values
+" <Leader>2 switches indent to 2 spaces
 nmap <Leader>2 :set tabstop=2<CR>:set shiftwidth=2<CR>
+" <Leader>4 switches indent to 4 spaces
 nmap <Leader>4 :set tabstop=4<CR>:set shiftwidth=4<CR>
 
 " Easy jump between bracket pairs by pressing TAB
 nnoremap <Tab> %
 vnoremap <Tab> %
 
-" Use ctrl + [h,j,k,l] to navigate between windows
+" Ctrl + h moves cursor to window left of current one
 map <C-H> <C-W>h
+" Ctrl + j moves cursor to window below of current one
 map <C-J> <C-W>j
+" Ctrl + k moves cursor to window above of current one
 map <C-K> <C-W>k
+" Ctrl + l moves cursor to window right of current one
 map <C-L> <C-W>l
 
-" Windows split mappings
+" <Leader>v vertically splits current window in two
 noremap <Leader>v :vsplit<CR>
+" <Leader>h horizontally splits current window in two
 noremap <Leader>h :split<CR>
+" <Leader>c closes current window
 noremap <Leader>c :close<CR>
 
-" Use , + [j,k] to navigate between buffers
-nmap <Leader>k :bn<CR>
-nmap <Leader>j :bp<CR>
+" <Leader>. goes to next buffer
+nmap <silent> <Leader>. :bn<CR>
+" <Leader>m goes to previous buffer
+nmap <silent> <Leader>m :bp<CR>
 
 " Don't touch arrow keys!
 inoremap <Up>     <NOP>
@@ -229,13 +236,25 @@ noremap  <Down>   <NOP>
 noremap  <Right>  <NOP>
 noremap  <Left>   <NOP>
 
+" Ctrl + h moves cursor left in insert mode
+imap <C-H> <C-O>h
+" Ctrl + h moves cursor down in insert mode
+imap <C-J> <C-O>j
+" Ctrl + h moves cursor up in insert mode
+imap <C-K> <C-O>k
+" Ctrl + h moves cursor right in insert mode
+imap <C-L> <C-O>l
+
 " Clear trailing whitespaces
-nmap <Leader>. :call ClearTrailingWhitespace()<CR>
+nmap <silent> <Leader><Space> :call ClearTrailingWhitespace()<CR>
 " Clear ^M from dos fileformat and replace with \r
-nmap <Leader>m :%s/\r\(\n\)/\1/g<CR>
+nmap <silent> <Leader>df :%s/\r\(\n\)/\1/ge<CR>
 
 " Try to live without Esc
 imap jj <Esc>
+
+" find merge conflict markers
+nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " Close help and git window by pressing q.
 autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-W>c
@@ -255,7 +274,7 @@ map <Leader>q :qa!<CR>
 map <Leader>ev :edit! ~/.vimrc<CR>
 " Use CTRL-F for omni completion
 imap <C-F> 
-" Display all lines with keyword under cursor and ask which one to jump to
+" Display all lines with word under cursor and ask which one to jump to
 nmap <Leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " Open filename under cursor in a new window (use current file's working directory)
 nmap gf :new %:p:h/<cfile><CR>
@@ -311,7 +330,7 @@ function! AppendModeline()
 endfunction
 
 function! ClearTrailingWhitespace()
-  exec ':%s/\s\+$//gc'
+  exec ':%s/\s\+$//gec'
 endfunction
 
 "}}}

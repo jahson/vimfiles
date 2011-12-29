@@ -36,11 +36,27 @@ Note that my mapleader is ``,``.
 * ``<F3>`` - toggle NerdTree window
 * ``<F4>`` - toggle TagList window
 * ``<F5>`` - puts vim in 'paste' mode (used to paste text without formatting)
+* ``<Leader>.`` - go to next buffer
+* ``<Leader>m`` - go to previous buffer
+* ``<Leader>2`` - switch indent to 2 spaces
+* ``<Leader>4`` - switch indent to 4 spaces
 * ``<Leader>f`` - display all lines with word under cursor and ask which one to jump to
 * ``<Leader>a`` - run ack in current directory with word under cursor as argument
 * ``<Leader>b`` - unload and delete current buffer
 * ``<Leader>w`` - exit saving changes
 * ``<Leader>s`` - save changes (also force readonly files)
 * ``<Leader>q`` - exit without saving
+* ``<Leader>h`` - vertically split current window
+* ``<Leader>v`` - horizontally split current window
+* ``<Leader>c`` - close current window
+* ``<Leader>fc`` - find merge conflict markers
 * ``<Leader>ev`` - edit .vimrc
+* ``<Leader>e`` - open an edit command with the path of currently edited file filled in
+* ``<Leader>ml`` - append modeline to the end of file
+* ``<Leader><Space>`` - clear whitespace with confirmation
+* ``<Leader>df`` - clear ^M from dos file format
+* ``ctrl + h`` - Normal Mode: move cursor to window left of current one; Insert Mode: move cursor left
+* ``ctrl + j`` - Normal Mode: move cursor to window below of current one; Insert Mode: move cursor down
+* ``ctrl + k`` - Normal Mode: move cursor to window above of current one; Insert Mode: move cursor up
+* ``ctrl + l`` - Normal Mode: move cursor to window right of current one; Insert Mode: move cursor right
 * ``gf`` - open file under cursor in new window
