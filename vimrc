@@ -449,6 +449,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType ruby set omnifunc=rubycomplete#Complete
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 "}}}
 " :h 'secure'
