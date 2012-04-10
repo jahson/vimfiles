@@ -151,8 +151,6 @@ set backspace=indent,eol,start
 " Jump to matching bracket for 3/10th of a second (works with showmatch)
 set showmatch
 set matchtime=3
-" Add < and > to characters that form pairs
-set matchpairs+=<:>
 " Allow buffer changing (:bp etc.) without saving
 set hidden
 " Lower mappings timeout
