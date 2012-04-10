@@ -223,6 +223,8 @@ noremap <Leader>c :close<CR>
 nmap <silent> <Leader>. :bn<CR>
 " <Leader>m goes to previous buffer
 nmap <silent> <Leader>m :bp<CR>
+" <Leader><Leader> switches between two last buffers
+nnoremap <Leader><Leader> <C-^>
 
 " Don't touch arrow keys!
 inoremap <Up>     <NOP>
