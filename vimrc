@@ -359,6 +359,7 @@ let g:vimfiler_as_default_explorer = 1
 " DelimitMate. {{{
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
+let delimitMate_excluded_regions = ""
 "}}}
 
 " CScope. {{{
