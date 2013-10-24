@@ -8,6 +8,7 @@ vim/.netrwhist
 *.swo
 
 # deny views, backups, tmp and undo
+/vim/doc/*
 /vim/view/*
 /vim/backup/*
 /vim/tmp/*
