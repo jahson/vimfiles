@@ -299,6 +299,13 @@ nmap <Leader>ml :call AppendModeline()<CR>
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 " Opens an edit command with the path of the currently edited file filled in
 map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Open in Firefox
+map <leader>ff :! open -a Firefox.app %:p<cr><cr>
+" Open in Chrome
+map <leader>cc :! open -a 'Google Chrome.app' %:p<cr><cr>
+" Open in Opera
+map <leader>oo :! open -a Opera.app %:p<cr><cr>
 "}}}
 
 " Functions: {{{
@@ -409,10 +416,13 @@ nmap <silent> <F3> :NERDTreeToggle<CR>
 " Neocomplcache. {{{
 " <TAB> completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" Plugin key-mappings.
-imap <C-e> <Plug>(neocomplcache_snippets_expand)
-smap <C-e> <Plug>(neocomplcache_snippets_expand)
+" End completion on <C-g>
 inoremap <expr><C-g> neocomplcache#undo_completion()
+" Snippets
+imap <C-j> <Plug>(neocomplcache_snippets_jump)
+smap <C-j> <Plug>(neocomplcache_snippets_jump)
+imap <C-e> <Plug>(neocomplcache_snippets_force_expand)
+smap <C-e> <Plug>(neocomplcache_snippets_force_expand)
 "}}}
 " CScope. {{{
 map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
@@ -430,9 +440,6 @@ map <Leader>a :execute "Ack " . expand("<cword>") <Bar> cw<CR>
 "}}}
 
 " Commands: {{{
-
-" Write file using sudo
-command W exec 'w !sudo tee % > /dev/null' | e!
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
