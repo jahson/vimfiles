@@ -2,10 +2,11 @@
 " Settings for PHP filetype
 "
 
-setlocal textwidth=79
+setlocal textwidth=80
+setlocal expandtab
 
 " Help tuning
-setlocal keywordprg=pman
+setlocal keywordprg="pman"
 if !exists( "g:manpageview_pgm_php" )
     let g:manpageview_pgm_php = "pman"
 endif
@@ -70,6 +71,8 @@ endfunction
 " Mappings for faster writing
 imap <C-j> $this->
 imap <C-k> ->
+
+inoreabbrev t= <?=;?><Left><Left><Left>
 
 " Mappings to select full/inner PHP block
 nmap <silent> <expr> vaP PhpBlockSelect(1)
