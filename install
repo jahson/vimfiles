@@ -27,17 +27,6 @@ if  ((has_warnings==1)); then
     echo ""
     echo $'HINT:\tYou should remove or rename ~/.vim and ~/.vimrc'
     echo $'\tand run this script again.'
-else
-
-    echo ""
-    echo $'\033[0;33mProcessing submodules\033[0m'
-    echo ""
-
-    cd $dir
-    git submodule update --init
-
-    echo ""
-    echo $'\033[0;32mInstallation successfull.\033[0m'
 fi
 
 echo ""

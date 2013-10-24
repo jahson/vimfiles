@@ -9,7 +9,7 @@ echo $'\033[0;33mTrying to update all\033[0m'
 echo ""
 
 echo "vimfiles:"
-git pull
+git pull origin master
 
 git submodule -q foreach 'echo "";echo "$name:"; git pull origin master'
 

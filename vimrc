@@ -1,9 +1,29 @@
 " Bye-bye, vi! Must be first, because it changes other options.
 set nocompatible
+filetype off
 
-" Pathogen to work {{{
-call pathogen#infect()
-"}}}
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-eunuch'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-sensible'
+Bundle 'thinca/vim-quickrun'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'tristen/vim-sparkup'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'Shougo/neosnippet.vim'
+Bundle 'powerman/vim-plugin-ruscmd'
 
 " Use ',' as mapleader
 let mapleader = ","
