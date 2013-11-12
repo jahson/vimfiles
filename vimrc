@@ -385,6 +385,7 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_max_list = 50
 let g:neocomplcache_max_keyword_width = 70
+let g:neocomplcache_force_overwrite_completefunc = 1
 "}}}
 
 " VimFiler. {{{
