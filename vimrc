@@ -5,6 +5,9 @@ filetype off
 set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" ! Required
+Bundle 'gmarik/vundle'
+
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-unimpaired'
@@ -15,6 +18,10 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-classpath'
+Bundle 'guns/vim-clojure-static'
+Bundle 'amdt/vim-niji'
 Bundle 'thinca/vim-quickrun'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/nerdtree'
@@ -24,6 +31,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'powerman/vim-plugin-ruscmd'
+Bundle 'osyo-manga/vim-anzu'
 
 " Use ',' as mapleader
 let mapleader = ","
@@ -438,11 +446,10 @@ nmap <silent> <F3> :NERDTreeToggle<CR>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " End completion on <C-g>
 inoremap <expr><C-g> neocomplcache#undo_completion()
-" Snippets
-imap <C-j> <Plug>(neocomplcache_snippets_jump)
-smap <C-j> <Plug>(neocomplcache_snippets_jump)
-imap <C-e> <Plug>(neocomplcache_snippets_force_expand)
-smap <C-e> <Plug>(neocomplcache_snippets_force_expand)
+" Plugin key-mappings.
+imap <C-l> <Plug>(neosnippet_expand_or_jump)
+smap <C-l> <Plug>(neosnippet_expand_or_jump)
+xmap <C-l> <Plug>(neosnippet_expand_target)
 "}}}
 " CScope. {{{
 map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
