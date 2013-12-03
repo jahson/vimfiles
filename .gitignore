@@ -17,8 +17,7 @@ vim/.netrwhist
 # ignore Vimball
 vim/.VimballRecord
 
-!.gitignore
+# ignore bundles
+vim/bundle
 
-# deny products of GetLatestVimScripts
-vim/GetLatest/GetLatestVimScripts.dist
-vim/GetLatest/Installed/*
+!.gitignore
