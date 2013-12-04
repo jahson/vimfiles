@@ -23,22 +23,28 @@ Bundle 'tpope/vim-classpath'
 Bundle 'guns/vim-clojure-static'
 Bundle 'amdt/vim-niji'
 Bundle 'thinca/vim-quickrun'
+Bundle 'chriskempson/base16-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tristen/vim-sparkup'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Shougo/neocomplcache.vim'
+Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'powerman/vim-plugin-ruscmd'
 Bundle 'osyo-manga/vim-anzu'
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'helino/vim-json'
+Bundle 'bling/vim-airline'
+" interesting but not working for me
+" Bundle 'Valloric/YouCompleteMe'
+
+" Enable filetype detection, plugins and indenting
+filetype plugin indent on
 
 " Use ',' as mapleader
 let mapleader = ","
 let g:mapleader = ","
-
-" Enable filetype detection, plugins and indenting
-filetype plugin indent on
 
 " Encoding, do not move below
 set fileencodings=utf-8,cp1251,koi8-r,cp866
@@ -53,13 +59,8 @@ autocmd FocusLost * :wa
 syntax on
 " Avoid some "hit-enter" messages
 set shortmess=aoO
-" Set numer of colors for terminal
-if !has('gui_running')
-  set t_Co=256
-endif
 " Colorscheme
-set background=dark
-colorscheme solarized
+colorscheme base16-default
 " Highlight textwidth + 1 column
 set colorcolumn=+1
 " Highlight current line
@@ -76,12 +77,17 @@ set sidescroll=5
 set sidescrolloff=5
 " Use menu to show command-line completion (in 'full' case)
 set wildmenu
-" Command line completion: complete longest common string, then list alternatives.
-set wildmode=list:longest,full
+" When you type the first tab, it will complete as much as possible, the second
+" tab hit will provide a list, the third and subsequent tabs will cycle through
+" completion options so you can complete the file without further keys
+set wildmode=longest,list,full
 " ignore some files
 set wildignore+=.hg,.git,.svn
 set wildignore+=*.aux,*.out,*.toc
 set wildignore+=*.DS_Store?
+" The "longest" option makes completion insert the longest prefix of all
+" the possible matches; see :h completeopt
+set completeopt=menu,menuone,longest
 " Show line, column number, and relative position within a file
 set ruler
 " Show commands (or size of selection in Visual mode)
@@ -172,8 +178,20 @@ set autoindent smartindent
 " Enable modeline (nocompatible should already enable this,
 " but sometimes it is disabled)
 set modeline
-" Yank/paste to/from clipboard
-set clipboard+=unnamed
+if has('unnamedplus')
+  " By default, Vim will not use the system clipboard when yanking/pasting to
+  " the default register. This option makes Vim use the system default
+  " clipboard.
+  " Note that on X11, there are _two_ system clipboards: the "standard" one, and
+  " the selection/mouse-middle-click one. Vim sees the standard one as register
+  " '+' (and this option makes Vim use it by default) and the selection one as
+  " '*'.
+  " See :h 'clipboard' for details.
+  set clipboard=unnamedplus,unnamed
+else
+  " Vim now also uses the selection system clipboard for default yank/paste.
+  set clipboard+=unnamed
+endif
 " Backspace will delete indent and newline
 set backspace=indent,eol,start
 " Jump to matching bracket for 3/10th of a second (works with showmatch)
@@ -199,8 +217,6 @@ if has( "persistent_undo" )
   set undodir=~/.vim/undo
   set undofile
 endif
-" Insert mode completion options
-set completeopt=preview
 " Configure complete options to complete
 set complete=
 " from current buffer
@@ -279,7 +295,8 @@ nmap <silent> <Leader><Space> :call ClearTrailingWhitespace()<CR>
 nmap <silent> <Leader>df :%s/\r\(\n\)/\1/ge<CR>
 
 " Try to live without Esc
-imap jj <Esc>
+inoremap ,. <Esc>
+vnoremap ,. <Esc>
 
 " find merge conflict markers
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
@@ -371,21 +388,21 @@ endfunction
 "}}}
 
 " Plugin settings: {{{
-
+let g:airline#extensions#tabline#enabled = 1
 " NERDTree. {{{
 " Increase window size to 35 columns
 let NERDTreeWinSize=35
 "}}}
 
-" Neocomplcache. {{{
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_max_list = 50
-let g:neocomplcache_max_keyword_width = 70
-let g:neocomplcache_force_overwrite_completefunc = 1
+" Neocomplete {{{
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+endfunction
 "}}}
 
 " VimFiler. {{{
@@ -442,16 +459,6 @@ set statusline+=%*
 " <F3> to toggle NERDTree window
 nmap <silent> <F3> :NERDTreeToggle<CR>
 "}}}"
-" Neocomplcache. {{{
-" <TAB> completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" End completion on <C-g>
-inoremap <expr><C-g> neocomplcache#undo_completion()
-" Plugin key-mappings.
-imap <C-l> <Plug>(neosnippet_expand_or_jump)
-smap <C-l> <Plug>(neosnippet_expand_or_jump)
-xmap <C-l> <Plug>(neosnippet_expand_target)
-"}}}
 " CScope. {{{
 map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
 map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
@@ -477,16 +484,6 @@ if !exists(":DiffOrig")
         \ | wincmd p | diffthis
 endif
 
-"}}}
-
-" Omni completion. {{{
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType ruby set omnifunc=rubycomplete#Complete
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 "}}}
 
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
