@@ -36,6 +36,9 @@ Bundle 'osyo-manga/vim-anzu'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'helino/vim-json'
 Bundle 'bling/vim-airline'
+Bundle 'groenewege/vim-less'
+Bundle 'puppetlabs/puppet-syntax-vim'
+
 " interesting but not working for me
 " Bundle 'Valloric/YouCompleteMe'
 
@@ -445,7 +448,6 @@ let tlist_javascript_settings = 'javascript;f:function;m:method;p:property;c:cla
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_quiet_warnings=0
 set statusline+=\ %#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
