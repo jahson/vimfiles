@@ -31,13 +31,19 @@ Bundle 'tristen/vim-sparkup'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/neosnippet.vim'
+Bundle 'Shougo/neosnippet-snippets'
 Bundle 'powerman/vim-plugin-ruscmd'
 Bundle 'osyo-manga/vim-anzu'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'helino/vim-json'
+Bundle 'luochen1990/rainbow'
 Bundle 'bling/vim-airline'
 Bundle 'groenewege/vim-less'
 Bundle 'puppetlabs/puppet-syntax-vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'marijnh/tern_for_vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'editorconfig/editorconfig-vim'
 
 " interesting but not working for me
 " Bundle 'Valloric/YouCompleteMe'
@@ -391,6 +397,7 @@ endfunction
 "}}}
 
 " Plugin settings: {{{
+let g:rainbow_active = 1
 let g:airline#extensions#tabline#enabled = 1
 " NERDTree. {{{
 " Increase window size to 35 columns
@@ -428,20 +435,7 @@ if has("cscope")
 endif
 "}}}
 
-" TagList. {{{
-" Set location of ctags
-let Tlist_Ctags_Cmd = "/opt/local/bin/ctags"
-" Show tags only for current buffer
-let Tlist_Show_One_File = 1
-" Automatically highlight the curent tag
-let Tlist_Auto_Highlight_Tag = 1
-" Do not show fold column
-let Tlist_Enable_Fold_Column = 0
-" width of window in columns
-let Tlist_WinWidth = 45
-" Configure language settings
-let tlist_php_settings = 'php;c:class;d:constant;f:function'
-let tlist_javascript_settings = 'javascript;f:function;m:method;p:property;c:class;v:global'
+" TagBar. {{{
 "}}}
 
 " Syntastic. {{{
@@ -466,9 +460,9 @@ map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
 map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
 map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
 "}}}
-" TagList. {{{
-" <F4> to toggle TagList window
-nmap <silent> <F4> :TlistToggle<CR>
+" Tagbar. {{{
+" <F4> to toggle Tagbar window
+nmap <F4> :TagbarToggle<CR>
 "}}}
 " Ack. {{{
 map <Leader>a :execute "Ack " . expand("<cword>") <Bar> cw<CR>
