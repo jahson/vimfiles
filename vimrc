@@ -458,12 +458,6 @@ if has("cscope")
 	set csverb
 endif
 
-" ack.vim
-" if executable("ag")
-"   let g:ackprg = 'ag --vimgrep'
-" endif
-" nnoremap <Leader>a :Ack!<Space>
-
 " Clojure
 au Filetype clojure nmap <Leader>rr :Require<cr>
 au Filetype clojure nmap <Leader>rc :Console!<cr>
@@ -475,13 +469,6 @@ nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr>
 
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
-
-" Optional. The default behaviour should work for most users.
-" let g:grepper               = {}
-" let g:grepper.tools         = ['git', 'ag', 'rg', 'pt']
-" let g:grepper.jump          = 0
-" let g:grepper.next_tool     = '<leader>g'
-" let g:grepper.simple_prompt = 1
 
 " FZF
 nmap <leader>p :FZF<CR>
