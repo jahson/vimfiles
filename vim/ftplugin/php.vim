@@ -1,24 +1,10 @@
-"
 " Settings for PHP filetype
-"
 
 setlocal textwidth=80
 setlocal expandtab
 
-" Help tuning
-setlocal keywordprg="pman"
-if !exists( "g:manpageview_pgm_php" )
-    let g:manpageview_pgm_php = "pman"
-endif
-
-" Completion dictionary
-setlocal dictionary+=~/.vim/dictionaries/php.dict
-
-" Load PHP Documentor for VIM
-"source ~/.vim/php-doc.vim
-
 " Set up automatic formatting
-setlocal formatoptions+=tcqlro
+" setlocal formatoptions+=tcqlro
 
 "
 " Syntax options
@@ -81,14 +67,9 @@ nmap <silent> <expr> viP PhpBlockSelect(0)
 omap <silent> aP :silent normal vaP<CR>
 omap <silent> iP :silent normal viP<CR>
 
-" Mappings for PHP Documentor for VIM
-inoremap <buffer> <C-P> <Esc>:call PhpDocSingle()<CR>i
-nnoremap <buffer> <C-P> :call PhpDocSingle()<CR>
-vnoremap <buffer> <C-P> :call PhpDocRange()<CR>
-
 let g:pdv_cfg_Uses = 1 " Generate @uses tag based on inheritance info
 let g:pdv_cfg_Author = "Oleg Roschupkin <jjahson@gmail.com>"
-let g:pdv_cfg_Copyright = "2011"
+let g:pdv_cfg_Copyright = "2015"
 
 " Run PHP in cli
 nmap <leader>r :w!<CR>:!php %<CR>

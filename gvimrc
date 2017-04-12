@@ -1,2 +1,2 @@
-set guifont=Consolas:h14
+set guifont=InputMonoNarrow\ Light:h13
 set background=dark
