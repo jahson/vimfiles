@@ -22,5 +22,7 @@ vim/.VimballRecord
 
 # ignore bundles
 vim/bundle
+# ignore plugs
+vim/plugged
 
 !.gitignore
