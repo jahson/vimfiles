@@ -1,0 +1,26 @@
+set iskeyword-=. " '.' is an end of word designator
+set iskeyword-=# " '#' is an end of word designator
+set iskeyword-=- " '-' is an end of word designator
+
+set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+
+" Always switch to the current file directory
+" autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+"
+" Lower mappings timeout
+" set timeoutlen=500
+"
+" Portable grepprg config
+" if executable('rg')
+"     set grepprg=rg\ --vimgrep
+"     set grepformat=%f:%l:%c:%m
+" elseif executable('sift')
+"     set grepprg=sift\ -nMs\ --no-color\ --binary-skip\ --column\ --no-group\ --git\ --follow
+"     set grepformat=%f:%l:%c:%m
+" elseif executable('ag')
+"     set grepprg=ag\ --vimgrep\ --ignore=\"**.min.js\"
+"     set grepformat=%f:%l:%c:%m,%f:%l:%m
+" elseif executable('ack')
+"     set grepprg=ack\ --nogroup\ --nocolor\ --ignore-case\ --column
+"     set grepformat=%f:%l:%c:%m,%f:%l:%m
+" endif

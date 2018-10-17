@@ -3,7 +3,7 @@
 " nnoremap <tab>   <c-w>w
 " nnoremap <S-tab> <c-w>W
 "
-let g:investigate_use_dash=1
+let g:investigate_use_dash = 1
 " Bye-bye, vi! Must be first, because it changes other options.
 set nocompatible
 
@@ -36,7 +36,10 @@ set listchars=tab:→\ ,trail:·,extends:↷,precedes:↶,nbsp:█
 set shortmess=filmnrxoOtT
 " Colorscheme
 set background=dark
-colorscheme base16-grayscale-dark
+let g:seoul256_background = 234
+colorscheme seoul256
+" Disable folding
+set nofoldenable
 " Highlight textwidth + 1 column
 set colorcolumn=+1
 " Highlight current line
@@ -91,10 +94,19 @@ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | execute "norma
 set autowrite
 
 "}}}
-
+" fix multiple cursors clash with deoplete
+if has("nvim")
+  function Multiple_cursors_before()
+    let g:deoplete#disable_auto_complete = 1
+  endfunction
+  function Multiple_cursors_after()
+    let g:deoplete#disable_auto_complete = 0
+  endfunction
+endif
 " nvim terminal
 if has("nvim")
   tnoremap ,. <C-\><C-N>
+  tnoremap ,ss <C-\><C-N>gt
   tnoremap <C-H> <C-\><C-N><C-W>h
   tnoremap <C-J> <C-\><C-N><C-W>j
   tnoremap <C-K> <C-\><C-N><C-W>k
@@ -134,7 +146,7 @@ set nowrap
 " Use indent of 2 spaces by default
 set tabstop=2
 set shiftwidth=2
-set expandtab
+" set expandtab
 " Prevents inserting two spaces after punctuation on a join (J)
 set nojoinspaces " Round indent to a multiple of shiftwidth
 set shiftround
@@ -187,6 +199,7 @@ set formatoptions-=o
 " Recognize numbered lists when formatting
 set formatoptions+=n
 
+set grepprg=rg\ --vimgrep
 "}}}
 
 " Mappings: {{{
@@ -204,13 +217,10 @@ vnoremap <Tab> %
 inoremap <C-e> <C-o>A
 inoremap <C-a> <C-o>^
 
-" Ctrl + h moves cursor to window left of current one
+" movement around windows
 map <C-H> <C-W>h
-" Ctrl + j moves cursor to window below of current one
 map <C-J> <C-W>j
-" Ctrl + k moves cursor to window above of current one
 map <C-K> <C-W>k
-" Ctrl + l moves cursor to window right of current one
 map <C-L> <C-W>l
 
 " <leader>v vertically splits current window in two
@@ -248,9 +258,6 @@ nmap <silent> <leader>df :%s/\r\(\n\)/\1/ge<CR>
 inoremap ,. <Esc>
 vnoremap ,. <Esc>
 
-" find merge conflict markers
-nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
-
 " Close help and git window by pressing q.
 autocmd FileType help,git-status,git-log,qf,gitcommit,quickrun,qfreplace,ref nnoremap <buffer> q <C-W>c
 autocmd FileType * if &readonly | nnoremap <buffer> q <C-W>c | endif
@@ -258,19 +265,15 @@ autocmd FileType * if &readonly | nnoremap <buffer> q <C-W>c | endif
 " Stop search highlighting
 map <silent> <Esc><Esc> :nohlsearch<CR>
 " Close current buffer
-nmap <leader>b :bd<CR>
-" Exit saving changes if changes were made
-nmap <leader>w :xa!<CR>
+" nmap <leader>b :bd<CR>
 " Save changes (forced for readonly files)
-map <leader>s :w!<CR>
+map <leader>w :w!<CR>
 " Exit without saving
 map <leader>q :qa!<CR>
 " Fast editing of .vimrc
-map <leader>ev :edit! ~/.vimrc<CR>
-" Use CTRL-F for omni completion
-imap <C-F> 
+map <leader>fed :edit! ~/.vimrc<CR>
 " Display all lines with word under cursor and ask which one to jump to
-nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+" nmap <leader>f [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " Open filename under cursor in a new window (use current file's working directory)
 nmap gf :new %:p:h/<cfile><CR>
 " Visual shifting (does not exit Visual mode)
@@ -291,16 +294,17 @@ nmap <silent> <F2> :call GoOverNumberingModes()<CR>
 nmap <leader>ml :call AppendModeline()<CR>
 
 " Insert the path of the currently edited file into a command line
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+" FIXME: remaps a binding for previos entry
+" cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 " Opens an edit command with the path of the currently edited file filled in
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open in Firefox
-map <leader>ff :! open -a Firefox.app %:p<cr><cr>
+" map <leader>ff :! open -a Firefox.app %:p<cr><cr>
 " Open in Chrome
-map <leader>cc :! open -a 'Google Chrome.app' %:p<cr><cr>
+" map <leader>cc :! open -a 'Google Chrome.app' %:p<cr><cr>
 " Open in Opera
-map <leader>oo :! open -a Opera.app %:p<cr><cr>
+" map <leader>oo :! open -a Opera.app %:p<cr><cr>
 "}}}
 
 " Functions: {{{
@@ -336,6 +340,8 @@ function! ClearTrailingWhitespace()
 endfunction
 
 "}}}
+let g:prettier#config#bracket_spacing = 'true'
+
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_exec_path = 'Path to your EditorConfig Core executable'
 
@@ -343,7 +349,7 @@ let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'filename' ] ],
+      \             [ 'fugitive', 'relativepath' ] ],
       \   'right': [ [ 'syntastic', 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
@@ -364,7 +370,7 @@ let g:lightline = {
 
 augroup AutoSyntastic
   autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
+  autocmd BufWritePost *.c,*.cpp,*.js call s:syntastic()
 augroup END
 function! s:syntastic()
   SyntasticCheck
@@ -407,6 +413,8 @@ function! LightLineFilename()
        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:deoplete#enable_at_startup = 1
 " <TAB>: completion.
 imap <silent><expr> <TAB>
@@ -431,15 +439,21 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
+" rainbow parentheses
+let g:rainbow_active = 1
+
 " syntastic
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_clojure_checkers = ['eastwood']
+let g:syntastic_clojure_checkers = ['joker', 'eastwood']
 let g:syntastic_enable_signs=1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_quiet_messages={'level':'warnings'}
+" let g:syntastic_quiet_messages={'level':'warnings'}
+
+" vim-javascript
+let g:jsx_ext_required = 0
 
 " clj-async.nvim
 let g:deoplete#keyword_patterns = {}
@@ -458,20 +472,42 @@ if has("cscope")
 	set csverb
 endif
 
+" fugitive mappings
+nmap <Leader>gia :Gwrite<cr>
+nmap <Leader>gws :Gstatus<cr>
+nmap <Leader>gc :Gcommit<cr>
+nmap <Leader>gp :Gpush<cr>
+nmap <Leader>gfm :Gpull<cr>
+nmap <Leader>gfr :Gpull --rebase<cr>
+
 " Clojure
-au Filetype clojure nmap <Leader>rr :Require<cr>
-au Filetype clojure nmap <Leader>rc :Console!<cr>
+let g:clojure_special_indent_words = 'deftype,defrecord,reify,proxy,extend-type,extend-protocol,letfn,GET,POST,PUT,DELETE,HEAD,ANY'
+
+au Filetype clojure nmap <Leader>rr :Require<cr><cr>
+au Filetype clojure nmap <Leader>rf :Require!<cr><cr>
+au Filetype clojure nmap <Leader>rc :Console!<cr><cr>
+
+let g:investigate_url_for_clojure="https://clojuredocs.org/search?q=^s"
 
 " vim-grepper
-nnoremap <leader>g :Grepper -tool ag<cr>
-nnoremap <leader>G :Grepper -tool ag -buffers<cr>
-nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr>
+" nnoremap <leader>sa :Grepper -tool ag<cr>
+" nnoremap <leader>sab :Grepper -tool ag -buffers<cr>
+" nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr>
 
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
+" nmap gs <plug>(GrepperOperator)
+" xmap gs <plug>(GrepperOperator)
 
 " FZF
-nmap <leader>p :FZF<CR>
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor}/*" '
+command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+nnoremap <leader>p :Files<cr>
+nnoremap <leader>f :F<cr>
+nmap <leader>* :F <C-R>=expand("<cword>")<cr><cr>
+imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-x><c-f> <plug>(fzf-complete-file)
 
 " vim-commentary
 map  gc  <Plug>Commentary
