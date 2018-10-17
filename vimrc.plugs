@@ -5,8 +5,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/seoul256.vim'
 
 " tpope!
-" fugitive.vim: a Git wrapper so awesome, it should be illegal
-Plug 'tpope/vim-fugitive'
 " unimpaired.vim: pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
 " surround.vim: quoting/parenthesizing made simple
@@ -20,10 +18,23 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-eunuch'
 " repeat.vim: enable repeating supported plugin maps with "." 
 Plug 'tpope/vim-repeat'
+" This plugin sets the 'path' for JVM languages to match the class path
+" of your current Java project.
+Plug 'tpope/vim-classpath'
 " ragtag.vim: ghetto HTML/XML mappings
 " Plug 'tpope/vim-ragtag'
 " projectionist.vim: project configuration
 " Plug 'tpope/vim-projectionist'
+
+" Git
+" fugitive.vim: a Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-fugitive'
+" This plugin extends the functionality of tpope's fugitive plugin.
+" When installed, it shows the first line of the commit message
+" for the commit under the cursor in a :Gblame window.
+Plug 'tommcdo/vim-fugitive-blame-ext'
+" A git commit browser in Vim
+Plug 'junegunn/gv.vim'
 
 " autoclose parentheses
 Plug 'cohama/lexima.vim'
@@ -31,7 +42,7 @@ Plug 'cohama/lexima.vim'
 " Asynchronous completion framework
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 if has("nvim")
-  Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
+  " Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
 else
 	Plug 'roxma/nvim-yarp'
 	Plug 'roxma/vim-hug-neovim-rpc'
@@ -71,6 +82,11 @@ Plug 'terryma/vim-multiple-cursors'
 " Slash search
 Plug 'junegunn/vim-slash'
 
+" Typescript
+Plug 'leafgarland/typescript-vim'
+" Coffeescript
+Plug 'kchmck/vim-coffee-script'
+
 " Plug 'groenewege/vim-less', { 'for': 'less' }
 " Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -109,18 +125,19 @@ Plug 'tpope/vim-fireplace'
 " extracted from the VimClojure project for use
 " with alternate Clojure REPL plugins.
 Plug 'guns/vim-clojure-static', { 'branch': 'issue-77', 'for': 'clojure' }
-
 " Extend builtin syntax highlighting to local, referred,
 " and aliased vars in Clojure buffers.
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
+" Plug 'clojure-vim/vim-jack-in'
+" Plug 'clojure-vim/vim-cider'
+" Plug 'SevereOverfl0w/vim-replant'
+" Static Vim support for Leiningen and Boot.
+Plug 'tpope/vim-salve'
 if has("nvim")
   Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
 endif
-
-" Static Vim support for Leiningen and Boot.
-" Plug 'tpope/vim-salve'
 
 " vim-eastwood is a vim plugin for Eastwood, the Clojure lint tool.
 " Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
@@ -130,6 +147,10 @@ endif
 
 " Rainbow Parentheses Improved
 Plug 'luochen1990/rainbow'
+
+
+" A Vim plugin to visualizes the Vim undo tree.
+Plug 'simnalamburt/vim-mundo'
 
 " Not used
 "
