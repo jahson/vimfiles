@@ -472,13 +472,16 @@ if has("cscope")
 	set csverb
 endif
 
-" fugitive mappings
-nmap <Leader>gia :Gwrite<cr>
-nmap <Leader>gws :Gstatus<cr>
-nmap <Leader>gc :Gcommit<cr>
-nmap <Leader>gp :Gpush<cr>
-nmap <Leader>gfm :Gpull<cr>
-nmap <Leader>gfr :Gpull --rebase<cr>
+" git-related mappings
+nnoremap <Leader>gv :GV
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gf :Gpull<CR>
+nnoremap <Leader>gW :Gwrite<CR>:Gcommit<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gD :Gvdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
 
 " Clojure
 let g:clojure_special_indent_words = 'deftype,defrecord,reify,proxy,extend-type,extend-protocol,letfn,GET,POST,PUT,DELETE,HEAD,ANY'
