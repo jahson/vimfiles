@@ -1,1 +1,1 @@
-/Users/jahson/.nvimrc
+/Users/jahson/vimfiles/vimrc
