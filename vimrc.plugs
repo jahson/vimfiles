@@ -103,9 +103,9 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'editorconfig/editorconfig-vim'
 " Tern plugin for Vim
 Plug 'ternjs/tern_for_vim', { 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm install' }
-" Syntax checking hacks for vim
-Plug 'scrooloose/syntastic'
-Plug 'aclaimant/syntastic-joker'
+
+" Lint
+Plug 'w0rp/ale'
 
 Plug 'digitaltoad/vim-pug'
 

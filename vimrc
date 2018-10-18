@@ -350,7 +350,7 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'relativepath' ] ],
-      \   'right': [ [ 'syntastic', 'lineinfo' ],
+      \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
       \ },
@@ -360,22 +360,8 @@ let g:lightline = {
       \   'modified': 'LightLineModified',
       \   'filename': 'LightLineFilename'
       \ },
-      \ 'component_expand': {
-      \   'syntastic': 'SyntasticStatuslineFlag',
-      \ },
-      \ 'component_type': {
-      \   'syntastic': 'error',
-      \ }
       \ }
 
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp,*.js call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
 
 function! LightLineModified()
   if &filetype == "help"
@@ -442,16 +428,6 @@ inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
 " rainbow parentheses
 let g:rainbow_active = 1
-
-" syntastic
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_clojure_checkers = ['joker', 'eastwood']
-let g:syntastic_enable_signs=1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" let g:syntastic_quiet_messages={'level':'warnings'}
 
 " vim-javascript
 let g:jsx_ext_required = 0
