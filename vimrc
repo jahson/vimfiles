@@ -416,6 +416,7 @@ endfunction
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_delay = 1
 " <TAB>: completion.
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
