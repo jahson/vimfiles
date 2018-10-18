@@ -434,7 +434,7 @@ let g:jsx_ext_required = 0
 
 " clj-async.nvim
 let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.]*'
+let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 " Use deoplete
 let g:tern_request_timeout = 1
 " Use tern_for_vim
@@ -462,6 +462,7 @@ nnoremap <Leader>gb :Gblame<CR>
 
 " Clojure
 let g:clojure_special_indent_words = 'deftype,defrecord,reify,proxy,extend-type,extend-protocol,letfn,GET,POST,PUT,DELETE,HEAD,ANY'
+let g:clojure_maxlines = 0
 
 au Filetype clojure nmap <Leader>rr :Require<cr><cr>
 au Filetype clojure nmap <Leader>rf :Require!<cr><cr>
