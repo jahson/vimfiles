@@ -36,8 +36,7 @@ set listchars=tab:→\ ,trail:·,extends:↷,precedes:↶,nbsp:█
 set shortmess=filmnrxoOtT
 " Colorscheme
 set background=dark
-let g:seoul256_background = 234
-colorscheme seoul256
+colorscheme apprentice
 " Disable folding
 set nofoldenable
 " Highlight textwidth + 1 column
