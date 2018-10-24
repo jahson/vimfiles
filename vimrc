@@ -484,10 +484,16 @@ let g:rg_command = '
   \ -g "!{.git,node_modules,vendor}/*" '
 command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 nnoremap <leader>p :Files<cr>
-nnoremap <leader>f :F<cr>
+nnoremap <leader>f :Rg<cr>
+nmap <leader>b :Buffers<cr>
 nmap <leader>* :F <C-R>=expand("<cword>")<cr><cr>
 imap <c-x><c-l> <plug>(fzf-complete-line)
 imap <c-x><c-f> <plug>(fzf-complete-file)
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " vim-commentary
 map  gc  <Plug>Commentary
