@@ -106,7 +106,7 @@ Plug 'ternjs/tern_for_vim', { 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm i
 
 " Lint
 Plug 'w0rp/ale'
-Plug 'SevereOverfl0w/clojure-check', {'do': './install'}
+Plug 'jahson/clojure-check', { 'branch': 'handle-no-fireplace-connection', 'do': './install'}
 
 Plug 'digitaltoad/vim-pug'
 
