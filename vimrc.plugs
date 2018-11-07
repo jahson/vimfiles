@@ -48,7 +48,7 @@ else
 	Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-" Plug 'Shougo/neco-syntax' " Syntax source for neocomplete/deoplete
+Plug 'Shougo/neco-syntax' " Syntax source for neocomplete/deoplete
 Plug 'Shougo/neco-vim' " The vim source for neocomplete/deoplete
 Plug 'Shougo/neoinclude.vim' " Include completion framework for neocomplete/deoplete
 " Snippets
