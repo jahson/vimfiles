@@ -1,7 +1,8 @@
 call plug#begin('~/.vim/plugged')
 " Themes
+Plug 'cocopon/iceberg.vim'
+" Plug 'romainl/Apprentice'
 " Plug 'chriskempson/base16-vim'
-Plug 'romainl/Apprentice'
 " Plug 'junegunn/seoul256.vim'
 
 " tpope!
@@ -20,7 +21,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 " This plugin sets the 'path' for JVM languages to match the class path
 " of your current Java project.
-Plug 'tpope/vim-classpath'
+" Plug 'tpope/vim-classpath'
 " ragtag.vim: ghetto HTML/XML mappings
 " Plug 'tpope/vim-ragtag'
 " projectionist.vim: project configuration
@@ -35,22 +36,25 @@ Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fugitive-blame-ext'
 " A git commit browser in Vim
 Plug 'junegunn/gv.vim'
+" Plugin that shows the history of commits under the cursor in popup window.
+Plug 'rhysd/git-messenger.vim'
 
 " autoclose parentheses
 Plug 'cohama/lexima.vim'
 
-" Asynchronous completion framework
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 if has("nvim")
-  " Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
+	" Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
+	" Asynchronous completion framework
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
+	Plug 'Shougo/deoplete.nvim'
 	Plug 'roxma/nvim-yarp'
 	Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
 Plug 'Shougo/neco-syntax' " Syntax source for neocomplete/deoplete
-Plug 'Shougo/neco-vim' " The vim source for neocomplete/deoplete
-Plug 'Shougo/neoinclude.vim' " Include completion framework for neocomplete/deoplete
+" Plug 'Shougo/neco-vim' " The vim source for neocomplete/deoplete
+" Plug 'Shougo/neoinclude.vim' " Include completion framework for neocomplete/deoplete
 " Snippets
 " Plug 'Shougo/neosnippet.vim'
 " Plug 'Shougo/neosnippet-snippets'
@@ -59,9 +63,10 @@ Plug 'itchyny/lightline.vim'
 " tags navigation
 Plug 'majutsushi/tagbar'
 " fs navigation
-Plug 'justinmk/vim-dirvish'
+Plug 'cocopon/vaffle.vim'
+" Plug 'justinmk/vim-dirvish'
 " fzf is a general-purpose command-line fuzzy finder.
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Peekaboo extends " and @ in normal mode and <CTRL-R> in insert mode
 " so you can see the contents of the registers.
@@ -106,11 +111,13 @@ Plug 'ternjs/tern_for_vim', { 'dir': '~/.vim/plugged/tern_for_vim', 'do': 'npm i
 
 " Lint
 Plug 'w0rp/ale'
-Plug 'jahson/clojure-check', { 'branch': 'handle-no-fireplace-connection', 'do': './install'}
 
-Plug 'digitaltoad/vim-pug'
+" Vim plugin for selectively illuminating other uses of the current word under the cursor
+Plug 'RRethy/vim-illuminate'
 
-Plug 'mattn/emmet-vim'
+" Plug 'digitaltoad/vim-pug'
+
+" Plug 'mattn/emmet-vim'
 
 Plug 'tpope/vim-obsession'
 
@@ -133,12 +140,19 @@ Plug 'guns/vim-sexp', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 " Plug 'clojure-vim/vim-jack-in'
 " Plug 'clojure-vim/vim-cider'
-" Plug 'SevereOverfl0w/vim-replant'
-" Static Vim support for Leiningen and Boot.
-Plug 'tpope/vim-salve'
+" Plug 'SevereOverfl0w/vim-replant', { 'do': ':UpdateRemotePlugins' }
+" " Static Vim support for Leiningen and Boot.
+" Plug 'tpope/vim-salve', { 'for': 'clojure' }
 if has("nvim")
   Plug 'clojure-vim/async-clj-omni', { 'for': 'clojure' }
 endif
+
+Plug 'liquidz/vim-iced', {'for': 'clojure'}
+Plug 'liquidz/vim-iced-project-namespaces', {'for': 'clojure', 'on': 'IcedBrowseNamespace'}
+Plug 'liquidz/vim-iced-function-list', {'for': 'clojure', 'on': 'IcedBrowseFunction'}
+
+" " NOTE: w0rp/ale, neomake/neomake or makeprg is required
+" Plug 'jahson/clojure-check', { 'branch': 'handle-no-fireplace-connection', 'do': './install', 'for': 'clojure' }
 
 " vim-eastwood is a vim plugin for Eastwood, the Clojure lint tool.
 " Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
@@ -153,6 +167,12 @@ Plug 'luochen1990/rainbow'
 " A Vim plugin to visualizes the Vim undo tree.
 Plug 'simnalamburt/vim-mundo'
 
+" vim-which-key is vim port of emacs-which-key that displays available keybindings in popup.
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+" Go development plugin for Vim
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " Not used
 "
 " Rethinking Vim as a tool for writers
@@ -164,6 +184,7 @@ Plug 'simnalamburt/vim-mundo'
 
 " Try
 "
+" lambdalisue/suda.vim
 " https://github.com/terryma/vim-expand-region
 " https://github.com/terryma/vim-expand-region
 "
@@ -182,5 +203,7 @@ Plug 'simnalamburt/vim-mundo'
 " https://github.com/fntlnz/atags.vim
 " https://github.com/ludovicchabant/vim-gutentags
 " https://github.com/artur-shaik/vim-javacomplete2
+" daveyarwood/vim-diet-salve
+
 
 call plug#end()

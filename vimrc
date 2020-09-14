@@ -3,6 +3,10 @@
 " nnoremap <tab>   <c-w>w
 " nnoremap <S-tab> <c-w>W
 "
+
+scriptencoding utf-8
+set encoding=utf-8
+
 let g:investigate_use_dash = 1
 " Bye-bye, vi! Must be first, because it changes other options.
 set nocompatible
@@ -15,8 +19,10 @@ if filereadable(expand("~/.vimrc.experimental"))
   source ~/.vimrc.experimental
 endif
 
-" Use SPACE as mapleader
-let mapleader = "\<SPACE>"
+" Use space as <leader>
+let mapleader = "\<space>"
+" Use comma as <localleader>"
+let maplocalleader = ","
 
 " Encoding, do not move below
 set fileencodings=utf-8,cp1251,koi8-r,cp866
@@ -34,9 +40,10 @@ set listchars=""
 set listchars=tab:→\ ,trail:·,extends:↷,precedes:↶,nbsp:█
 " Avoid some "hit-enter" messages
 set shortmess=filmnrxoOtT
-" Colorscheme
+" Colorscheme and backround
 set background=dark
-colorscheme apprentice
+" set background=light
+colorscheme iceberg
 " Disable folding
 set nofoldenable
 " Highlight textwidth + 1 column
@@ -348,17 +355,22 @@ let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'relativepath' ] ],
+      \             [ 'fugitive', 'relativepath', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype' ] ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ],
+      \              [ 'iced' ]],
       \ },
       \ 'component_function': {
       \   'fugitive': 'LightLineFugitive',
       \   'readonly': 'LightLineReadonly',
       \   'modified': 'LightLineModified',
-      \   'filename': 'LightLineFilename'
+      \   'filename': 'LightLineFilename',
+      \   'iced'    : 'iced#status'
       \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '|', 'right': '|' },
+      \ 'tabline': { 'left': [[ 'tabs' ]], 'right': [[ 'bufnum' ]] }
       \ }
 
 
@@ -401,15 +413,23 @@ endfunction
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 1
+call deoplete#custom#option('auto_complete_delay', 200)
+call deoplete#custom#option('smart_case', v:true)
+
 " <TAB>: completion.
-imap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ deoplete#mappings#manual_complete()
-function! s:check_back_space() "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+" imap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<Tab>" :
+"       \ deoplete#mappings#manual_complete()
+" function! s:check_back_space() "{{{
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+  return deoplete#close_popup() . "\<CR>"
 endfunction
 
 let g:neosnippet#snippets_directory='~/.vim/snippets'
@@ -425,6 +445,12 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
 
+" vaffle.vim
+" If enabled, changes the working directory to selected one automatically.
+" let g:vaffle_auto_cd = 1
+" a dirvish-like mapping
+nnoremap <silent> - :execute 'Vaffle ' . ((strlen(bufname('')) == 0) ? '.' : '%:h')<CR>
+
 " rainbow parentheses
 let g:rainbow_active = 1
 
@@ -432,8 +458,8 @@ let g:rainbow_active = 1
 let g:jsx_ext_required = 0
 
 " clj-async.nvim
-let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+" let g:deoplete#keyword_patterns = {}
+" let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 " Use deoplete
 let g:tern_request_timeout = 1
 " Use tern_for_vim
@@ -448,6 +474,10 @@ if has("cscope")
 	set csverb
 endif
 
+" vim-which-key
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :WhichKey ','<CR>
+
 " git-related mappings
 nnoremap <Leader>gv :GV
 nnoremap <Leader>gs :Gstatus<CR>
@@ -460,8 +490,14 @@ nnoremap <Leader>gD :Gvdiff<CR>
 nnoremap <Leader>gb :Gblame<CR>
 
 " Clojure
+let g:sexp_mappings = {'sexp_indent': '', 'sexp_indent_top': ''}
+
 let g:clojure_special_indent_words = 'deftype,defrecord,reify,proxy,extend-type,extend-protocol,letfn,GET,POST,PUT,DELETE,HEAD,ANY'
 let g:clojure_maxlines = 0
+
+let g:iced_enable_auto_linting = v:true
+
+let b:ale_linters = {'clojure': ['joker']}
 
 au Filetype clojure nmap <Leader>rr :Require<cr><cr>
 au Filetype clojure nmap <Leader>rf :Require!<cr><cr>
@@ -483,9 +519,10 @@ let g:rg_command = '
   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
   \ -g "!{.git,node_modules,vendor}/*" '
 command! -bang -nargs=* F call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-nnoremap <leader>p :Files<cr>
-nnoremap <leader>f :Rg<cr>
-nmap <leader>b :Buffers<cr>
+nnoremap <leader>ff :Files<cr>
+nnoremap <leader>fg :GFiles<cr>
+nnoremap <leader>s :Rg<cr>
+nnoremap <leader>fb :Buffers<cr>
 nmap <leader>* :F <C-R>=expand("<cword>")<cr><cr>
 imap <c-x><c-l> <plug>(fzf-complete-line)
 imap <c-x><c-f> <plug>(fzf-complete-file)
